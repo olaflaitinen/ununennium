@@ -1,13 +1,14 @@
 """Sentinel-2 sensor specification."""
 
 from dataclasses import dataclass
+from typing import ClassVar
 
 
 @dataclass
 class Sentinel2:
     """Sentinel-2 MSI sensor specification."""
 
-    BANDS = {
+    BANDS: ClassVar[dict[str, dict[str, str | int]]] = {
         "B01": {"wavelength": 443, "resolution": 60, "name": "Coastal"},
         "B02": {"wavelength": 490, "resolution": 10, "name": "Blue"},
         "B03": {"wavelength": 560, "resolution": 10, "name": "Green"},

@@ -1,13 +1,14 @@
 """Landsat sensor specification."""
 
 from dataclasses import dataclass
+from typing import ClassVar
 
 
 @dataclass
 class Landsat8:
     """Landsat-8 OLI sensor specification."""
 
-    BANDS = {
+    BANDS: ClassVar[dict[str, dict[str, str | int]]] = {
         "B1": {"wavelength": 443, "resolution": 30, "name": "Coastal"},
         "B2": {"wavelength": 482, "resolution": 30, "name": "Blue"},
         "B3": {"wavelength": 561, "resolution": 30, "name": "Green"},

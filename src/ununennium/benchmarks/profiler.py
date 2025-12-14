@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 import time
+import tracemalloc
 from collections import defaultdict
 from contextlib import contextmanager
 
 import numpy as np
 import torch
-import tracemalloc
 
 
 class Profiler:

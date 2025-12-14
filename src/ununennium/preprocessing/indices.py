@@ -57,7 +57,7 @@ def evi(
     g: float = 2.5,
     c1: float = 6.0,
     c2: float = 7.5,
-    l: float = 1.0,
+    L_factor: float = 1.0,
     epsilon: float = 1e-8,
 ) -> torch.Tensor:
     """Calculate Enhanced Vegetation Index.
@@ -71,20 +71,20 @@ def evi(
         g: Gain factor.
         c1: Red correction coefficient.
         c2: Blue correction coefficient.
-        l: Canopy background adjustment.
+        L_factor: Canopy background adjustment.
         epsilon: Small value to avoid division by zero.
 
     Returns:
         EVI values.
     """
-    denominator = nir + c1 * red - c2 * blue + l + epsilon
+    denominator = nir + c1 * red - c2 * blue + L_factor + epsilon
     return g * (nir - red) / denominator
 
 
 def savi(
     nir: torch.Tensor,
     red: torch.Tensor,
-    l: float = 0.5,
+    L_factor: float = 0.5,
     epsilon: float = 1e-8,
 ) -> torch.Tensor:
     """Calculate Soil-Adjusted Vegetation Index.
@@ -94,13 +94,13 @@ def savi(
     Args:
         nir: Near-infrared band.
         red: Red band.
-        l: Soil brightness correction factor.
+        L_factor: Soil brightness correction factor.
         epsilon: Small value to avoid division by zero.
 
     Returns:
         SAVI values.
     """
-    return ((nir - red) / (nir + red + l + epsilon)) * (1 + l)
+    return ((nir - red) / (nir + red + L_factor + epsilon)) * (1 + L_factor)
 
 
 def nbr(

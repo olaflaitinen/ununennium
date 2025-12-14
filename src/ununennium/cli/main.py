@@ -31,7 +31,8 @@ def train(config: str, output: str, resume: str | None) -> None:
 @click.option("--output", "-o", default="results", help="Output directory")
 def evaluate(model: str, data: str, output: str) -> None:
     """Evaluate a trained model."""
-    click.echo(f"Evaluating model: {model}")
+    click.echo(f"Evaluating model: {model} on data: {data}")
+    click.echo(f"Results will be saved to: {output}")
     click.echo(f"Data: {data}")
     # TODO: Implement evaluation
 

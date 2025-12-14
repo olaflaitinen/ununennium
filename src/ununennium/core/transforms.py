@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import math
+
 from affine import Affine
 
 
@@ -31,7 +33,7 @@ def create_transform(
     Example:
         >>> transform = create_transform(10.0, -10.0, 500000, 5000000)
     """
-    import math
+
 
     if rotation != 0:
         theta = math.radians(rotation)

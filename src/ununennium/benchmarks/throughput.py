@@ -135,8 +135,7 @@ def benchmark_training(
 
     with profiler.section("training"):
         for _ in range(n_iterations):
-            with profiler.section("forward"):
-                with torch.amp.autocast("cuda", enabled=mixed_precision):
+            with profiler.section("forward"), torch.amp.autocast("cuda", enabled=mixed_precision):
                     output = model(dummy_input)
                     loss = loss_fn(output, dummy_target)
 

@@ -85,7 +85,7 @@ class GeoTensor:
 
         # Parse CRS if string
         if self.crs is not None and isinstance(self.crs, (str, int)):
-            from pyproj import CRS as PyprojCRS
+            from pyproj import CRS as PyprojCRS  # noqa: PLC0415
 
             self.crs = PyprojCRS.from_user_input(self.crs)
 
@@ -291,7 +291,7 @@ class GeoTensor:
             raise ValueError("Crop bounds don't intersect with image")
 
         # Convert bounds to pixel coordinates
-        from affine import Affine
+        from affine import Affine  # noqa: PLC0415
 
         inv_transform = ~self.transform
 
