@@ -65,7 +65,7 @@ class MemoryProfiler:
 
     def __init__(self, track_cuda: bool = True):
         self.track_cuda = track_cuda
-        self.snapshots: list[dict[str, float]] = []
+        self.snapshots: list[dict[str, Any]] = []
 
     def snapshot(self, label: str) -> dict[str, float]:
         """Take memory snapshot.
@@ -77,7 +77,7 @@ class MemoryProfiler:
             Memory stats dictionary.
         """
 
-        result: dict[str, float] = {"label": label, "timestamp": time.time()}
+        result: dict[str, Any] = {"label": label, "timestamp": time.time()}
 
         # CPU memory
         if tracemalloc.is_tracing():

@@ -92,7 +92,7 @@ class GeoBatch:
         """Device where the batch resides."""
         return self.images.device
 
-    def to(self, device: Device) -> Self:
+    def to(self, device: Device) -> GeoBatch:
         """Move batch to specified device.
 
         Args:
@@ -117,7 +117,7 @@ class GeoBatch:
         """Move batch to CPU."""
         return self.to("cpu")
 
-    def float(self) -> Self:
+    def float(self) -> GeoBatch:
         """Convert images to float32."""
         return GeoBatch(
             images=self.images.float(),
@@ -127,7 +127,7 @@ class GeoBatch:
             transforms=self.transforms,
         )
 
-    def half(self) -> Self:
+    def half(self) -> GeoBatch:
         """Convert images to float16."""
         return GeoBatch(
             images=self.images.half(),

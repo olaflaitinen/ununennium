@@ -155,7 +155,7 @@ class GeoTensor:
         )
         return self._bounds
 
-    def to(self, device: Device) -> Self:
+    def to(self, device: Device) -> GeoTensor:
         """Move tensor to specified device.
 
         Args:
@@ -166,16 +166,15 @@ class GeoTensor:
         """
         if isinstance(self.data, torch.Tensor):
             data = self.data.to(device)
+        # If strictly required to return GeoTensor on device, must be tensor?
+        # Or we assume numpy implies CPU.
+        # But the user wants .to(device) to work.
+        # Convert to tensor.
+
+        elif isinstance(self.data, np.ndarray):
+            data = torch.from_numpy(self.data).to(device)
         else:
-            # If strictly required to return GeoTensor on device, must be tensor?
-            # Or we assume numpy implies CPU.
-            # But the user wants .to(device) to work.
-            # Convert to tensor.
-            import numpy as np
-            if isinstance(self.data, np.ndarray):
-                data = torch.from_numpy(self.data).to(device)
-            else:
-                 data = self.data # type: ignore
+             data = self.data # type: ignore
 
         return GeoTensor(
             data=data,
@@ -215,7 +214,7 @@ class GeoTensor:
             return self.data.detach().cpu().numpy()
         return self.data
 
-    def float(self) -> Self:
+    def float(self) -> GeoTensor:
         """Convert to float32.
 
         Returns:
@@ -224,7 +223,7 @@ class GeoTensor:
         if isinstance(self.data, torch.Tensor):
             data = self.data.float()
         else:
-             import numpy as np
+
              if isinstance(self.data, np.ndarray):
                 data = self.data.astype(np.float32)
              else:
@@ -239,7 +238,7 @@ class GeoTensor:
             timestamp=self.timestamp,
         )
 
-    def half(self) -> Self:
+    def half(self) -> GeoTensor:
         """Convert to float16.
 
         Returns:
@@ -248,7 +247,7 @@ class GeoTensor:
         if isinstance(self.data, torch.Tensor):
             data = self.data.half()
         else:
-             import numpy as np
+
              if isinstance(self.data, np.ndarray):
                 data = self.data.astype(np.float16)
              else:
