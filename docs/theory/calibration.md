@@ -1,80 +1,183 @@
-# Radiometric Calibration and Correction
+# Radiometric Calibration and Correction: A Theoretical Treatise
 
-## 1. The Physical Measurement Chain
+## Abstract
 
-Satellite remote sensing measures **Radiance** at the sensor, but physical models usually require **Reflectance** at the surface. Understanding this chain is vital for building robust ("physics-aware") models that generalize across time and sensors.
-
-$$ \text{DN} \xrightarrow{\text{Gain/Offset}} L_{TOA} \xrightarrow{\text{Solar Angle}} \rho_{TOA} \xrightarrow{\text{Atmosphere}} \rho_{BOA} $$
-
-### 1.1 Digital Number (DN)
-The raw quantized integer value stored in the file (e.g., 12-bit uint).
-*   *Dependent on:* Sensor gain, quantization.
-
-### 1.2 Top-of-Atmosphere (TOA) Radiance ($L_{TOA}$)
-Physical energy flux measured at the sensor ($W \cdot m^{-2} \cdot sr^{-1} \cdot \mu m^{-1}$).
-
-$$ L_\lambda = \text{gain} \cdot \text{DN} + \text{offset} $$
-
-### 1.3 TOA Reflectance ($\rho_{TOA}$)
-Normalized unitless ratio of reflected to incident solar energy. Corrects for illumination geometry (solar zenith angle $\theta_s$) and Earth-Sun distance ($d$).
-
-$$ \rho_{TOA} = \frac{\pi \cdot L_\lambda \cdot d^2}{\text{E}_{\text{sun},\lambda} \cdot \cos(\theta_s)} $$
-
-Where $\text{E}_{\text{sun}}$ is mean solar exoatmospheric irradiances.
-
-### 1.4 Bottom-of-Atmosphere (BOA) Reflectance ($\rho_{BOA}$)
-Surface reflectance, corrected for atmospheric absorption (water vapor, ozone) and scattering (Rayleigh, Aerosol/Mie). Also known as **Surface Reflectance (SR)** or **L2A**.
-
-$$ \rho_{BOA} \approx \frac{\rho_{TOA} - \rho_{atm}}{T \cdot (1 + S \cdot \rho_{BOA})} $$
-(Simplified radiative transfer equation)
+Remote sensing is the science of inferring physical properties of the Earth's surface from measurements of electromagnetic radiation. Unlike computer vision, where pixel values are arbitrary intensities (0-255), remote sensing data represents physical quantities (Radiance, Reflectance, Backscatter). To train Deep Learning models that generalize across time (seasonality) and space (atmosphere), we must strip away the confounding effects of the atmosphere, sun angle, and sensor geometry. This document details the physics of Radiative Transfer, the methods for Atmospheric Correction (L1C $\to$ L2A), and the rigorous harmonization of multi-sensor constellations.
 
 ---
 
-## 2. Deep Learning Implications
+## 1. The Physics of Optical Remote Sensing
 
-### 2.1 Why L2A (BOA) Matters
-A CNN trained on L1C (TOA) data learns to implicitly model the atmosphere. If tested on a day with different aerosol load (hazy vs. clear), it fails.
-*   **Invariant Feature:** Surface Reflectance ($\rho_{BOA}$) is an intrinsic property of the material.
-*   **Action:** Always prefer L2A data for training rigorous models.
+The fundamental measurement is the **spectral radiance** $L_\lambda$ reaching the sensor aperture. This signal is a complex sum of surface interactions and atmospheric scattering.
 
-### 2.2 Calibration Loss
-When training generative models (e.g., Cloud Removal GANs), the loss function must respect physical bounds.
-*   $\rho \in [0, 1]$ (mostly).
-*   **Spectral Consistency:** The ratio between bands (e.g., NDVI) must be preserved.
+### 1.1 The Radiative Transfer Equation (RTE)
 
-$$ \mathcal{L}_{spectral} = \| \frac{B_{NIR} - B_{RED}}{B_{NIR} + B_{RED}} - \text{GT}_{NDVI} \|_1 $$
+For a simplified plane-parallel atmosphere, the radiance $L_{TOA}$ at the Top-Of-Atmosphere is:
+
+$$ L_{TOA} = L_{atm} + T^\uparrow (L_{surface} + L_{neighbor}) $$
+
+Where:
+*   $L_{atm}$ (Path Radiance): Light scattered by the atmosphere directly into the sensor (Rayleigh + Aerosol). Never touches the ground. "Haze".
+*   $T^\uparrow$: Upward atmospheric transmittance.
+*   $L_{surface}$: Radiance derived from the target pixel interaction.
+*   $L_{neighbor}$ (Adjacency Effect): Light reflected from neighboring pixels scattered into the sensor's view of the target pixel.
+
+### 1.2 Reflectance
+
+We convert Radiance (Unit: $W \cdot m^{-2} \cdot sr^{-1} \cdot \mu m^{-1}$) to **Reflectance** (Unitless Ratio), which is an intrinsic property of the material.
+
+#### 1.2.1 TOA Reflectance ($\rho_{TOA}$)
+Corrects for solar illumination geometry.
+
+$$ \rho_{TOA} = \frac{\pi \cdot L_{TOA} \cdot d^2}{E_{sun} \cdot \cos(\theta_s)} $$
+
+*   $d$: Earth-Sun distance in astronomical units (varies with day of year).
+*   $E_{sun}$: Exoatmospheric solar irradiance (Solar Constant).
+*   $\theta_s$: Solar Zenith Angle (angle from vertical).
+
+*Problem:* $\rho_{TOA}$ still includes the atmosphere. A forest looks brighter on a hazy day than a clear day due to path radiance.
+
+#### 1.2.2 BOA Reflectance ($\rho_{BOA}$) / Surface Reflectance (SR)
+Corrects for the atmosphere to retrieve the "true" surface color.
+
+$$ \rho_{BOA} \approx \frac{\rho_{TOA} - \rho_{path}}{T^\downarrow \cdot T^\uparrow(1 + S \cdot \rho_{BOA})} $$
+
+*   $\rho_{path}$: Reflectance of the atmosphere.
+*   $T^\downarrow, T^\uparrow$: Downward/Upward transmittance (absorption by Ozone, Water Vapor).
+*   $S$: Spherical Albedo of the atmosphere (accounts for multiple scattering).
 
 ---
 
-## 3. Sensor Cross-Calibration
+## 2. Atmospheric Correction Methodologies
 
-Combining Landsat-8 and Sentinel-2 requires Harmonization.
+### 2.1 Physics-Based Models (6S, MODTRAN)
+These solve the RTE utilizing Look-Up Tables (LUTs) pre-computed for various aerosol models (Continental, Maritime, Urban).
+*   **Input:** AOT (Aerosol Optical Thickness), Water Vapor column, Ozone.
+*   **Process:** Interpolate LUTs $\to$ Invert RTE.
+*   **Software:** Sen2Cor (ESA standard), LaSRC (Landsat standard).
 
-### 3.1 Spectral Response Functions (SRF)
-Each sensor has slightly different band pass filters.
-*   *Sentinel-2 Red:* 665nm center, 30nm width.
-*   *Landsat-8 Red:* 655nm center, 37nm width.
+### 2.2 Image-Based Methods (Dark Object Subtraction - DOS)
+Assuming there is at least one "perfectly black" object (deep water, dense shadow) in the scene ($\rho_{BOA} \approx 0$).
+Any radiance observed over this dark object is assumed to be Path Radiance ($L_{atm}$).
 
-### 3.2 SBAF (Spectral Band Adjustment Factor)
-To use Landsat data in a Sentinel model, we apply a linear transformation derived from hyperspectral reference data (e.g., Hyperion).
+$$ L_{atm} \approx L_{min} - 0.01 \cdot (E_{sun} \cos \theta / \pi) $$
 
-$$ \rho_{S2} = a \cdot \rho_{L8} + b $$
+*   *Pros:* No external data needed.
+*   *Cons:* Assumes uniform atmosphere across the scene (untrue for large tiles).
 
-Ununennium's `preprocessing.harmonization` module includes theoretically derived coefficients for common sensor pairs (S2, L8, L9, PlanetScope).
+### 2.3 Deep Learning Correction
+Recent SOTA uses Reference-based Supervised Learning.
+*   *Input:* L1C (TOA).
+*   *Target:* L2A (BOA) generated by 6S.
+*   *Architecture:* U-Net or ResNet. The network implicitly learns the inverse atmospheric function.
+*   *Ununennium:* Supports `PretrainedAtmosphericNet` for on-the-fly correction if L2A is unavailable.
 
 ---
 
-## 4. Radar (SAR) Calibration
+## 3. Bidirectional Reflectance Distribution Function (BRDF)
 
-Synthetic Aperture Radar requires different physics.
+Most standard corrections assume surfaces are Lambertian (scatter light equally in all directions). They are not.
+*   **Hotspot Effect:** Surfaces look brighter when the sun is directly behind the sensor (no shadows visible).
+*   **Sunglint:** Specular reflection over water.
 
-### 4.1 Radiometric Terrain Correction (RTC)
-SAR geometry leads to foreshortening and layover. RTC normalizes the backscatter $\sigma^0$ by the true illuminated area of each pixel on the DEM.
+**The BRDF Definition:**
+$$ f_r(\omega_i, \omega_r) = \frac{dL_r(\omega_r)}{dE_i(\omega_i)} $$
 
-$$ \sigma^0_{RTC} = \sigma^0 \cdot \frac{A_{flat}}{A_{local}} $$
+**NBAR (Nadir BRDF-Adjusted Reflectance):**
+To normalize time-series (e.g., winter sun vs summer sun), we model BRDF (e.g., using Ross-Li kernels) and normalize all observations to a standard geometry (Nadir view, 45 degree sun). This is critical for detecting subtle change vs. illumination artifacts.
 
-### 4.2 Speckle Statistics
-SAR noise (Speckle) is multiplicative, adhering to a Gamma distribution (multi-look).
-*   **Log-Transform:** $y = \log(x)$ stabilizes variance, making noise additive and Gaussian-like, which is better for standard CNNs (MSE Loss).
+---
 
-> **Ununennium Default:** All SAR inputs are assumed to be $\gamma^0$ (Gamma Naught) RTC corrected and Log-scaled dB.
+## 4. Multi-Sensor Harmonization
+
+To combine Sentinel-2 (ESA) and Landsat-9 (NASA) into a dense time series, we must harmonize them.
+
+### 4.1 Spectral Bandpass Mismatch
+*   *Sentinel-2 Red:* 664.5 nm ($\pm$ 15 nm).
+*   *Landsat-8 Red:* 654.5 nm ($\pm$ 18 nm).
+
+The Landsat band is wider and shifted blue. Vegetation spectra have steep slopes (Red Edge). A Shift of 10nm changes the value significantly.
+
+**SBAF (Spectral Band Adjustment Factor):**
+Ununennium implements linear transformation coefficients derived from Hyperspectral (Hyperion) profiles of global land cover.
+
+$$ \rho_{S2} = \alpha_0 + \alpha_1 \rho_{L8} $$
+
+### 4.2 Radiometric Resolution
+*   *Sentinel-2:* 12-bit (0-4096).
+*   *Landsat-8:* 12-bit (scaled 0-55000 in Coll-2).
+*   *Landsat-7:* 8-bit (0-255).
+
+**Ununennium Standard:** We normalize ALL optical inputs to floating point $[0, 1]$ reflectance (and often standardization to $z$-scores) before the first network layer.
+
+---
+
+## 5. Synthetic Aperture Radar (SAR) Physics
+
+Radars utilize active microwave pulses. The physics is fundamentally different (scattering mechanisms vs chemical absorption).
+
+### 5.1 The Radar Equation
+The received power $P_r$ is:
+
+$$ P_r = \frac{P_t G^2 \lambda^2 \sigma}{(4\pi)^3 R^4} $$
+
+*   $P_t$: Transmitted power.
+*   $R$: Range (Distance).
+*   $\sigma$: Radar Cross Section (RCS) of the target.
+
+### 5.2 Calibration Levels
+
+1.  **Beta Naught ($\beta^0$):** Radar Brightness. Sensor geometry specific. Uncalibrated for terrain.
+2.  **Sigma Naught ($\sigma^0$):** Ground Backscatter coefficient. Normalized to ground area assuming a flat earth.
+    *   *Problem:* Slopes facing the radar are bright (compressed area); slopes facing away are dark (stretched area).
+3.  **Gamma Naught ($\gamma^0$):** Radiometric Terrain Corrected (RTC). Normalized by the *actual* illuminated area from a DEM.
+
+$$ \gamma^0 = \frac{\sigma^0}{\cos \theta_{local}} $$
+
+Ununennium's SAR processing pipeline mandates **Gamma Naught RTC** for all terrain analysis models.
+
+### 5.3 Speckle Statistics
+
+SAR images look "grainy". This is not additive thermal noise; it is coherent interference (Speckle).
+In a resolution cell, many scatterers interfere constructively or destructively.
+
+*   **PDF:** Multi-look intensity follows a Gamma distribution.
+*   **Correction:** We apply a LOG transform ($10 \log_{10}(x)$) to convert multiplicative Gamma noise into additive Gaussian-like noise, making MSE loss functions applicable.
+
+---
+
+## 6. Ununennium Implementation
+
+### 6.1 `preprocessing.normalization`
+
+We support sensor-aware normalization schemes.
+
+```python
+# MinMax is naive.
+# Percentile is robust to outliers/clouds.
+norm_img = normalize(img, method="percentile", p=(2, 98))
+```
+
+### 6.2 `preprocessing.harmonization`
+
+```python
+# Convert Landsat-8 tensor to look like Sentinel-2
+s2_like = harmonize(l8_tensor, source="L8", target="S2")
+```
+
+---
+
+## 7. Deep Learning Implications
+
+1.  **Domain Adaptation:** Minimizing calibration error reduces the domain gap between sensors. A model trained on harmonized Landsat+Sentinel data generalizes better than one trained on raw DNs.
+2.  **Physical Constraints:** In PINNs or generative in-painting, we enforce $0 \le \rho \le 1$.
+3.  **Data Augmentation:** Since atmosphere is additive (mostly), we can simulate haze augmentation by adding biases to RGB channels.
+
+---
+
+## 8. References
+
+1.  **Vermote, E. F., et al. (1997).** "Second Simulation of the Satellite Signal in the Solar Spectrum, 6S: An overview". *IEEE TGRS*.
+2.  **Chavez, P. S. (1988).** "An improved dark-object subtraction technique for atmospheric scattering correction of multispectral data". *Remote Sensing of Environment*.
+3.  **Claverie, M., et al. (2018).** "The Harmonized Landsat and Sentinel-2 surface reflectance data set". *Remote Sensing of Environment*.
+4.  **Small, D. (2011).** "Flattening Gamma: Radiometric terrain correction for SAR imagery". *IEEE TGRS*.

@@ -1,94 +1,159 @@
-# Theory of Resampling Kernels in Remote Sensing
+# Signal Processing and Resampling Kernels in Remote Sensing: A Theoretical Treatise
 
-## 1. Introduction to Digital Image Resampling
+## Abstract
 
-Resampling is the process of transforming a discrete image from one coordinate system to another, or changing its spatial resolution. In remote sensing, this is mathematically equivalent to **signal reconstruction** followed by **sampling** at new grid points.
-
-Generally, the continuous signal $f(x, y)$ is reconstructed from discrete samples $f[n_x, n_y]$ via convolution with a reconstruction kernel $h$:
-
-$$ \hat{f}(x, y) = \sum_{n_x} \sum_{n_y} f[n_x, n_y] \cdot h(x - n_x) \cdot h(y - n_y) $$
-
-The choice of kernel $h(t)$ dictates the spectral preservation and geometric fidelity of the result.
+Resampling is the digital signal processing operation of transforming a discrete sampled signal from one coordinate system to another. In Deep Learning for Remote Sensing, this occurs constantly: reprojecting maps to common CRS, resizing images for fixed-size CNN inputs, or aligning multi-temporal acquisitions. While often treated as a trivial implementation detail (`cv2.resize`), the choice of the resampling kernel $h(x)$ has profound spectral and spatial implications. Poor resampling introduces Aliasing (Moiré patterns), Ringing (Gibbs phenomenon), and Spectral Mixing, which establish hard ceilings on model performance. This treatise explores the Fourier Theory of resampling and guides the selection of optimal kernels for EO data.
 
 ---
 
-## 2. Kernel Taxonomy and Frequency Domain Analysis
+## 1. The Sampling Theorem and Reconstruction
+
+A continuous signal $f(x)$ is sampled at intervals $T$ to create a discrete sequence $f[n] = f(nT)$. To recover or resample this signal at a new point $x'$, we must perform **Reconstruction**.
+
+$$ \hat{f}(x) = \sum_{n=-\infty}^{\infty} f[n] \cdot h\left(\frac{x - nT}{T}\right) $$
+
+Here, $h(t)$ is the **Reconstruction Kernel**.Ideally, to perfectly reconstruct a band-limited signal, $h(t)$ must be the normalized sinc function (Whittaker–Shannon interpolation formulation):
+
+$$ h(t) = \operatorname{sinc}(t) = \frac{\sin(\pi t)}{\pi t} $$
+
+However, the sinc function has infinite support (extends to $\pm \infty$), making it computationally impossible. All practical kernels are finite approximations of the sinc.
+
+---
+
+## 2. Kernel Taxonomy in Frequency Domain
+
+We analyze kernels based on their spatial shape $h(x)$ and their Frequency Response $H(f) = \mathcal{F}\{h(x)\}$.
 
 ### 2.1 Nearest Neighbor (Box Kernel)
 
-The simplest interpolation, equivalent to a convolution with a rectangle function ($\text{rect}$).
+The 0th-order interpolator.
 
-$$ h(t) = \begin{cases} 1 & |t| < 0.5 \\ 0 & \text{otherwise} \end{cases} $$
+$$ h(t) = \begin{cases} 1 & |t| \le 0.5 \\ 0 & \text{otherwise} \end{cases} $$
 
-*   **Frequency Response:** $\text{sinc}(f)$. It has infinite support in the frequency domain, causing significant **aliasing** (jagged edges).
-*   **Pros:** Preserves original digital numbers (DN). Essential for **categorical data** (classification masks).
-*   **Cons:** Maximum geometric distortion (up to 0.5 pixel shift).
+*   **Frequency Response:** $H(f) = \operatorname{sinc}(f)$.
+*   **analysis:**
+    *   **Passband:** Poor. It begins attenuating frequencies well before the Nyquist limit.
+    *   **Stopband:** Terrible. It has infinite side-lobes that allow high-frequency aliases to fold back into the signal.
+*   **Artifacts:** "Jaggies" (aliasing), Blockiness, sub-pixel spatial shifts ($\pm 0.5$ px jitter).
+*   **Use Case:** **Categorical Masks**. We cannot interpolate the integer "Class 5 (Forest)" and "Class 1 (Water)" to get "Class 3 (Urban)". We must strictly preserve values.
 
 ### 2.2 Bilinear Interpolation (Triangle Kernel)
 
-Convolution with a triangle function ($\text{tri} = \text{rect} * \text{rect}$).
+The 1st-order interpolator. Convolution of two box kernels.
 
 $$ h(t) = \begin{cases} 1 - |t| & |t| < 1 \\ 0 & \text{otherwise} \end{cases} $$
 
-*   **Frequency Response:** $\text{sinc}^2(f)$. Better suppression of high frequencies (aliasing) than Nearest Neighbor, but acts as a **low-pass filter**, blurring the image.
-*   **Pros:** Continuous signal, computationally cheap.
-*   **Cons:** Blurs edges, modifies radiometric values (not suitable for raw spectral analysis).
+*   **Frequency Response:** $H(f) = \operatorname{sinc}^2(f)$.
+*   **Analysis:**
+    *   The squared sinc decays faster ($1/f^2$), reducing aliasing compared to Nearest.
+    *   **Low-Pass Filter:** It strongly attenuates high frequencies within the passband. This results in **Blurring**.
+*   **Use Case:** fast on-the-fly resizing where sharpness is secondary to speed.
 
-### 2.3 Cubic Convolution (Approximated Sinc)
+### 2.3 Bicubic Convolution (Keys' Cubic)
 
-Approximates the ideal $\text{sinc}$ filter using piecewise cubic polynomials. The general form depends on a parameter $\alpha$ (usually -0.5 or -0.75).
+A 3rd-order polynomial approximation of the sinc. Defined by a parameter $\alpha$ (usually -0.5 or -0.75, which matches the slope of the sinc function at $x=1$).
 
 $$ h(t) = \begin{cases} (\alpha+2)|t|^3 - (\alpha+3)|t|^2 + 1 & |t| < 1 \\ \alpha|t|^3 - 5\alpha|t|^2 + 8\alpha|t| - 4\alpha & 1 \le |t| < 2 \\ 0 & \text{otherwise} \end{cases} $$
 
-*   **Frequency Response:** Closer to the ideal brick-wall filter.
-*   **Pros:** Preserves mean and standard deviation better than bilinear. Sharper edges.
-*   **Cons:** Can introduce **Gibbs phenomenon** (ringing/overshoot) at sharp contrast boundaries (e.g., water/land interfaces).
+*   **Analysis:**
+    *   Sharper passband than bilinear.
+    *   Better stopband suppression.
+    *   **Negative Lobes:** The kernel goes negative. This can produce output values outside the input range (Over/Undershoot).
+*   **Artifacts:** **Ringing (Gibbs Phenomenon)**. High-contrast edges (e.g., coastline) will have a "halo" or "ghost" line parallel to them.
+*   **Use Case:** Visualization (RGB), DEMs (requires continuous derivatives).
 
-### 2.4 Lanczos Resampling (Windowed Sinc)
+### 2.4 Lanczos Resampling
 
-Uses a $\text{sinc}$ kernel windowed by a larger $\text{sinc}$ envelope. Considered the gold standard for downsampling.
+A Windowed Sinc function. $\operatorname{sinc}(x)$ multiplied by a "Lanczos Window" (central lobe of a larger sinc).
 
-$$ L(x) = \begin{cases} \text{sinc}(x) \text{sinc}(x/a) & |x| < a \\ 0 & \text{otherwise} \end{cases} $$
+$$ L(x) = \begin{cases} \operatorname{sinc}(x) \operatorname{sinc}(x/a) & -a < x < a \\ 0 & \text{otherwise} \end{cases} $$
 
-where typically $a=2$ or $a=3$.
-
----
-
-## 3. Aliasing and Moiré Patterns
-
-When downsampling an image (decimation) without adequate pre-filtering, high-frequency components "fold over" into low frequencies, creating false patterns (aliasing).
-
-**Nyquist-Shannon Sampling Theorem:**
-To reconstruct a signal, one must sample at a rate $f_s > 2B$, where $B$ is the signal bandwidth.
-
-Most satellite sensors (Sentinel-2, Landsat) have a Modulation Transfer Function (MTF) that allows some aliasing to maintain sharpness. When users naively resize these images using Nearest Neighbor, aliasing is exacerbated, potentially confusing Convolutional Neural Networks (CNNs) with texture artifacts.
-
-> **Ununennium Standard:** We implement **Average Pooling** or **Lanczos** for downsampling satellite imagery to simulate sensor integration, strictly avoiding Nearest Neighbor for continuous spectral bands.
+Usually $a=3$ (Lanczos-3).
+*   **Analysis:** The closest practical approximation to the ideal low-pass filter.
+*   **Pros:** Extreme sharpness, minimal aliasing.
+*   **Cons:** Computatioanlty expensive (larger support window), still suffers from Ringing.
 
 ---
 
-## 4. Kernel Selection Matrix
+## 3. Aliasing and The Nyquist Limit
 
-Ununennium's `GeoTensor.resample()` module selects kernels based on data type and analysis goal:
+**Aliasing** occurs when we downsample (decimate) a signal without removing frequencies higher than the new Nyquist rate ($f_{new} = f_{old} / \text{scale}$).
 
-| Data Type | Goal | Recommended Kernel | Rationale |
-|-----------|------|--------------------|-----------|
-| **Discrete (Masks)** | Reprojection | **Nearest Neighbor** | Must strictly preserve class integers. |
-| **Continuous (RGB)** | Visualization | **Bicubic / Lanczos** | Smoothest visual appearance, sharp edges. |
-| **Continuous (Science)** | Spectral Analysis | **Bilinear / Average** | Minimized "ringing" artifacts; conserves energy. |
-| **Radar (SAR)** | Speckle Reduction | **Average / Box** | Reduces noise variance. |
-| **Elevation (DEM)** | Terrain Analysis | **Bicubic** | Ensures continuous derivatives for slope/aspect calc. |
+*   **Spatial Moiré:** High-frequency patterns (e.g., rows of crops, tile roofs) create low-frequency interference patterns when resized carelessly.
+*   **Deep Learning Impact:** CNNs are texture-biased. If a Corn field (periodic texture) is downsampled aliased to look like a swamp (noisy texture), the model fails.
+
+**The Golden Rule of Downsampling:**
+Always apply a Low-Pass Filter (Blur) *before* decimation to remove frequencies $> f_{new}$.
+*   **Average / Area-Weighted Resampling:** This is mathematically equivalent to integration (box filter) followed by sampling. It conserves the total radiometric energy (Flux).
+*   **Ununennium Standard:** For downscaling satellite imagery (e.g., converting 10m Sentinel to 30m Landsat grid), we strictly use **Average** or **Gauss** resampling mechanisms to preserve physical flux.
 
 ---
 
-## 5. Mathematical Impact on Deep Learning Features
+## 4. Phase Shift Errors (The "Shift" Problem)
 
-Using the wrong resampling kernel injects inductive biases into the neural network:
+In Nearest Neighbor resampling, the grid snaps to the closest integer.
+$$ x_{new} = \operatorname{round}(x_{old}) $$
+This introduces a random shift error $\epsilon \sim U[-0.5, 0.5]$ pixels.
 
-1.  **Artifact Injection:** Cubic ringing creates "halos" around objects. A U-Net might learn to detect buildings by their ringing halos rather than their spectral signature.
-2.  **Spectral Mixing:** Bilinear interpolation creates "mixed pixels" that never existed in reality. A generated value of 0.5 (between forest 0.2 and water 0.8) might be interpreted as "urban" (0.5), leading to classification errors.
-3.  **Positional Shift:** Nearest Neighbor introduces spatial jitter up to $\pm \frac{1}{2}$ pixel. In multi-temporal change detection, this creates false change along all edges.
+In **Change Detection** (Siamese Networks), this is fatal.
+*   Image T1 (Jan): Shifted -0.4 px.
+*   Image T2 (Feb): Shifted +0.4 px.
+*   Total Misalignment: 0.8 px.
+*   Result: False positive "Change" detected along every distinct edge in the image.
 
-**Ununennium Policy:**
-*   **Training:** All augmentations involving rotation/scale use **Bilinear** (images) and **Nearest** (masks).
-*   **Preprocessing:** L1C to L2A conversions or reprojections utilize **Average** resampling to strictly preserve photon counts (radiometric integrity).
+**Solution:** Ununennium's `GeoTensor` operations use sub-pixel precise alignment utilizing Bilinear/Bicubic kernels even for small shifts, strictly avoiding Nearest Neighbor for co-registration tasks.
+
+---
+
+## 5. Spline Interpolation
+
+Beyond convolution kernels, we can fit piecewise polynomials (Splines) to the data points.
+**B-Splines** provide maximum smoothness ($C^n$ continuity).
+*   *Application:* Creating Digital Elevation Models (DEMs) from sparse LiDAR points.
+*   *Relevance:* Calculating Slope and Aspect (derivatives of elevation) requires the surface to be differentiable. Nearest Neighbor produces valid elevation but garbage slope (0 or infinity). Cubic Splines ensure smooth derivatives.
+
+---
+
+## 6. Implementation in Ununennium
+
+We wrap both `rasterio` (GDAL) and `torch.nn.functional` resampling modes.
+
+### 6.1 `GeoTensor.reproject()`
+
+Automatically selects the kernel based on the semantic type of the tensor (stored in metadata).
+
+| Tensor Type | Kernel | Rationale |
+|-------------|--------|-----------|
+| `Mask` (Class ID) | `nearest` | Preserves integers. |
+| `Mask` (Probability) | `bilinear` | Smooth probability field. |
+| `Image` (Optical) | `cubic` | Visual sharpness. |
+| `Image` (Radiance) | `average` | Energy conservation (if downsampling). |
+| `SAR` (Db) | `average` | Noise reduction (multilooking). |
+
+### 6.2 The `AreaWeighted` Resampler
+
+For flux-conserving transformations (e.g., Population Count rasters, Emission grids):
+
+```python
+def reproject_flux(tensor, src_transform, dst_transform):
+    """
+    Ensures sum(input) == sum(output).
+    Standard interpolation preserves density (value), not sum.
+    """
+    # ... Implementation utilizing fractional overlap calculation ...
+```
+
+---
+
+## 7. Conclusion
+
+Resampling is not just "making pixels bigger or smaller". It is a filtering operation that fundamentally alters the spectral and spatial content of the data. Use **Nearest** only for masks. Use **Average** for downscaling physics. Use **Lanczos/Cubic** for upscaling/visualization. Ignoring this leads to aliased training data, shift artifacts, and physically impossible spectral values.
+
+---
+
+## 8. References
+
+1.  **Shannon, C. E. (1949).** "Communication in the Presence of Noise". *Proceedings of the IRE*.
+2.  **Keys, R. (1981).** "Cubic convolution interpolation for digital image processing". *IEEE TASSP*.
+3.  **Turkowski, K. (1990).** "Filters for common resampling tasks". *Graphics Gems*.
+4.  **Parker, J. A., et al. (1983).** "Comparison of interpolating methods for image resampling". *IEEE TMN*.

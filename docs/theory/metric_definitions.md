@@ -1,224 +1,181 @@
-# Metric Definitions
+# Metric Definitions and Evaluation Theory in Geospatial AI: A Theoretical Treatise
 
-Comprehensive reference for evaluation metrics in remote sensing machine learning.
+## Abstract
 
-## Classification Metrics
+Evaluation metrics are the compass by which we navigate the optimization landscape. In Geospatial AI, standard computer vision metrics (like Accuracy) are often misleading due to extreme class imbalance (the "99% Water" problem) and the geometric nature of the predictions. A model with 99% pixel accuracy can fail to detect 50% of buildings if the objects are small. This treatise rigorously defines the set-theoretic, topological, and probabilistic metrics used in Ununennium, analyzing their mathematical properties, failure modes, and optimal use-cases.
 
-### Accuracy
+---
 
-```
-Accuracy = (TP + TN) / (TP + TN + FP + FN)
-```
+## 1. Confusion Matrix Primitives
 
-**Interpretation:**
-- Range: [0, 1]
-- Higher is better
-- Limitation: Misleading for imbalanced classes
+Let $\mathcal{D} = \{ (y_i, \hat{y}_i) \}_{i=1}^N$ be the set of Ground Truth ($y$) and Prediction ($\hat{y}$) pairs.
+For a class $c$, we define:
+*   **TP (True Positive):** $y=c \land \hat{y}=c$
+*   **FP (False Positive):** $y \neq c \land \hat{y}=c$ (Type I Error)
+*   **FN (False Negative):** $y=c \land \hat{y} \neq c$ (Type II Error)
+*   **TN (True Negative):** $y \neq c \land \hat{y} \neq c$
 
-### Precision and Recall
+### 1.1 The Accuracy Paradox
+$$ \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} $$
+In a dataset with 99% background and 1% target (e.g., Ships in Ocean), a trivial model predicting "All Background" achieves 99% accuracy. Thus, **Accuracy is deprecated** for all Ununennium tasks except balanced scene classification.
 
-```
-Precision = TP / (TP + FP)
-Recall = TP / (TP + FN)
-```
+---
 
-| Metric | Focus | Use When |
-|--------|-------|----------|
-| Precision | False positives matter | Cost of false alarm is high |
-| Recall | False negatives matter | Missing detection is costly |
+## 2. Set-Theoretic Metrics (Overlap)
 
-### F1-Score
+These metrics view the image as a set of indices $\Omega$. Let $A = \{i | y_i = 1\}$ and $B = \{i | \hat{y}_i = 1\}$.
 
-Harmonic mean of precision and recall:
+### 2.1 Jaccard Index (IoU - Intersection over Union)
+Measures the ratio of intersection to union.
 
-```
-F1 = 2 × (Precision × Recall) / (Precision + Recall)
-```
+$$ \text{IoU}(A, B) = \frac{|A \cap B|}{|A \cup B|} = \frac{TP}{TP + FP + FN} $$
 
-### Cohen's Kappa (κ)
+*   **Range:** $[0, 1]$.
+*   **Properties:** Symmetric, Scale Invariant.
+*   **Hardness:** IoU penalizes errors more harshly than F1. $\text{IoU} \le \text{F1}$ always.
 
-Agreement beyond chance:
+### 2.2 Dice Coefficient (F1 Score)
+The Harmonic Mean of Precision and Recall.
 
-```
-κ = (p_o - p_e) / (1 - p_e)
-```
+$$ \text{Dice}(A, B) = \frac{2 |A \cap B|}{|A| + |B|} = \frac{2TP}{2TP + FP + FN} $$
 
-Where:
-- `p_o` = observed agreement
-- `p_e` = expected agreement by chance
+*   **Use Case:** Often used as a Loss Function (Soft Dice) because it is differentiable and convex-ish.
+*   **Relation to IoU:** $Dice = \frac{2 \cdot IoU}{1 + IoU}$.
 
-**Interpretation:**
+---
 
-| κ Value | Agreement |
-|---------|-----------|
-| < 0 | Less than chance |
-| 0.0 - 0.20 | Slight |
-| 0.21 - 0.40 | Fair |
-| 0.41 - 0.60 | Moderate |
-| 0.61 - 0.80 | Substantial |
-| 0.81 - 1.00 | Almost perfect |
+## 3. Geometric and Boundary Metrics (Topology)
 
-## Segmentation Metrics
+For applications like Building Footprint extraction, pixel overlap is insufficient. A model that predicts a blob covering 90% of a building gets 0.9 IoU but fails to capture the square shape.
 
-### Intersection over Union (IoU / Jaccard Index)
+### 3.1 Hausdorff Distance
+Measures the maximum distance from a point in one set to the nearest point in the other set.
 
-```
-IoU = |A ∩ B| / |A ∪ B| = TP / (TP + FP + FN)
-```
+$$ d_H(A, B) = \max \left( \sup_{a \in A} \inf_{b \in B} d(a, b), \sup_{b \in B} \inf_{a \in A} d(a, b) \right) $$
 
-**Per-class IoU:**
+*   **Interpretation:** The "worst case" error. If the model imagines a single outlier pixel 1km away, $d_H = 1km$, even if IoU $\approx 1.0$.
+*   **Robustness:** Highly sensitive to outliers.
+
+### 3.2 Boundary F1 (BF1) Score
+Computes Precision and Recall only within a distance buffer $d$ of the boundaries.
+
+$$ \text{Boundary}(S) = \{ x \in S \mid \exists y \notin S, d(x, y) < 1 \text{px} \} $$
+
+We define a match if prediction boundary is within tolerance $\theta$ of ground truth boundary.
+*   *Application:* Critical for Road Network extraction, where the width of the road changes but the centerline topology matters.
+
+---
+
+## 4. Detection Metrics (Object Level)
+
+For Object Detection (Bounding Boxes), we operate on discrete objects, not pixels.
+
+### 4.1 Average Precision (AP)
+AP is the area under the Precision-Recall Curve (PR Curve).
+
+$$ AP = \int_0^1 p(r) dr $$
+
+In practice, we compute interpolated AP (COCO style):
+$$ AP = \frac{1}{11} \sum_{r \in \{0, 0.1, ..., 1.0\}} p_{interp}(r) $$
+Where $p_{interp}(r) = \max_{\tilde{r} \ge r} p(\tilde{r})$.
+
+### 4.2 Mean Average Precision (mAP)
+The mean of AP across all classes.
+*   **mAP@50:** IoU threshold = 0.5.
+*   **mAP@[50:95]:** Average over IoU thresholds 0.50 to 0.95 (step 0.05). Rewards tight localization.
+
+---
+
+## 5. Calibration Metrics (Probabilistic)
+
+Measures the reliability of the confidence scores $\hat{p}$.
+
+### 5.1 Brier Score
+The Mean Squared Error of the probability vector.
+
+$$ BS = \frac{1}{N} \sum_{i=1}^N ( \hat{p}_i - y_i )^2 $$
+
+It decomposes into:
+$$ BS = \text{Reliability} - \text{Resolution} + \text{Uncertainty} $$
+*   **Reliability:** How close are probabilities to true frequencies.
+*   **Resolution:** How distinct are the forecasts from the global average.
+
+### 5.2 Expected Calibration Error (ECE)
+(See Uncertainty Theory for derivation).
+ECE helps detect if a model is "hallucinating" high confidence on wrong answers.
+
+---
+
+## 6. Time Series Metrics
+
+For comparing temporal signals $T_1$ and $T_2$.
+
+### 6.1 Dynamic Time Warping (DTW)
+Euclidean distance assumes indices align ($i$ matches $i$). DTW allows non-linear alignment (warping) to handle temporal shifts (e.g., crop season starting 10 days later).
+
+$$ DTW(T_1, T_2) = \min_{\pi} \sqrt{ \sum_{(i,j) \in \pi} (T_1[i] - T_2[j])^2 } $$
+
+Where $\pi$ is the warping path.
+
+---
+
+## 7. Aggregation Strategies (Macro vs Micro)
+
+When calculating metrics across $N$ images and $C$ classes:
+
+### 7.1 Micro-Averaging
+Pools all pixels/objects from all images into one giant Confusion Matrix, then computes metric.
+$$ F1_{micro} $$
+*   **Behavior:** Dominated by frequent classes. If "Water" is 90% of pixels, Micro-F1 essentially measures Water performance.
+
+### 7.2 Macro-Averaging
+Computes metric for each class/image independently, then averages.
+$$ F1_{macro} = \frac{1}{C} \sum_{c=1}^C F1_c $$
+*   **Behavior:** Treats all classes equally. "Rare Bird" has same weight as "Water".
+*   **Ununennium Default:** We report **Macro** metrics for validation to ensure performance on rare classes is visible.
+
+---
+
+## 8. Ununennium Implementation
+
+The `ununennium.metrics` module provides a unified API backed by `torchmetrics`.
+
 ```python
-def iou_per_class(pred, target, num_classes):
-    iou = []
-    for c in range(num_classes):
-        intersection = ((pred == c) & (target == c)).sum()
-        union = ((pred == c) | (target == c)).sum()
-        iou.append(intersection / union)
-    return iou
+class MetricCollection(nn.Module):
+    def __init__(self, num_classes):
+        self.iou = IoU(num_classes, reduction='elementwise_mean')
+        self.f1 = F1Score(num_classes, average='macro')
+        self.brier = BrierScore()
+        
+    def update(self, preds, target):
+        self.iou.update(preds, target)
+        self.f1.update(preds, target)
+        
+    def compute(self):
+        return {
+            "mIoU": self.iou.compute(),
+            "MacroF1": self.f1.compute()
+        }
 ```
 
-### Mean IoU (mIoU)
+---
 
-```
-mIoU = (1/K) × Σ_k IoU_k
-```
+## 9. Conclusion
 
-Where K = number of classes.
+A single number can never capture the performance of a complex geospatial model.
+*   Use **IoU** for spatial overlap.
+*   Use **Boundary F1** for shape fidelity.
+*   Use **mAP** for object counting.
+*   Use **ECE** for confidence reliability.
 
-### Dice Coefficient (F1 for Segmentation)
+Standardizing these metrics allows us to move beyond "it looks good" to empirical science.
 
-```
-Dice = 2|A ∩ B| / (|A| + |B|) = 2TP / (2TP + FP + FN)
-```
+---
 
-**Relationship to IoU:**
-```
-Dice = 2 × IoU / (1 + IoU)
-IoU = Dice / (2 - Dice)
-```
+## 10. References
 
-### Pixel Accuracy
-
-```
-PA = Σ_k n_kk / Σ_k Σ_l n_kl
-```
-
-**Class-weighted Pixel Accuracy:**
-```
-wPA = (1/K) × Σ_k (n_kk / Σ_l n_kl)
-```
-
-### Boundary IoU
-
-IoU computed only on boundary pixels:
-
-```
-Boundary IoU = |B_pred ∩ B_true| / |B_pred ∪ B_true|
-```
-
-Where B = morphological boundary.
-
-## Reconstruction Metrics
-
-### Peak Signal-to-Noise Ratio (PSNR)
-
-```
-PSNR = 10 × log₁₀(MAX² / MSE)
-```
-
-Where MAX = maximum pixel value (255 for 8-bit).
-
-**Typical values:**
-
-| PSNR (dB) | Quality |
-|-----------|---------|
-| < 20 | Poor |
-| 20 - 30 | Acceptable |
-| 30 - 40 | Good |
-| > 40 | Excellent |
-
-### Structural Similarity Index (SSIM)
-
-```
-SSIM(x, y) = [l(x,y)]^α × [c(x,y)]^β × [s(x,y)]^γ
-```
-
-Where:
-- `l` = luminance comparison
-- `c` = contrast comparison
-- `s` = structure comparison
-
-```
-l(x,y) = (2μ_x μ_y + C₁) / (μ_x² + μ_y² + C₁)
-c(x,y) = (2σ_x σ_y + C₂) / (σ_x² + σ_y² + C₂)
-s(x,y) = (σ_xy + C₃) / (σ_x σ_y + C₃)
-```
-
-### Spectral Angle Mapper (SAM)
-
-For multi-spectral imagery:
-
-```
-SAM = arccos(Σᵢ xᵢyᵢ / (√(Σᵢ xᵢ²) × √(Σᵢ yᵢ²)))
-```
-
-**Interpretation:**
-- Range: [0, π/2]
-- Lower is better
-- Units: radians
-
-## Calibration Metrics
-
-### Expected Calibration Error (ECE)
-
-```
-ECE = Σ_m (|B_m| / n) × |acc(B_m) - conf(B_m)|
-```
-
-**Interpretation:**
-
-| ECE | Calibration |
-|-----|-------------|
-| < 0.05 | Excellent |
-| 0.05 - 0.10 | Good |
-| 0.10 - 0.20 | Fair |
-| > 0.20 | Poor |
-
-### Reliability Diagram
-
-Plot of accuracy vs. confidence across bins.
-
-| Property | Perfect | Under-confident | Over-confident |
-|----------|---------|-----------------|----------------|
-| Curve position | On diagonal | Above diagonal | Below diagonal |
-
-## Uncertainty Metrics
-
-### Negative Log-Likelihood (NLL)
-
-```
-NLL = -log p(y | x, θ)
-```
-
-### Brier Score
-
-```
-BS = (1/N) × Σᵢ (pᵢ - yᵢ)²
-```
-
-Where:
-- `p` = predicted probability
-- `y` = true label (0 or 1)
-
-## Summary Table
-
-| Metric | Range | Direction | Balanced | Probabilistic |
-|--------|-------|-----------|----------|---------------|
-| Accuracy | [0, 1] | ↑ | No | No |
-| mIoU | [0, 1] | ↑ | Yes | No |
-| Dice | [0, 1] | ↑ | Yes | No |
-| PSNR | [0, ∞) | ↑ | N/A | No |
-| SSIM | [-1, 1] | ↑ | N/A | No |
-| SAM | [0, π/2] | ↓ | N/A | No |
-| ECE | [0, 1] | ↓ | N/A | Yes |
-| Kappa | [-1, 1] | ↑ | Yes | No |
+1.  **Powers, D. M. (2011).** "Evaluation: from precision, recall and F-measure to ROC, informedness, markedness and correlation".
+2.  **Csurka, G., et al. (2013).** "What is a good evaluation measure for semantic segmentation?". *BMVC*.
+3.  **Everingham, M., et al. (2010).** "The Pascal Visual Object Classes (VOC) Challenge". *IJCV*.
+4.  **Niculescu-Mizil, A., & Caruana, R. (2005).** "Predicting good probabilities with supervised learning". *ICML*.
+5.  **Taha, A. A., & Hanbury, A. (2015).** "Metrics for evaluating 3D medical image segmentation: analysis, selection, and tool". *BMC Medical Imaging*.
