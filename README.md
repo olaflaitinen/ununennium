@@ -16,8 +16,14 @@
 [![Checked with pyright](https://microsoft.github.io/pyright/img/pyright_badge.svg)](https://microsoft.github.io/pyright/)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12345678.svg)](https://zenodo.org/badge/latestdoi/10.5281/zenodo.12345678)
-[![Repo Size](https://img.shields.io/github/repo-size/olaflaitinen/ununennium)](https://github.com/olaflaitinen/ununennium)
-[![Last Commit](https://img.shields.io/github/last-commit/olaflaitinen/ununennium)](https://github.com/olaflaitinen/ununennium/commits/main)
+[![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?logo=PyTorch&logoColor=white)](https://pytorch.org/)
+[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20win%20%7C%20macos-lightgrey)](https://pypi.org/project/ununennium/)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
+[![Issues](https://img.shields.io/github/issues/olaflaitinen/ununennium)](https://github.com/olaflaitinen/ununennium/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/olaflaitinen/ununennium)](https://github.com/olaflaitinen/ununennium/pulls)
+[![Contributors](https://img.shields.io/github/contributors/olaflaitinen/ununennium)](https://github.com/olaflaitinen/ununennium/graphs/contributors)
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/olaflaitinen/ununennium)](https://github.com/olaflaitinen/ununennium/commits/main)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 **Production-grade Python library for satellite and geospatial imagery machine learning.**
 
