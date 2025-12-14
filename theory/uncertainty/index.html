@@ -1,0 +1,1247 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Production-grade Python library for satellite imagery ML">
+      
+      
+      
+        <link rel="canonical" href="https://ununennium.readthedocs.io/theory/uncertainty/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Uncertainty Quantification in Geospatial AI: A Theoretical Treatise - Ununennium</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#uncertainty-quantification-in-geospatial-ai-a-theoretical-treatise" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Ununennium" class="md-header__button md-logo" aria-label="Ununennium" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ununennium
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Uncertainty Quantification in Geospatial AI: A Theoretical Treatise
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ununennium/ununennium" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ununennium/ununennium
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting_started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/core/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/segmentation.md" class="md-tabs__link">
+          
+  
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../models/zoo.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Model Zoo
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Ununennium" class="md-nav__button md-logo" aria-label="Ununennium" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Ununennium
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ununennium/ununennium" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ununennium/ununennium
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/io/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/models.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/segmentation.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/change_detection.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Change Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/zoo.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Zoo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-anatomy-of-uncertainty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Anatomy of Uncertainty
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. The Anatomy of Uncertainty">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-aleatoric-uncertainty-data-noise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Aleatoric Uncertainty (Data Noise)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-epistemic-uncertainty-model-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Epistemic Uncertainty (Model Knowledge)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-modeling-aleatoric-uncertainty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Modeling Aleatoric Uncertainty
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Modeling Aleatoric Uncertainty">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-heteroscedastic-regression-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Heteroscedastic Regression Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-modeling-epistemic-uncertainty-bayesian-dl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Modeling Epistemic Uncertainty (Bayesian DL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Modeling Epistemic Uncertainty (Bayesian DL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-monte-carlo-mc-dropout-gal-ghahramani-2016" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Monte Carlo (MC) Dropout (Gal &amp; Ghahramani, 2016)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-deep-ensembles-lakshminarayanan-et-al-2017" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Deep Ensembles (Lakshminarayanan et al., 2017)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-evidential-deep-learning-edl-sensoy-et-al-2018" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Evidential Deep Learning (EDL) (Sensoy et al., 2018)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Calibration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Calibration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-reliability-diagrams" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Reliability Diagrams
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-expected-calibration-error-ece" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Expected Calibration Error (ECE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-temperature-scaling-platt-scaling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Temperature Scaling (Platt Scaling)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-conformal-prediction-cp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Conformal Prediction (CP)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Conformal Prediction (CP)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-inductive-conformal-prediction-icp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Inductive Conformal Prediction (ICP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-applications-in-earth-observation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Applications in Earth Observation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Applications in Earth Observation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-domain-adaptation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Domain Adaptation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-reliable-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Reliable Mapping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-active-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Active Learning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ununennium-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Ununennium API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="uncertainty-quantification-in-geospatial-ai-a-theoretical-treatise">Uncertainty Quantification in Geospatial AI: A Theoretical Treatise</h1>
+<h2 id="abstract">Abstract</h2>
+<p>In safety-critical EO applications—such as disaster response, autonomous aerial navigation, and climate policy enforcement—a point prediction ($\hat{y}$) is insufficient and potentially dangerous. Decision-makers require a rigorous quantification of confidence. However, standard Deep Neural Networks (DNNs) are notoriously overconfident, often assigning $99\%$ probability to incorrect predictions on out-of-distribution (OOD) data. This document explores the theoretical decomposition of uncertainty into Aleatoric and Epistemic components and details the advanced Bayesian and conformal prediction methods implemented in Ununennium to calibrate these estimates.</p>
+<hr />
+<h2 id="1-the-anatomy-of-uncertainty">1. The Anatomy of Uncertainty</h2>
+<p>Formally, given input $x$ and output $y$, we seek the predictive posterior distribution $P(y|x, D)$, where $D$ is the training data.</p>
+<p>$$ P(y|x, D) = \int P(y|x, \theta) P(\theta|D) d\theta $$</p>
+<p>This marginalization over parameters $\theta$ is intractable for modern DNNs. We approximate detailed components:</p>
+<h3 id="11-aleatoric-uncertainty-data-noise">1.1 Aleatoric Uncertainty (Data Noise)</h3>
+<p>The uncertainty inherent in the observation process. Even with infinite data and a perfect model, this cannot be reduced.
+*   <strong>Homoscedastic:</strong> Constant noise variance $\sigma^2$ (e.g., thermal sensor noise).
+*   <strong>Heteroscedastic:</strong> Noise variance $\sigma(x)^2$ depends on input.
+    *   <em>Example:</em> Clouds, shadows, or mixed pixels (land/water border) have higher ambiguity than clear pixels.</p>
+<h3 id="12-epistemic-uncertainty-model-knowledge">1.2 Epistemic Uncertainty (Model Knowledge)</h3>
+<p>The uncertainty in the model parameters $\theta$ due to lack of knowledge (finite data).
+*   <strong>Reducible:</strong> Can be reduced by observing more data in the sparse region of the manifold.
+*   <strong>Indicator of OOD:</strong> High epistemic uncertainty implies the input $x$ is far from the training distribution $P_{train}(x)$.
+    *   <em>Example:</em> A model trained on European cities receiving an input from the Sahara Desert.</p>
+<hr />
+<h2 id="2-modeling-aleatoric-uncertainty">2. Modeling Aleatoric Uncertainty</h2>
+<p>We model the output not as a deterministic value but as a distribution (e.g., Gaussian for regression).</p>
+<h3 id="21-heteroscedastic-regression-loss">2.1 Heteroscedastic Regression Loss</h3>
+<p>The network predicts two heads: mean $\mu(x)$ and variance $\sigma^2(x)$.</p>
+<p>The Negative Log Likelihood (NLL) for a Gaussian:</p>
+<p>$$ \mathcal{L}_{NLL} = -\log P(y | \mu, \sigma) = \frac{1}{2\sigma^2} | y - \mu |^2 + \frac{1}{2} \log \sigma^2 + \text{const} $$</p>
+<ul>
+<li><strong>Interpretation:</strong><ul>
+<li>The first term is the MSE weighted by precision ($1/\sigma^2$). This allows the model to "attenuate" the loss on noisy samples by predicting high $\sigma^2$.</li>
+<li>The second term ($\log \sigma^2$) prevents the model from predicting infinite variance (collapse).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Numerical Stability:</strong> To avoid division by zero or negative variance, we usually predict $s = \log \sigma^2$ and optimize:
+$$ \mathcal{L} = \frac{1}{2} \exp(-s) | y - \mu |^2 + \frac{1}{2} s $$</p>
+<hr />
+<h2 id="3-modeling-epistemic-uncertainty-bayesian-dl">3. Modeling Epistemic Uncertainty (Bayesian DL)</h2>
+<p>Since exact Bayesian inference is intractable, we use Variational Inference (VI) or functional approximations.</p>
+<h3 id="31-monte-carlo-mc-dropout-gal-ghahramani-2016">3.1 Monte Carlo (MC) Dropout (Gal &amp; Ghahramani, 2016)</h3>
+<p>Dropout, usually viewed as regularization, can be interpreted as a variational Bayesian approximation.
+*   <strong>Training:</strong> Dropout active.
+*   <strong>Inference:</strong> Dropout <strong>kept active</strong>. We perform $T$ stochastic forward passes ${\hat{y}<em>t}</em>{t=1}^T$.</p>
+<p><strong>Predictive Mean:</strong>
+$$ \mathbb{E}[y] \approx \frac{1}{T} \sum_{t=1}^T \hat{y}_t $$</p>
+<p><strong>Predictive Entropy (Classification):</strong>
+$$ H(y|x) = - \sum_{c=1}^C p_{avg}(c) \log p_{avg}(c) $$
+Where $p_{avg}$ is the numerical average of Softmax vectors.</p>
+<p><strong>Predictive Variance (Regression):</strong>
+$$ \text{Var}(y) \approx \underbrace{\frac{1}{T} \sum \sigma^2_t}<em>{\text{Aleatoric}} + \underbrace{\frac{1}{T} \sum (\mu_t - \bar{\mu})^2}</em>{\text{Epistemic}} $$</p>
+<h3 id="32-deep-ensembles-lakshminarayanan-et-al-2017">3.2 Deep Ensembles (Lakshminarayanan et al., 2017)</h3>
+<p>Train $M$ models independently with random initialization and shuffled data.
+*   <strong>Pros:</strong> Empirically the Gold Standard. Better calibration and OOD detection than MC Dropout.
+*   <strong>Cons:</strong> $M \times$ training and inference cost (computationally heavy).
+*   <strong>Ununennium Strategy:</strong> We support "Snapshots Ensembles" (Cyclic Learning Rate) to get ensemble diversity within a single training run.</p>
+<h3 id="33-evidential-deep-learning-edl-sensoy-et-al-2018">3.3 Evidential Deep Learning (EDL) (Sensoy et al., 2018)</h3>
+<p>This deterministic method places a distribution over the distribution (Dirichlet Distribution for classification).
+The network predicts evidence $e_k \ge 0$.
+$$ \alpha_k = e_k + 1 $$
+$$ S = \sum \alpha_k $$
+$$ \text{Expected Probability } \hat{p}_k = \alpha_k / S $$
+$$ \text{Uncertainty (Vacuity) } u = K / S $$</p>
+<ul>
+<li><strong>Mechanism:</strong> High evidence (lots of support) $\to$ High $S$ $\to$ Low $u$.</li>
+<li><strong>Effect:</strong> A pure OOD sample will have $e_k \approx 0$ for all classes, so $u \to 1$.</li>
+<li><strong>Loss:</strong> KL-divergence between predicted Dirichlet and Uniform Dirichlet + Accuracy term.</li>
+</ul>
+<hr />
+<h2 id="4-calibration">4. Calibration</h2>
+<p>A model is <strong>Calibrated</strong> if its predicted confidence matches its empirical accuracy.
+$$ P(Y=y | \hat{P}=p) = p $$</p>
+<h3 id="41-reliability-diagrams">4.1 Reliability Diagrams</h3>
+<p>Plot Accuracy vs Confidence in bins (e.g., 0-0.1, 0.1-0.2, ...).
+*   <strong>Perfect Calibration:</strong> $y=x$ diagonal line.
+*   <strong>Under-confident:</strong> Above diagonal.
+*   <strong>Over-confident:</strong> Below diagonal (Typical DNN behavior).</p>
+<h3 id="42-expected-calibration-error-ece">4.2 Expected Calibration Error (ECE)</h3>
+<p>Weighted average gap.</p>
+<p>$$ \text{ECE} = \sum_{m=1}^M \frac{|B_m|}{N} | \text{acc}(B_m) - \text{conf}(B_m) | $$</p>
+<h3 id="43-temperature-scaling-platt-scaling">4.3 Temperature Scaling (Platt Scaling)</h3>
+<p>A post-processing step to fix calibration on a validation set.
+$$ \hat{q}<em>i = \max_k \sigma</em>{SM}(\mathbf{z}_i / T)^{(k)} $$
+We learn a single scalar parameter $T$ (Temperature) that softens ($T&gt;1$) or sharpens ($T&lt;1$) the logits $\mathbf{z}$ to minimize NLL.
+*   <strong>Note:</strong> Does not change accuracy (rank preserving), only confidence values.</p>
+<hr />
+<h2 id="5-conformal-prediction-cp">5. Conformal Prediction (CP)</h2>
+<p>Bayesian methods provide a <em>score</em> of uncertainty but no guarantees. <strong>Conformal Prediction</strong> provides rigorous statistical guarantees of finite-sample validity.</p>
+<p>"We guarantee with probability $1-\alpha$ that the true label $y$ is contained in the predicted set $\mathcal{C}(x)$."</p>
+<h3 id="51-inductive-conformal-prediction-icp">5.1 Inductive Conformal Prediction (ICP)</h3>
+<ol>
+<li><strong>Calibration Set:</strong> Hold out a set ${(x_i, y_i)}$.</li>
+<li><strong>Non-Conformity Score ($s_i$):</strong> e.g., $s_i = 1 - \hat{P}(y_i | x_i)$. (How "weird" is the true label given the model?).</li>
+<li><strong>Quantile:</strong> Compute $\hat{q}$ as the $\lceil (N+1)(1-\alpha) \rceil / N$ quantile of scores $s_i$.</li>
+<li><strong>Prediction:</strong> For test $x_{new}$, include all classes $k$ where $1 - \hat{P}(k|x_{new}) \le \hat{q}$.</li>
+</ol>
+<p><strong>Result:</strong>
+The model outputs a set of classes (e.g., <code>{"Forest", "Shrub"}</code>).
+*   Easy sample $\to$ Set size 1.
+*   Hard sample $\to$ Set size 5.
+*   OOD sample $\to$ Set size $C$ (all classes).</p>
+<p>Ununennium implements <code>ConformalClassifier</code> wrappers that transform any PyTorch model into a set predictor with coverage guarantees.</p>
+<hr />
+<h2 id="6-applications-in-earth-observation">6. Applications in Earth Observation</h2>
+<h3 id="61-domain-adaptation">6.1 Domain Adaptation</h3>
+<p>We use Epistemic Uncertainty heatmaps to detect when the satellite passes over a new biome.
+$$ \text{if } \text{mean}(H(y)) &gt; \tau \implies \text{Trigger Retraining/Labeling} $$</p>
+<h3 id="62-reliable-mapping">6.2 Reliable Mapping</h3>
+<p>Flood mapping requires high precision. We threshold the uncertainty map:
+*   <strong>Mask:</strong> $y_{out} = \text{bg}$ if $u(x) &gt; \tau$ else $\operatorname{argmax} P(y|x)$.
+*   This creates "No Data" holes in the map where the model is unsure, rather than guessing.</p>
+<h3 id="63-active-learning">6.3 Active Learning</h3>
+<p>The <code>ununennium.active_learning</code> module prioritizes labeling patches with high Epistemic Uncertainty (maximizing information gain).</p>
+<hr />
+<h2 id="7-ununennium-api">7. Ununennium API</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">DeepLabV3Plus</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.uncertainty</span><span class="w"> </span><span class="kn">import</span> <span class="n">BayesianWrapper</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># 1. Wrap model</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">model</span> <span class="o">=</span> <span class="n">DeepLabV3Plus</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">dropout_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">bayesian_model</span> <span class="o">=</span> <span class="n">BayesianWrapper</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;mc_dropout&quot;</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># 2. Predict</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">mean</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">variance</span> <span class="o">=</span> <span class="n">bayesian_model</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># 3. Calibrate</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">calibrator</span> <span class="o">=</span> <span class="n">TemperatureScaling</span><span class="p">()</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">calibrator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">val_logits</span><span class="p">,</span> <span class="n">val_labels</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">calibrated_probs</span> <span class="o">=</span> <span class="n">calibrator</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test_logits</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="8-references">8. References</h2>
+<ol>
+<li><strong>Gal, Y., &amp; Ghahramani, Z. (2016).</strong> "Dropout as a bayesian approximation: Representing model uncertainty in deep learning". <em>ICML</em>.</li>
+<li><strong>Lakshminarayanan, B., et al. (2017).</strong> "Simple and scalable predictive uncertainty estimation using deep ensembles". <em>NeurIPS</em>.</li>
+<li><strong>Kendall, A., &amp; Gal, Y. (2017).</strong> "What uncertainties do we need in bayesian deep learning for computer vision?". <em>NeurIPS</em>.</li>
+<li><strong>Sensoy, M., et al. (2018).</strong> "Evidential deep learning to quantify classification uncertainty". <em>NeurIPS</em>.</li>
+<li><strong>Angelopoulos, A. N., &amp; Bates, S. (2021).</strong> "A gentle introduction to conformal prediction and distribution-free uncertainty quantification". <em>arXiv</em>.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

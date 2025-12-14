@@ -1,0 +1,1157 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Production-grade Python library for satellite imagery ML">
+      
+      
+      
+        <link rel="canonical" href="https://ununennium.readthedocs.io/theory/resampling_kernels/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Signal Processing and Resampling Kernels in Remote Sensing: A Theoretical Treatise - Ununennium</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#signal-processing-and-resampling-kernels-in-remote-sensing-a-theoretical-treatise" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Ununennium" class="md-header__button md-logo" aria-label="Ununennium" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ununennium
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Signal Processing and Resampling Kernels in Remote Sensing: A Theoretical Treatise
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ununennium/ununennium" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ununennium/ununennium
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting_started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/core/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tutorials/segmentation.md" class="md-tabs__link">
+          
+  
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../models/zoo.md" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Model Zoo
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Ununennium" class="md-nav__button md-logo" aria-label="Ununennium" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Ununennium
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ununennium/ununennium" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ununennium/ununennium
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/io/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    I/O
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/models.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/training/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/segmentation.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorials/change_detection.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Change Detection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/zoo.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Zoo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#abstract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Abstract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-the-sampling-theorem-and-reconstruction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Sampling Theorem and Reconstruction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-kernel-taxonomy-in-frequency-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kernel Taxonomy in Frequency Domain
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Kernel Taxonomy in Frequency Domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-nearest-neighbor-box-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Nearest Neighbor (Box Kernel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-bilinear-interpolation-triangle-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Bilinear Interpolation (Triangle Kernel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-bicubic-convolution-keys-cubic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Bicubic Convolution (Keys' Cubic)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-lanczos-resampling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Lanczos Resampling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-aliasing-and-the-nyquist-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Aliasing and The Nyquist Limit
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-phase-shift-errors-the-shift-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Phase Shift Errors (The "Shift" Problem)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-spline-interpolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Spline Interpolation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-implementation-in-ununennium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Implementation in Ununennium
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Implementation in Ununennium">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-geotensorreproject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 GeoTensor.reproject()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-the-areaweighted-resampler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 The AreaWeighted Resampler
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="signal-processing-and-resampling-kernels-in-remote-sensing-a-theoretical-treatise">Signal Processing and Resampling Kernels in Remote Sensing: A Theoretical Treatise</h1>
+<h2 id="abstract">Abstract</h2>
+<p>Resampling is the digital signal processing operation of transforming a discrete sampled signal from one coordinate system to another. In Deep Learning for Remote Sensing, this occurs constantly: reprojecting maps to common CRS, resizing images for fixed-size CNN inputs, or aligning multi-temporal acquisitions. While often treated as a trivial implementation detail (<code>cv2.resize</code>), the choice of the resampling kernel $h(x)$ has profound spectral and spatial implications. Poor resampling introduces Aliasing (Moiré patterns), Ringing (Gibbs phenomenon), and Spectral Mixing, which establish hard ceilings on model performance. This treatise explores the Fourier Theory of resampling and guides the selection of optimal kernels for EO data.</p>
+<hr />
+<h2 id="1-the-sampling-theorem-and-reconstruction">1. The Sampling Theorem and Reconstruction</h2>
+<p>A continuous signal $f(x)$ is sampled at intervals $T$ to create a discrete sequence $f[n] = f(nT)$. To recover or resample this signal at a new point $x'$, we must perform <strong>Reconstruction</strong>.</p>
+<p>$$ \hat{f}(x) = \sum_{n=-\infty}^{\infty} f[n] \cdot h\left(\frac{x - nT}{T}\right) $$</p>
+<p>Here, $h(t)$ is the <strong>Reconstruction Kernel</strong>.Ideally, to perfectly reconstruct a band-limited signal, $h(t)$ must be the normalized sinc function (Whittaker–Shannon interpolation formulation):</p>
+<p>$$ h(t) = \operatorname{sinc}(t) = \frac{\sin(\pi t)}{\pi t} $$</p>
+<p>However, the sinc function has infinite support (extends to $\pm \infty$), making it computationally impossible. All practical kernels are finite approximations of the sinc.</p>
+<hr />
+<h2 id="2-kernel-taxonomy-in-frequency-domain">2. Kernel Taxonomy in Frequency Domain</h2>
+<p>We analyze kernels based on their spatial shape $h(x)$ and their Frequency Response $H(f) = \mathcal{F}{h(x)}$.</p>
+<h3 id="21-nearest-neighbor-box-kernel">2.1 Nearest Neighbor (Box Kernel)</h3>
+<p>The 0th-order interpolator.</p>
+<p>$$ h(t) = \begin{cases} 1 &amp; |t| \le 0.5 \ 0 &amp; \text{otherwise} \end{cases} $$</p>
+<ul>
+<li><strong>Frequency Response:</strong> $H(f) = \operatorname{sinc}(f)$.</li>
+<li><strong>analysis:</strong><ul>
+<li><strong>Passband:</strong> Poor. It begins attenuating frequencies well before the Nyquist limit.</li>
+<li><strong>Stopband:</strong> Terrible. It has infinite side-lobes that allow high-frequency aliases to fold back into the signal.</li>
+</ul>
+</li>
+<li><strong>Artifacts:</strong> "Jaggies" (aliasing), Blockiness, sub-pixel spatial shifts ($\pm 0.5$ px jitter).</li>
+<li><strong>Use Case:</strong> <strong>Categorical Masks</strong>. We cannot interpolate the integer "Class 5 (Forest)" and "Class 1 (Water)" to get "Class 3 (Urban)". We must strictly preserve values.</li>
+</ul>
+<h3 id="22-bilinear-interpolation-triangle-kernel">2.2 Bilinear Interpolation (Triangle Kernel)</h3>
+<p>The 1st-order interpolator. Convolution of two box kernels.</p>
+<p>$$ h(t) = \begin{cases} 1 - |t| &amp; |t| &lt; 1 \ 0 &amp; \text{otherwise} \end{cases} $$</p>
+<ul>
+<li><strong>Frequency Response:</strong> $H(f) = \operatorname{sinc}^2(f)$.</li>
+<li><strong>Analysis:</strong><ul>
+<li>The squared sinc decays faster ($1/f^2$), reducing aliasing compared to Nearest.</li>
+<li><strong>Low-Pass Filter:</strong> It strongly attenuates high frequencies within the passband. This results in <strong>Blurring</strong>.</li>
+</ul>
+</li>
+<li><strong>Use Case:</strong> fast on-the-fly resizing where sharpness is secondary to speed.</li>
+</ul>
+<h3 id="23-bicubic-convolution-keys-cubic">2.3 Bicubic Convolution (Keys' Cubic)</h3>
+<p>A 3rd-order polynomial approximation of the sinc. Defined by a parameter $\alpha$ (usually -0.5 or -0.75, which matches the slope of the sinc function at $x=1$).</p>
+<p>$$ h(t) = \begin{cases} (\alpha+2)|t|^3 - (\alpha+3)|t|^2 + 1 &amp; |t| &lt; 1 \ \alpha|t|^3 - 5\alpha|t|^2 + 8\alpha|t| - 4\alpha &amp; 1 \le |t| &lt; 2 \ 0 &amp; \text{otherwise} \end{cases} $$</p>
+<ul>
+<li><strong>Analysis:</strong><ul>
+<li>Sharper passband than bilinear.</li>
+<li>Better stopband suppression.</li>
+<li><strong>Negative Lobes:</strong> The kernel goes negative. This can produce output values outside the input range (Over/Undershoot).</li>
+</ul>
+</li>
+<li><strong>Artifacts:</strong> <strong>Ringing (Gibbs Phenomenon)</strong>. High-contrast edges (e.g., coastline) will have a "halo" or "ghost" line parallel to them.</li>
+<li><strong>Use Case:</strong> Visualization (RGB), DEMs (requires continuous derivatives).</li>
+</ul>
+<h3 id="24-lanczos-resampling">2.4 Lanczos Resampling</h3>
+<p>A Windowed Sinc function. $\operatorname{sinc}(x)$ multiplied by a "Lanczos Window" (central lobe of a larger sinc).</p>
+<p>$$ L(x) = \begin{cases} \operatorname{sinc}(x) \operatorname{sinc}(x/a) &amp; -a &lt; x &lt; a \ 0 &amp; \text{otherwise} \end{cases} $$</p>
+<p>Usually $a=3$ (Lanczos-3).
+*   <strong>Analysis:</strong> The closest practical approximation to the ideal low-pass filter.
+*   <strong>Pros:</strong> Extreme sharpness, minimal aliasing.
+*   <strong>Cons:</strong> Computatioanlty expensive (larger support window), still suffers from Ringing.</p>
+<hr />
+<h2 id="3-aliasing-and-the-nyquist-limit">3. Aliasing and The Nyquist Limit</h2>
+<p><strong>Aliasing</strong> occurs when we downsample (decimate) a signal without removing frequencies higher than the new Nyquist rate ($f_{new} = f_{old} / \text{scale}$).</p>
+<ul>
+<li><strong>Spatial Moiré:</strong> High-frequency patterns (e.g., rows of crops, tile roofs) create low-frequency interference patterns when resized carelessly.</li>
+<li><strong>Deep Learning Impact:</strong> CNNs are texture-biased. If a Corn field (periodic texture) is downsampled aliased to look like a swamp (noisy texture), the model fails.</li>
+</ul>
+<p><strong>The Golden Rule of Downsampling:</strong>
+Always apply a Low-Pass Filter (Blur) <em>before</em> decimation to remove frequencies $&gt; f_{new}$.
+*   <strong>Average / Area-Weighted Resampling:</strong> This is mathematically equivalent to integration (box filter) followed by sampling. It conserves the total radiometric energy (Flux).
+*   <strong>Ununennium Standard:</strong> For downscaling satellite imagery (e.g., converting 10m Sentinel to 30m Landsat grid), we strictly use <strong>Average</strong> or <strong>Gauss</strong> resampling mechanisms to preserve physical flux.</p>
+<hr />
+<h2 id="4-phase-shift-errors-the-shift-problem">4. Phase Shift Errors (The "Shift" Problem)</h2>
+<p>In Nearest Neighbor resampling, the grid snaps to the closest integer.
+$$ x_{new} = \operatorname{round}(x_{old}) $$
+This introduces a random shift error $\epsilon \sim U[-0.5, 0.5]$ pixels.</p>
+<p>In <strong>Change Detection</strong> (Siamese Networks), this is fatal.
+*   Image T1 (Jan): Shifted -0.4 px.
+*   Image T2 (Feb): Shifted +0.4 px.
+*   Total Misalignment: 0.8 px.
+*   Result: False positive "Change" detected along every distinct edge in the image.</p>
+<p><strong>Solution:</strong> Ununennium's <code>GeoTensor</code> operations use sub-pixel precise alignment utilizing Bilinear/Bicubic kernels even for small shifts, strictly avoiding Nearest Neighbor for co-registration tasks.</p>
+<hr />
+<h2 id="5-spline-interpolation">5. Spline Interpolation</h2>
+<p>Beyond convolution kernels, we can fit piecewise polynomials (Splines) to the data points.
+<strong>B-Splines</strong> provide maximum smoothness ($C^n$ continuity).
+*   <em>Application:</em> Creating Digital Elevation Models (DEMs) from sparse LiDAR points.
+*   <em>Relevance:</em> Calculating Slope and Aspect (derivatives of elevation) requires the surface to be differentiable. Nearest Neighbor produces valid elevation but garbage slope (0 or infinity). Cubic Splines ensure smooth derivatives.</p>
+<hr />
+<h2 id="6-implementation-in-ununennium">6. Implementation in Ununennium</h2>
+<p>We wrap both <code>rasterio</code> (GDAL) and <code>torch.nn.functional</code> resampling modes.</p>
+<h3 id="61-geotensorreproject">6.1 <code>GeoTensor.reproject()</code></h3>
+<p>Automatically selects the kernel based on the semantic type of the tensor (stored in metadata).</p>
+<table>
+<thead>
+<tr>
+<th>Tensor Type</th>
+<th>Kernel</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Mask</code> (Class ID)</td>
+<td><code>nearest</code></td>
+<td>Preserves integers.</td>
+</tr>
+<tr>
+<td><code>Mask</code> (Probability)</td>
+<td><code>bilinear</code></td>
+<td>Smooth probability field.</td>
+</tr>
+<tr>
+<td><code>Image</code> (Optical)</td>
+<td><code>cubic</code></td>
+<td>Visual sharpness.</td>
+</tr>
+<tr>
+<td><code>Image</code> (Radiance)</td>
+<td><code>average</code></td>
+<td>Energy conservation (if downsampling).</td>
+</tr>
+<tr>
+<td><code>SAR</code> (Db)</td>
+<td><code>average</code></td>
+<td>Noise reduction (multilooking).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-the-areaweighted-resampler">6.2 The <code>AreaWeighted</code> Resampler</h3>
+<p>For flux-conserving transformations (e.g., Population Count rasters, Emission grids):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">reproject_flux</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">src_transform</span><span class="p">,</span> <span class="n">dst_transform</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="sd">    Ensures sum(input) == sum(output).</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sd">    Standard interpolation preserves density (value), not sum.</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="c1"># ... Implementation utilizing fractional overlap calculation ...</span>
+</code></pre></div>
+<hr />
+<h2 id="7-conclusion">7. Conclusion</h2>
+<p>Resampling is not just "making pixels bigger or smaller". It is a filtering operation that fundamentally alters the spectral and spatial content of the data. Use <strong>Nearest</strong> only for masks. Use <strong>Average</strong> for downscaling physics. Use <strong>Lanczos/Cubic</strong> for upscaling/visualization. Ignoring this leads to aliased training data, shift artifacts, and physically impossible spectral values.</p>
+<hr />
+<h2 id="8-references">8. References</h2>
+<ol>
+<li><strong>Shannon, C. E. (1949).</strong> "Communication in the Presence of Noise". <em>Proceedings of the IRE</em>.</li>
+<li><strong>Keys, R. (1981).</strong> "Cubic convolution interpolation for digital image processing". <em>IEEE TASSP</em>.</li>
+<li><strong>Turkowski, K. (1990).</strong> "Filters for common resampling tasks". <em>Graphics Gems</em>.</li>
+<li><strong>Parker, J. A., et al. (1983).</strong> "Comparison of interpolating methods for image resampling". <em>IEEE TMN</em>.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
