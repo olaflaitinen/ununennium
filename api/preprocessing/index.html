@@ -1675,7 +1675,7 @@ If None, uses Sentinel-2 L2A ordering.</p>
 
 
 <h3 id="ununennium.preprocessing.indices.evi" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">evi</span><span class="p">(</span><span class="n">nir</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">blue</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">c1</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">evi</span><span class="p">(</span><span class="n">nir</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">blue</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">c1</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">L_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1795,7 +1795,7 @@ If None, uses Sentinel-2 L2A ordering.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>l</code>
+                <code>L_factor</code>
             </td>
             <td>
                   <code><span title="float">float</span></code>
@@ -1889,7 +1889,7 @@ If None, uses Sentinel-2 L2A ordering.</p>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a>    <span class="n">g</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a>    <span class="n">c1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">6.0</span><span class="p">,</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>    <span class="n">c2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">7.5</span><span class="p">,</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="n">l</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="n">L_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate Enhanced Vegetation Index.</span>
@@ -1903,13 +1903,13 @@ If None, uses Sentinel-2 L2A ordering.</p>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        g: Gain factor.</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        c1: Red correction coefficient.</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        c2: Blue correction coefficient.</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        l: Canopy background adjustment.</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        L_factor: Canopy background adjustment.</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        epsilon: Small value to avoid division by zero.</span>
 <a id="__codelineno-0-76" name="__codelineno-0-76"></a>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">    Returns:</span>
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        EVI values.</span>
 <a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a>    <span class="n">denominator</span> <span class="o">=</span> <span class="n">nir</span> <span class="o">+</span> <span class="n">c1</span> <span class="o">*</span> <span class="n">red</span> <span class="o">-</span> <span class="n">c2</span> <span class="o">*</span> <span class="n">blue</span> <span class="o">+</span> <span class="n">l</span> <span class="o">+</span> <span class="n">epsilon</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>    <span class="n">denominator</span> <span class="o">=</span> <span class="n">nir</span> <span class="o">+</span> <span class="n">c1</span> <span class="o">*</span> <span class="n">red</span> <span class="o">-</span> <span class="n">c2</span> <span class="o">*</span> <span class="n">blue</span> <span class="o">+</span> <span class="n">L_factor</span> <span class="o">+</span> <span class="n">epsilon</span>
 <a id="__codelineno-0-81" name="__codelineno-0-81"></a>    <span class="k">return</span> <span class="n">g</span> <span class="o">*</span> <span class="p">(</span><span class="n">nir</span> <span class="o">-</span> <span class="n">red</span><span class="p">)</span> <span class="o">/</span> <span class="n">denominator</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -2353,7 +2353,7 @@ If None, uses Sentinel-2 L2A ordering.</p>
 
 
 <h3 id="ununennium.preprocessing.indices.savi" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">savi</span><span class="p">(</span><span class="n">nir</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">savi</span><span class="p">(</span><span class="n">nir</span><span class="p">,</span> <span class="n">red</span><span class="p">,</span> <span class="n">L_factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2409,7 +2409,7 @@ If None, uses Sentinel-2 L2A ordering.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>l</code>
+                <code>L_factor</code>
             </td>
             <td>
                   <code><span title="float">float</span></code>
@@ -2490,7 +2490,7 @@ If None, uses Sentinel-2 L2A ordering.</p>
 <span class="normal"><a href="#__codelineno-0-103">103</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="k">def</span><span class="w"> </span><span class="nf">savi</span><span class="p">(</span>
 <a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="n">nir</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
 <a id="__codelineno-0-86" name="__codelineno-0-86"></a>    <span class="n">red</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a>    <span class="n">l</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a>    <span class="n">L_factor</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
 <a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-8</span><span class="p">,</span>
 <a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 <a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate Soil-Adjusted Vegetation Index.</span>
@@ -2500,13 +2500,13 @@ If None, uses Sentinel-2 L2A ordering.</p>
 <a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        nir: Near-infrared band.</span>
 <a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        red: Red band.</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        l: Soil brightness correction factor.</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        L_factor: Soil brightness correction factor.</span>
 <a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        epsilon: Small value to avoid division by zero.</span>
 <a id="__codelineno-0-99" name="__codelineno-0-99"></a>
 <a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">    Returns:</span>
 <a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">        SAVI values.</span>
 <a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a>    <span class="k">return</span> <span class="p">((</span><span class="n">nir</span> <span class="o">-</span> <span class="n">red</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nir</span> <span class="o">+</span> <span class="n">red</span> <span class="o">+</span> <span class="n">l</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">l</span><span class="p">)</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>    <span class="k">return</span> <span class="p">((</span><span class="n">nir</span> <span class="o">-</span> <span class="n">red</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nir</span> <span class="o">+</span> <span class="n">red</span> <span class="o">+</span> <span class="n">L_factor</span> <span class="o">+</span> <span class="n">epsilon</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">L_factor</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
