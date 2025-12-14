@@ -2,9 +2,9 @@
 
 import math
 
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # type: ignore
 import torch
-from matplotlib.figure import Figure
+from matplotlib.figure import Figure  # type: ignore
 
 from ununennium.core import GeoTensor
 from ununennium.core.band_specs import get_rgb_bands
@@ -37,7 +37,7 @@ def plot_rgb(
             bands = get_rgb_bands(sensor)
         else:
             # Default to first 3 bands
-            bands = tensor.band_names[:3] if len(tensor.band_names) >= 3 else None
+            bands = tuple(tensor.band_names[:3]) if tensor.band_names and len(tensor.band_names) >= 3 else None
 
     if bands is None or len(bands) != 3:
         raise ValueError("Must provide 3 bands for RGB plotting.")

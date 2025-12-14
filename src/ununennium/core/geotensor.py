@@ -164,8 +164,21 @@ class GeoTensor:
         Returns:
             New GeoTensor on the target device.
         """
+        if isinstance(self.data, torch.Tensor):
+            data = self.data.to(device)
+        else:
+            # If strictly required to return GeoTensor on device, must be tensor?
+            # Or we assume numpy implies CPU.
+            # But the user wants .to(device) to work.
+            # Convert to tensor.
+            import numpy as np
+            if isinstance(self.data, np.ndarray):
+                data = torch.from_numpy(self.data).to(device)
+            else:
+                 data = self.data # type: ignore
+
         return GeoTensor(
-            data=self.data.to(device),
+            data=data,
             crs=self.crs,
             transform=self.transform,
             band_names=self.band_names,
@@ -208,8 +221,17 @@ class GeoTensor:
         Returns:
             New GeoTensor with float32 dtype.
         """
+        if isinstance(self.data, torch.Tensor):
+            data = self.data.float()
+        else:
+             import numpy as np
+             if isinstance(self.data, np.ndarray):
+                data = self.data.astype(np.float32)
+             else:
+                data = self.data
+
         return GeoTensor(
-            data=self.data.float(),
+            data=data,
             crs=self.crs,
             transform=self.transform,
             band_names=self.band_names,
@@ -223,8 +245,17 @@ class GeoTensor:
         Returns:
             New GeoTensor with float16 dtype.
         """
+        if isinstance(self.data, torch.Tensor):
+            data = self.data.half()
+        else:
+             import numpy as np
+             if isinstance(self.data, np.ndarray):
+                data = self.data.astype(np.float16)
+             else:
+                data = self.data
+
         return GeoTensor(
-            data=self.data.half(),
+            data=data,
             crs=self.crs,
             transform=self.transform,
             band_names=self.band_names,

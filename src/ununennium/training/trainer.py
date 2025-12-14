@@ -8,7 +8,8 @@ from typing import TYPE_CHECKING, Any
 
 import torch
 from torch import nn
-from torch.amp import GradScaler, autocast
+from torch.amp.grad_scaler import GradScaler
+from torch.amp.autocast_mode import autocast
 
 if TYPE_CHECKING:
     from collections.abc import Callable

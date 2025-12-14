@@ -165,6 +165,7 @@ reportUnusedImport = true
 reportUnusedClass = true
 reportUnusedFunction = true
 reportUnusedVariable = true
+reportPrivateImportUsage = false
 reportDuplicateImport = true
 
 [tool.pytest.ini_options]

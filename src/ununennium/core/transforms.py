@@ -34,7 +34,6 @@ def create_transform(
         >>> transform = create_transform(10.0, -10.0, 500000, 5000000)
     """
 
-
     if rotation != 0:
         theta = math.radians(rotation)
         cos_t, sin_t = math.cos(theta), math.sin(theta)
