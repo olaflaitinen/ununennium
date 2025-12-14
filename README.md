@@ -15,7 +15,6 @@
 [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
 [![Checked with pyright](https://microsoft.github.io/pyright/img/pyright_badge.svg)](https://microsoft.github.io/pyright/)
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12345678.svg)](https://zenodo.org/badge/latestdoi/10.5281/zenodo.12345678)
 [![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?logo=PyTorch&logoColor=white)](https://pytorch.org/)
 [![Platform](https://img.shields.io/badge/platform-linux%20%7C%20win%20%7C%20macos-lightgrey)](https://pypi.org/project/ununennium/)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
