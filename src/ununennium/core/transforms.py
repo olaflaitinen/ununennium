@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Tuple
-
 from affine import Affine
 
 
@@ -39,8 +37,12 @@ def create_transform(
         theta = math.radians(rotation)
         cos_t, sin_t = math.cos(theta), math.sin(theta)
         return Affine(
-            x_res * cos_t, -y_res * sin_t, x_origin,
-            x_res * sin_t, y_res * cos_t, y_origin,
+            x_res * cos_t,
+            -y_res * sin_t,
+            x_origin,
+            x_res * sin_t,
+            y_res * cos_t,
+            y_origin,
         )
     return Affine(x_res, 0, x_origin, 0, y_res, y_origin)
 
@@ -49,7 +51,7 @@ def pixel_to_geo(
     transform: Affine,
     col: float,
     row: float,
-) -> Tuple[float, float]:
+) -> tuple[float, float]:
     """Convert pixel coordinates to geographic coordinates.
 
     Args:
@@ -68,7 +70,7 @@ def geo_to_pixel(
     transform: Affine,
     x: float,
     y: float,
-) -> Tuple[float, float]:
+) -> tuple[float, float]:
     """Convert geographic coordinates to pixel coordinates.
 
     Args:
@@ -84,7 +86,7 @@ def geo_to_pixel(
     return (col, row)
 
 
-def get_resolution(transform: Affine) -> Tuple[float, float]:
+def get_resolution(transform: Affine) -> tuple[float, float]:
     """Get pixel resolution from transform.
 
     Args:
@@ -121,6 +123,10 @@ def translate_transform(transform: Affine, dx: float, dy: float) -> Affine:
         Translated affine transform.
     """
     return Affine(
-        transform.a, transform.b, transform.c + dx,
-        transform.d, transform.e, transform.f + dy,
+        transform.a,
+        transform.b,
+        transform.c + dx,
+        transform.d,
+        transform.e,
+        transform.f + dy,
     )

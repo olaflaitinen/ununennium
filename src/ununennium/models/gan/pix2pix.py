@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Dict
-
 import torch
-import torch.nn as nn
+from torch import nn
 
-from ununennium.models.gan.generators import UNetGenerator
 from ununennium.models.gan.discriminators import PatchDiscriminator
+from ununennium.models.gan.generators import UNetGenerator
 from ununennium.models.gan.losses import AdversarialLoss
 from ununennium.models.registry import register_model
 
@@ -68,7 +66,7 @@ class Pix2Pix(nn.Module):
         self,
         real_a: torch.Tensor,
         real_b: torch.Tensor,
-    ) -> Dict[str, torch.Tensor]:
+    ) -> dict[str, torch.Tensor]:
         """Compute generator losses.
 
         Args:
@@ -102,7 +100,7 @@ class Pix2Pix(nn.Module):
         real_a: torch.Tensor,
         real_b: torch.Tensor,
         fake_b: torch.Tensor,
-    ) -> Dict[str, torch.Tensor]:
+    ) -> dict[str, torch.Tensor]:
         """Compute discriminator losses.
 
         Args:

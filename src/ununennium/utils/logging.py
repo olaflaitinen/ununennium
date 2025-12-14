@@ -4,13 +4,12 @@ from __future__ import annotations
 
 import logging
 import sys
-from typing import Optional
 
 
 def get_logger(
     name: str,
     level: int = logging.INFO,
-    format_string: Optional[str] = None,
+    format_string: str | None = None,
 ) -> logging.Logger:
     """Get a configured logger.
 

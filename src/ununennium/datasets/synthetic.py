@@ -65,15 +65,11 @@ class SyntheticDataset(GeoDataset):
 
     def __getitem__(self, idx: int) -> tuple[GeoTensor, torch.Tensor]:
         # Generate random image
-        image = torch.randn(
-            self.num_channels, self.image_size[0], self.image_size[1]
-        )
+        image = torch.randn(self.num_channels, self.image_size[0], self.image_size[1])
 
         # Generate label based on task
         if self.task == "segmentation":
-            label = torch.randint(
-                0, self._num_classes, (self.image_size[0], self.image_size[1])
-            )
+            label = torch.randint(0, self._num_classes, (self.image_size[0], self.image_size[1]))
         elif self.task == "classification":
             label = torch.randint(0, self._num_classes, (1,)).squeeze()
         else:

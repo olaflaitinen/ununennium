@@ -13,10 +13,10 @@ if TYPE_CHECKING:
     from pyproj import CRS
 
 # Path types
-PathLike: TypeAlias = Union[str, os.PathLike[str]]
+PathLike: TypeAlias = str | os.PathLike[str]
 
 # Array types
-ArrayLike: TypeAlias = Union[np.ndarray, torch.Tensor]
+ArrayLike: TypeAlias = np.ndarray | torch.Tensor
 
 # CRS can be specified as string (EPSG code, WKT, PROJ) or CRS object
 CRSType: TypeAlias = Union[str, int, "CRS"]
@@ -28,7 +28,7 @@ TransformType: TypeAlias = "Affine"
 Shape: TypeAlias = tuple[int, ...]
 
 # Device specification
-Device: TypeAlias = Union[str, torch.device]
+Device: TypeAlias = str | torch.device
 
 # Resampling methods
 ResamplingMethod: TypeAlias = Literal[
@@ -39,7 +39,7 @@ ResamplingMethod: TypeAlias = Literal[
 ]
 
 # Data types
-DType: TypeAlias = Union[np.dtype, torch.dtype, str]
+DType: TypeAlias = np.dtype | torch.dtype | str
 
 # Normalization methods
 NormalizationMethod: TypeAlias = Literal[

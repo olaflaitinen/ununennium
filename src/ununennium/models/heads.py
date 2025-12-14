@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
+from torch import nn
 
 
 class ClassificationHead(nn.Module):
@@ -93,12 +93,10 @@ class SegmentationHead(nn.Module):
         self.blocks = nn.ModuleList()
         in_ch = encoder_channels[-1]
 
-        for i, (enc_ch, dec_ch) in enumerate(
-            zip(reversed(encoder_channels[:-1]), decoder_channels)
+        for _i, (enc_ch, dec_ch) in enumerate(
+            zip(reversed(encoder_channels[:-1]), decoder_channels, strict=False)
         ):
-            self.blocks.append(
-                DecoderBlock(in_ch + enc_ch, dec_ch, dropout=dropout)
-            )
+            self.blocks.append(DecoderBlock(in_ch + enc_ch, dec_ch, dropout=dropout))
             in_ch = dec_ch
 
         self.final_conv = nn.Conv2d(decoder_channels[len(encoder_channels) - 2], num_classes, 1)
@@ -160,18 +158,13 @@ class FPNHead(nn.Module):
         """
         super().__init__()
 
-        self.lateral_convs = nn.ModuleList([
-            nn.Conv2d(ch, out_channels, 1) for ch in in_channels
-        ])
+        self.lateral_convs = nn.ModuleList([nn.Conv2d(ch, out_channels, 1) for ch in in_channels])
 
-        self.output_convs = nn.ModuleList([
-            nn.Conv2d(out_channels, out_channels, 3, padding=1)
-            for _ in in_channels
-        ])
-
-        self.final_conv = nn.Conv2d(
-            out_channels * len(in_channels), num_classes, 1
+        self.output_convs = nn.ModuleList(
+            [nn.Conv2d(out_channels, out_channels, 3, padding=1) for _ in in_channels]
         )
+
+        self.final_conv = nn.Conv2d(out_channels * len(in_channels), num_classes, 1)
 
     def forward(self, features: list[torch.Tensor]) -> torch.Tensor:
         """Forward pass.
@@ -183,7 +176,7 @@ class FPNHead(nn.Module):
             Segmentation logits.
         """
         # Lateral connections
-        laterals = [conv(f) for conv, f in zip(self.lateral_convs, features)]
+        laterals = [conv(f) for conv, f in zip(self.lateral_convs, features, strict=False)]
 
         # Top-down pathway
         for i in range(len(laterals) - 1, 0, -1):
@@ -192,7 +185,7 @@ class FPNHead(nn.Module):
             )
 
         # Output convolutions
-        outputs = [conv(lat) for conv, lat in zip(self.output_convs, laterals)]
+        outputs = [conv(lat) for conv, lat in zip(self.output_convs, laterals, strict=False)]
 
         # Upsample all to highest resolution
         target_size = outputs[0].shape[2:]

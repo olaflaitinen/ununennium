@@ -2,23 +2,21 @@
 
 from __future__ import annotations
 
-from typing import Dict, Tuple
-
 import numpy as np
 import torch
-import torch.nn as nn
+from torch import nn
 
-from ununennium.benchmarks.profiler import Profiler, MemoryProfiler
+from ununennium.benchmarks.profiler import MemoryProfiler, Profiler
 
 
 def benchmark_inference(
     model: nn.Module,
-    input_shape: Tuple[int, ...],
+    input_shape: tuple[int, ...],
     n_iterations: int = 100,
     warmup_iterations: int = 10,
     device: str = "cuda",
     mixed_precision: bool = True,
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """Benchmark model inference throughput.
 
     Args:
@@ -39,9 +37,8 @@ def benchmark_inference(
 
     # Warmup
     for _ in range(warmup_iterations):
-        with torch.no_grad():
-            with torch.amp.autocast("cuda", enabled=mixed_precision):
-                _ = model(dummy_input)
+        with torch.no_grad(), torch.amp.autocast("cuda", enabled=mixed_precision):
+            _ = model(dummy_input)
 
     if device == "cuda":
         torch.cuda.synchronize()
@@ -55,9 +52,8 @@ def benchmark_inference(
 
     with profiler.section("inference"):
         for _ in range(n_iterations):
-            with torch.no_grad():
-                with torch.amp.autocast("cuda", enabled=mixed_precision):
-                    _ = model(dummy_input)
+            with torch.no_grad(), torch.amp.autocast("cuda", enabled=mixed_precision):
+                _ = model(dummy_input)
 
     if device == "cuda":
         torch.cuda.synchronize()
@@ -76,9 +72,7 @@ def benchmark_inference(
         "p95_latency_ms": float(np.percentile(profiler.timings["inference"], 95)),
         "p99_latency_ms": float(np.percentile(profiler.timings["inference"], 99)),
         "gpu_memory_peak_mb": (
-            torch.cuda.max_memory_allocated() / 1024**2
-            if device == "cuda"
-            else 0
+            torch.cuda.max_memory_allocated() / 1024**2 if device == "cuda" else 0
         ),
     }
 
@@ -86,13 +80,13 @@ def benchmark_inference(
 def benchmark_training(
     model: nn.Module,
     loss_fn: nn.Module,
-    input_shape: Tuple[int, ...],
-    target_shape: Tuple[int, ...],
+    input_shape: tuple[int, ...],
+    target_shape: tuple[int, ...],
     n_iterations: int = 50,
     warmup_iterations: int = 5,
     device: str = "cuda",
     mixed_precision: bool = True,
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """Benchmark training iteration throughput.
 
     Args:
@@ -176,8 +170,6 @@ def benchmark_training(
         "backward_ms": float(np.mean(profiler.timings.get("training/backward", [0]))),
         "optimizer_ms": float(np.mean(profiler.timings.get("training/optimizer", [0]))),
         "gpu_memory_peak_mb": (
-            torch.cuda.max_memory_allocated() / 1024**2
-            if device == "cuda"
-            else 0
+            torch.cuda.max_memory_allocated() / 1024**2 if device == "cuda" else 0
         ),
     }

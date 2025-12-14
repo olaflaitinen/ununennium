@@ -5,9 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Self
 
-import numpy as np
-
 if TYPE_CHECKING:
+    import numpy as np
     from pyproj import Transformer
 
 

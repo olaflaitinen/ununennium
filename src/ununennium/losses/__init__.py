@@ -1,13 +1,13 @@
 """Losses module for training."""
 
 from ununennium.losses.segmentation import (
+    CombinedLoss,
     DiceLoss,
     FocalLoss,
-    CombinedLoss,
 )
 
 __all__ = [
+    "CombinedLoss",
     "DiceLoss",
     "FocalLoss",
-    "CombinedLoss",
 ]

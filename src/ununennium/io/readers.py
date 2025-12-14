@@ -8,13 +8,11 @@ from typing import TYPE_CHECKING
 import numpy as np
 import torch
 
-from ununennium.core.bounds import BoundingBox
 from ununennium.core.geotensor import GeoTensor
-from ununennium.core.types import PathLike
 
 if TYPE_CHECKING:
-    from affine import Affine
-    from pyproj import CRS
+    from ununennium.core.bounds import BoundingBox
+    from ununennium.core.types import PathLike
 
 
 def read_geotiff(
@@ -47,7 +45,6 @@ def read_geotiff(
         >>> tensor = read_geotiff("image.tif", bounds=bbox)
     """
     import rasterio
-    from affine import Affine
     from pyproj import CRS
     from rasterio.windows import Window, from_bounds
 
@@ -82,10 +79,7 @@ def read_geotiff(
         data = src.read(bands, window=rio_window)
 
         # Get transform for the window
-        if rio_window is not None:
-            transform = src.window_transform(rio_window)
-        else:
-            transform = src.transform
+        transform = src.window_transform(rio_window) if rio_window is not None else src.transform
 
         # Convert to torch tensor
         tensor = torch.from_numpy(data.astype(np.float32))
@@ -95,10 +89,7 @@ def read_geotiff(
         if src.descriptions:
             band_names = [src.descriptions[i - 1] for i in bands]
             # Replace None with default names
-            band_names = [
-                name if name else f"band_{i}"
-                for i, name in enumerate(band_names, 1)
-            ]
+            band_names = [name if name else f"band_{i}" for i, name in enumerate(band_names, 1)]
 
         return GeoTensor(
             data=tensor,

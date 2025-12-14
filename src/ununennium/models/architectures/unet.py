@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import torch
-import torch.nn as nn
+from torch import nn
 
-from ununennium.models.backbones import ResNetBackbone, EfficientNetBackbone
+from ununennium.models.backbones import EfficientNetBackbone, ResNetBackbone
 from ununennium.models.heads import SegmentationHead
 from ununennium.models.registry import register_model
 
@@ -54,8 +54,9 @@ class UNet(nn.Module):
 
         # Final upsampling to match input resolution
         self.upsample = nn.Upsample(
-            scale_factor=self.encoder.out_strides[0], # Typically 4 for ResNet, but varies
-            mode="bilinear", align_corners=False
+            scale_factor=self.encoder.out_strides[0],  # Typically 4 for ResNet, but varies
+            mode="bilinear",
+            align_corners=False,
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:

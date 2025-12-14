@@ -2,10 +2,8 @@
 
 from __future__ import annotations
 
-from typing import List
-
 import torch
-import torch.nn as nn
+from torch import nn
 from torch.nn.utils import spectral_norm
 
 
@@ -36,21 +34,25 @@ class PatchDiscriminator(nn.Module):
         in_ch = base_channels
         for i in range(1, num_layers):
             out_ch = min(base_channels * (2**i), 512)
-            layers.extend([
-                norm_layer(nn.Conv2d(in_ch, out_ch, 4, stride=2, padding=1)),
-                nn.BatchNorm2d(out_ch) if not use_spectral_norm else nn.Identity(),
-                nn.LeakyReLU(0.2, inplace=True),
-            ])
+            layers.extend(
+                [
+                    norm_layer(nn.Conv2d(in_ch, out_ch, 4, stride=2, padding=1)),
+                    nn.BatchNorm2d(out_ch) if not use_spectral_norm else nn.Identity(),
+                    nn.LeakyReLU(0.2, inplace=True),
+                ]
+            )
             in_ch = out_ch
 
         # Final layers
         out_ch = min(base_channels * (2**num_layers), 512)
-        layers.extend([
-            norm_layer(nn.Conv2d(in_ch, out_ch, 4, stride=1, padding=1)),
-            nn.BatchNorm2d(out_ch) if not use_spectral_norm else nn.Identity(),
-            nn.LeakyReLU(0.2, inplace=True),
-            norm_layer(nn.Conv2d(out_ch, 1, 4, stride=1, padding=1)),
-        ])
+        layers.extend(
+            [
+                norm_layer(nn.Conv2d(in_ch, out_ch, 4, stride=1, padding=1)),
+                nn.BatchNorm2d(out_ch) if not use_spectral_norm else nn.Identity(),
+                nn.LeakyReLU(0.2, inplace=True),
+                norm_layer(nn.Conv2d(out_ch, 1, 4, stride=1, padding=1)),
+            ]
+        )
 
         self.model = nn.Sequential(*layers)
 
@@ -73,13 +75,12 @@ class MultiScaleDiscriminator(nn.Module):
     ):
         super().__init__()
 
-        self.discriminators = nn.ModuleList([
-            PatchDiscriminator(in_channels, base_channels)
-            for _ in range(num_scales)
-        ])
+        self.discriminators = nn.ModuleList(
+            [PatchDiscriminator(in_channels, base_channels) for _ in range(num_scales)]
+        )
         self.downsample = nn.AvgPool2d(3, stride=2, padding=1)
 
-    def forward(self, x: torch.Tensor) -> List[torch.Tensor]:
+    def forward(self, x: torch.Tensor) -> list[torch.Tensor]:
         outputs = []
         for disc in self.discriminators:
             outputs.append(disc(x))

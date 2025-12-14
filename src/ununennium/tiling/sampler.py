@@ -3,18 +3,21 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Iterator, Tuple
+from typing import TYPE_CHECKING
 
 import torch
 
 from ununennium.core.bounds import BoundingBox
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
 
 
 class Sampler(ABC):
     """Abstract base class for spatial samplers."""
 
     @abstractmethod
-    def __iter__(self) -> Iterator[BoundingBox | Tuple[int, int]]:
+    def __iter__(self) -> Iterator[BoundingBox | tuple[int, int]]:
         """Iterate over sample locations."""
         ...
 
@@ -30,7 +33,7 @@ class RandomSampler(Sampler):
     def __init__(
         self,
         bounds: BoundingBox,
-        sample_size: Tuple[float, float],
+        sample_size: tuple[float, float],
         num_samples: int,
         seed: int | None = None,
     ):
@@ -52,12 +55,8 @@ class RandomSampler(Sampler):
     def __iter__(self) -> Iterator[BoundingBox]:
         for _ in range(self.num_samples):
             # Random center point
-            x = torch.rand(1).item() * (
-                self.bounds.width - self.sample_size[0]
-            ) + self.bounds.minx
-            y = torch.rand(1).item() * (
-                self.bounds.height - self.sample_size[1]
-            ) + self.bounds.miny
+            x = torch.rand(1).item() * (self.bounds.width - self.sample_size[0]) + self.bounds.minx
+            y = torch.rand(1).item() * (self.bounds.height - self.sample_size[1]) + self.bounds.miny
 
             yield BoundingBox(
                 minx=x,
@@ -76,8 +75,8 @@ class GridSampler(Sampler):
     def __init__(
         self,
         bounds: BoundingBox,
-        sample_size: Tuple[float, float],
-        stride: Tuple[float, float] | None = None,
+        sample_size: tuple[float, float],
+        stride: tuple[float, float] | None = None,
     ):
         """Initialize grid sampler.
 
@@ -119,8 +118,8 @@ class BalancedSampler(Sampler):
 
     def __init__(
         self,
-        class_locations: dict[int, list[Tuple[float, float]]],
-        sample_size: Tuple[float, float],
+        class_locations: dict[int, list[tuple[float, float]]],
+        sample_size: tuple[float, float],
         num_samples: int,
         seed: int | None = None,
     ):

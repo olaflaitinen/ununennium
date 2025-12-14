@@ -7,11 +7,9 @@ from typing import TYPE_CHECKING, Any
 
 import numpy as np
 
-from ununennium.core.geotensor import GeoTensor
-from ununennium.core.types import PathLike
-
 if TYPE_CHECKING:
-    pass
+    from ununennium.core.geotensor import GeoTensor
+    from ununennium.core.types import PathLike
 
 
 def write_geotiff(
@@ -39,7 +37,6 @@ def write_geotiff(
         >>> write_geotiff(tensor, "output.tif", compress="lzw")
     """
     import rasterio
-    from rasterio.transform import from_bounds
 
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)

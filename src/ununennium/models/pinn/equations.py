@@ -10,7 +10,8 @@ from ununennium.models.pinn.base import PDEEquation
 def gradient(u: torch.Tensor, x: torch.Tensor) -> torch.Tensor:
     """Compute gradient using autograd."""
     return torch.autograd.grad(
-        u, x,
+        u,
+        x,
         grad_outputs=torch.ones_like(u),
         create_graph=True,
         retain_graph=True,
@@ -22,13 +23,14 @@ def laplacian(u: torch.Tensor, x: torch.Tensor) -> torch.Tensor:
     grad_u = gradient(u, x)
     lapl = torch.zeros_like(u)
     for i in range(x.shape[-1]):
-        grad_u_i = grad_u[..., i:i+1]
+        grad_u_i = grad_u[..., i : i + 1]
         grad2_u_i = torch.autograd.grad(
-            grad_u_i, x,
+            grad_u_i,
+            x,
             grad_outputs=torch.ones_like(grad_u_i),
             create_graph=True,
             retain_graph=True,
-        )[0][..., i:i+1]
+        )[0][..., i : i + 1]
         lapl = lapl + grad2_u_i
     return lapl
 

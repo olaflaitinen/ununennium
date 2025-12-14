@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Tuple
-
 import torch
 
 
@@ -16,7 +14,7 @@ class RandomFlip:
 
     def __call__(
         self, image: torch.Tensor, mask: torch.Tensor | None = None
-    ) -> Tuple[torch.Tensor, torch.Tensor | None]:
+    ) -> tuple[torch.Tensor, torch.Tensor | None]:
         if torch.rand(1).item() < self.h_flip_p:
             image = torch.flip(image, [-1])
             if mask is not None:
@@ -38,7 +36,7 @@ class RandomRotate:
 
     def __call__(
         self, image: torch.Tensor, mask: torch.Tensor | None = None
-    ) -> Tuple[torch.Tensor, torch.Tensor | None]:
+    ) -> tuple[torch.Tensor, torch.Tensor | None]:
         if torch.rand(1).item() < self.p:
             k = int(torch.randint(1, 4, (1,)).item())
             image = torch.rot90(image, k=k, dims=[-2, -1])
@@ -51,7 +49,7 @@ class RandomRotate:
 class RandomCrop:
     """Random crop to specified size."""
 
-    def __init__(self, size: int | Tuple[int, int]):
+    def __init__(self, size: int | tuple[int, int]):
         if isinstance(size, int):
             self.size = (size, size)
         else:
@@ -59,7 +57,7 @@ class RandomCrop:
 
     def __call__(
         self, image: torch.Tensor, mask: torch.Tensor | None = None
-    ) -> Tuple[torch.Tensor, torch.Tensor | None]:
+    ) -> tuple[torch.Tensor, torch.Tensor | None]:
         _, h, w = image.shape
         th, tw = self.size
 

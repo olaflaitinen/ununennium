@@ -2,13 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Dict
-
 import torch
-import torch.nn as nn
+from torch import nn
 
-from ununennium.models.gan.generators import ResNetGenerator
 from ununennium.models.gan.discriminators import PatchDiscriminator
+from ununennium.models.gan.generators import ResNetGenerator
 from ununennium.models.gan.losses import AdversarialLoss
 from ununennium.models.registry import register_model
 
@@ -41,12 +39,8 @@ class CycleGAN(nn.Module):
         super().__init__()
 
         # Generators
-        self.G_A2B = ResNetGenerator(
-            in_channels_a, in_channels_b, base_channels, num_res_blocks
-        )
-        self.G_B2A = ResNetGenerator(
-            in_channels_b, in_channels_a, base_channels, num_res_blocks
-        )
+        self.G_A2B = ResNetGenerator(in_channels_a, in_channels_b, base_channels, num_res_blocks)
+        self.G_B2A = ResNetGenerator(in_channels_b, in_channels_a, base_channels, num_res_blocks)
 
         # Discriminators
         self.D_A = PatchDiscriminator(in_channels_a, base_channels)
@@ -61,9 +55,7 @@ class CycleGAN(nn.Module):
         self.lambda_cycle = lambda_cycle
         self.lambda_identity = lambda_identity
 
-    def forward(
-        self, x: torch.Tensor, direction: str = "A2B"
-    ) -> torch.Tensor:
+    def forward(self, x: torch.Tensor, direction: str = "A2B") -> torch.Tensor:
         """Translate image to target domain.
 
         Args:
@@ -82,7 +74,7 @@ class CycleGAN(nn.Module):
         self,
         real_a: torch.Tensor,
         real_b: torch.Tensor,
-    ) -> Dict[str, torch.Tensor]:
+    ) -> dict[str, torch.Tensor]:
         """Compute generator losses.
 
         Args:
@@ -101,12 +93,8 @@ class CycleGAN(nn.Module):
         rec_b = self.G_A2B(fake_a)
 
         # Adversarial losses
-        loss_adv_a2b = self.adv_loss(
-            self.D_B(fake_b), target_is_real=True, for_discriminator=False
-        )
-        loss_adv_b2a = self.adv_loss(
-            self.D_A(fake_a), target_is_real=True, for_discriminator=False
-        )
+        loss_adv_a2b = self.adv_loss(self.D_B(fake_b), target_is_real=True, for_discriminator=False)
+        loss_adv_b2a = self.adv_loss(self.D_A(fake_a), target_is_real=True, for_discriminator=False)
         loss_adv = loss_adv_a2b + loss_adv_b2a
 
         # Cycle consistency losses
@@ -120,9 +108,10 @@ class CycleGAN(nn.Module):
             idt_a = self.G_B2A(real_a)
             idt_b = self.G_A2B(real_b)
             loss_idt = (
-                self.identity_loss(idt_a, real_a)
-                + self.identity_loss(idt_b, real_b)
-            ) * self.lambda_identity * self.lambda_cycle
+                (self.identity_loss(idt_a, real_a) + self.identity_loss(idt_b, real_b))
+                * self.lambda_identity
+                * self.lambda_cycle
+            )
 
         loss_total = loss_adv + loss_cycle + loss_idt
 
@@ -143,7 +132,7 @@ class CycleGAN(nn.Module):
         real_b: torch.Tensor,
         fake_a: torch.Tensor,
         fake_b: torch.Tensor,
-    ) -> Dict[str, torch.Tensor]:
+    ) -> dict[str, torch.Tensor]:
         """Compute discriminator losses.
 
         Args:
@@ -156,18 +145,14 @@ class CycleGAN(nn.Module):
             Dictionary with loss components.
         """
         # D_A loss
-        loss_d_a_real = self.adv_loss(
-            self.D_A(real_a), target_is_real=True, for_discriminator=True
-        )
+        loss_d_a_real = self.adv_loss(self.D_A(real_a), target_is_real=True, for_discriminator=True)
         loss_d_a_fake = self.adv_loss(
             self.D_A(fake_a.detach()), target_is_real=False, for_discriminator=True
         )
         loss_d_a = (loss_d_a_real + loss_d_a_fake) * 0.5
 
         # D_B loss
-        loss_d_b_real = self.adv_loss(
-            self.D_B(real_b), target_is_real=True, for_discriminator=True
-        )
+        loss_d_b_real = self.adv_loss(self.D_B(real_b), target_is_real=True, for_discriminator=True)
         loss_d_b_fake = self.adv_loss(
             self.D_B(fake_b.detach()), target_is_real=False, for_discriminator=True
         )

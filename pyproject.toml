@@ -42,6 +42,7 @@ dependencies = [
     "numpy>=1.24.0",
     "torch>=2.4.0",
     "einops>=0.7.0",
+    "typing-extensions>=4.0.0",
 ]
 
 [project.optional-dependencies]

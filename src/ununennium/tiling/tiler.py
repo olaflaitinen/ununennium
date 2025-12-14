@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Iterator, Tuple
+from typing import TYPE_CHECKING
 
 import torch
 
 from ununennium.core.geotensor import GeoTensor
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
 
 
 class Tiler:
@@ -25,7 +28,7 @@ class Tiler:
 
     def __init__(
         self,
-        tile_size: int | Tuple[int, int] = 256,
+        tile_size: int | tuple[int, int] = 256,
         overlap: int = 0,
         padding_mode: str = "reflect",
     ):
@@ -43,13 +46,13 @@ class Tiler:
 
         self.overlap = overlap
         self.padding_mode = padding_mode
-        self._results: list[Tuple[torch.Tensor, Tuple[int, int, int, int]]] = []
-        self._image_shape: Tuple[int, ...] | None = None
+        self._results: list[tuple[torch.Tensor, tuple[int, int, int, int]]] = []
+        self._image_shape: tuple[int, ...] | None = None
 
     def tile(
         self,
         image: torch.Tensor | GeoTensor,
-    ) -> Iterator[Tuple[torch.Tensor, Tuple[int, int, int, int]]]:
+    ) -> Iterator[tuple[torch.Tensor, tuple[int, int, int, int]]]:
         """Generate tiles from an image.
 
         Args:
@@ -58,10 +61,7 @@ class Tiler:
         Yields:
             Tuples of (tile, window) where window is (y, x, h, w).
         """
-        if isinstance(image, GeoTensor):
-            data = image.data
-        else:
-            data = image
+        data = image.data if isinstance(image, GeoTensor) else image
 
         # Handle batch dimension
         if data.ndim == 4:
@@ -97,7 +97,7 @@ class Tiler:
     def add_result(
         self,
         result: torch.Tensor,
-        window: Tuple[int, int, int, int],
+        window: tuple[int, int, int, int],
     ) -> None:
         """Add a processed tile result.
 
@@ -130,8 +130,8 @@ class Tiler:
             valid_result = result[:, :rh, :rw]
 
             # Average overlapping regions
-            output[:, y:y+rh, x:x+rw] += valid_result
-            weights[:, y:y+rh, x:x+rw] += 1
+            output[:, y : y + rh, x : x + rw] += valid_result
+            weights[:, y : y + rh, x : x + rw] += 1
 
         # Normalize by weights
         output = output / weights.clamp(min=1)
@@ -141,7 +141,7 @@ class Tiler:
 
 def tile_image(
     image: torch.Tensor,
-    tile_size: int | Tuple[int, int] = 256,
+    tile_size: int | tuple[int, int] = 256,
     overlap: int = 0,
 ) -> list[torch.Tensor]:
     """Split an image into tiles.
@@ -160,8 +160,8 @@ def tile_image(
 
 def untile_image(
     tiles: list[torch.Tensor],
-    original_shape: Tuple[int, int, int],
-    tile_size: int | Tuple[int, int] = 256,
+    original_shape: tuple[int, int, int],
+    tile_size: int | tuple[int, int] = 256,
     overlap: int = 0,
 ) -> torch.Tensor:
     """Reassemble tiles into a single image.
@@ -182,7 +182,7 @@ def untile_image(
     windows = [window for _, window in tiler.tile(dummy)]
 
     # Add results
-    for tile, window in zip(tiles, windows):
+    for tile, window in zip(tiles, windows, strict=False):
         tiler.add_result(tile, window)
 
     return tiler.merge()

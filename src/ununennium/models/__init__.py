@@ -1,28 +1,28 @@
 """Models module with architectures for remote sensing tasks."""
 
-from ununennium.models.registry import create_model, register_model, list_models
+from ununennium.models.architectures.unet import UNet
 from ununennium.models.backbones import (
-    ResNetBackbone,
     EfficientNetBackbone,
+    ResNetBackbone,
 )
+from ununennium.models.gan import CycleGAN, Pix2Pix
 from ununennium.models.heads import (
     ClassificationHead,
     SegmentationHead,
 )
-from ununennium.models.architectures.unet import UNet
-from ununennium.models.gan import Pix2Pix, CycleGAN
 from ununennium.models.pinn import PINN
+from ununennium.models.registry import create_model, list_models, register_model
 
 __all__ = [
-    "create_model",
-    "register_model",
-    "list_models",
-    "ResNetBackbone",
-    "EfficientNetBackbone",
+    "PINN",
     "ClassificationHead",
+    "CycleGAN",
+    "EfficientNetBackbone",
+    "Pix2Pix",
+    "ResNetBackbone",
     "SegmentationHead",
     "UNet",
-    "Pix2Pix",
-    "CycleGAN",
-    "PINN",
+    "create_model",
+    "list_models",
+    "register_model",
 ]

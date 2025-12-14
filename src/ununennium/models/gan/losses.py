@@ -49,7 +49,6 @@ class AdversarialLoss(nn.Module):
         elif self.mode == "wgan":
             return -pred.mean() if target_is_real else pred.mean()
 
-
         elif self.mode == "hinge":
             if for_discriminator:
                 if target_is_real:
@@ -79,10 +78,12 @@ class PerceptualLoss(nn.Module):
 
         try:
             from torchvision import models  # noqa: PLC0415
+
             vgg = models.vgg19(weights="IMAGENET1K_V1").features
         except Exception:
             # Fallback: use VGG without pretrained weights
             from torchvision import models  # noqa: PLC0415
+
             vgg = models.vgg19().features
 
         self.blocks = nn.ModuleList()
@@ -98,12 +99,8 @@ class PerceptualLoss(nn.Module):
             param.requires_grad = False
 
         # ImageNet normalization
-        self.register_buffer(
-            "mean", torch.tensor([0.485, 0.456, 0.406]).view(1, 3, 1, 1)
-        )
-        self.register_buffer(
-            "std", torch.tensor([0.229, 0.224, 0.225]).view(1, 3, 1, 1)
-        )
+        self.register_buffer("mean", torch.tensor([0.485, 0.456, 0.406]).view(1, 3, 1, 1))
+        self.register_buffer("std", torch.tensor([0.229, 0.224, 0.225]).view(1, 3, 1, 1))
 
     def forward(self, pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
         """Compute perceptual loss.

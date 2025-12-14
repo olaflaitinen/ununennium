@@ -32,7 +32,7 @@ def normalize(
     if method == "minmax":
         if per_channel:
             # Shape: (C,) for each stat
-            dims = tuple(range(data.ndim - 2)) + (-2, -1)
+            dims = (*tuple(range(data.ndim - 2)), -2, -1)
             min_vals = data.amin(dim=dims, keepdim=True)
             max_vals = data.amax(dim=dims, keepdim=True)
         else:
@@ -47,7 +47,7 @@ def normalize(
 
     elif method == "zscore":
         if per_channel:
-            dims = tuple(range(data.ndim - 2)) + (-2, -1)
+            dims = (*tuple(range(data.ndim - 2)), -2, -1)
             mean = data.mean(dim=dims, keepdim=True)
             std = data.std(dim=dims, keepdim=True)
         else:

@@ -64,6 +64,7 @@ def plot_rgb(
     ax.axis("off")
     return ax
 
+
 def plot_bands(
     tensor: GeoTensor,
     bands: list[str] | None = None,
@@ -71,13 +72,13 @@ def plot_bands(
     cmap: str = "viridis",
 ) -> Figure:
     """Plot individual bands in a grid.
-    
+
     Args:
         tensor: Input GeoTensor.
         bands: List of bands to plot.
         cols: Number of columns.
         cmap: Colormap.
-        
+
     Returns:
         Matplotlib figure.
     """
@@ -87,7 +88,7 @@ def plot_bands(
     n = len(bands)
     rows = math.ceil(n / cols)
 
-    fig, axes = plt.subplots(rows, cols, figsize=(4*cols, 4*rows))
+    fig, axes = plt.subplots(rows, cols, figsize=(4 * cols, 4 * rows))
     axes = axes.flatten()
 
     for i, band in enumerate(bands):

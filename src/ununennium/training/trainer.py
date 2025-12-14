@@ -3,18 +3,21 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from dataclasses import dataclass, field
-from pathlib import Path
-from typing import TYPE_CHECKING, Any, Callable
+from dataclasses import dataclass
+from typing import TYPE_CHECKING, Any
 
 import torch
-import torch.nn as nn
+from torch import nn
 from torch.amp import GradScaler, autocast
-from torch.optim import Optimizer
-from torch.optim.lr_scheduler import LRScheduler
-from torch.utils.data import DataLoader
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+    from pathlib import Path
+
+    from torch.optim import Optimizer
+    from torch.optim.lr_scheduler import LRScheduler
+    from torch.utils.data import DataLoader
+
     from ununennium.training.callbacks import Callback
 
 
@@ -81,7 +84,11 @@ class Trainer:
 
         # Mixed precision scaler
         # Use 'cuda' device type for scaler if available, enabling usually only if on cuda
-        self.scaler = GradScaler('cuda') if (self.config.mixed_precision and self.config.device == 'cuda') else None
+        self.scaler = (
+            GradScaler("cuda")
+            if (self.config.mixed_precision and self.config.device == "cuda")
+            else None
+        )
 
         # State
         self.current_epoch = 0
@@ -148,10 +155,7 @@ class Trainer:
             if hasattr(batch, "to"):
                 batch = batch.to(self.config.device)
             elif isinstance(batch, (tuple, list)):
-                batch = tuple(
-                    b.to(self.config.device) if hasattr(b, "to") else b
-                    for b in batch
-                )
+                batch = tuple(b.to(self.config.device) if hasattr(b, "to") else b for b in batch)
 
             # Forward pass
             # Use 'cuda' for autocast if mixed precision is on
@@ -217,10 +221,7 @@ class Trainer:
             if hasattr(batch, "to"):
                 batch = batch.to(self.config.device)
             elif isinstance(batch, (tuple, list)):
-                batch = tuple(
-                    b.to(self.config.device) if hasattr(b, "to") else b
-                    for b in batch
-                )
+                batch = tuple(b.to(self.config.device) if hasattr(b, "to") else b for b in batch)
 
             # Forward pass
             if hasattr(batch, "images"):

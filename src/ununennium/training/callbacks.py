@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ununennium.training.trainer import Trainer
@@ -27,9 +27,7 @@ class Callback:
         """Called at the start of each epoch."""
         pass
 
-    def on_epoch_end(
-        self, trainer: Trainer, epoch: int, logs: dict[str, float]
-    ) -> None:
+    def on_epoch_end(self, trainer: Trainer, epoch: int, logs: dict[str, float]) -> None:
         """Called at the end of each epoch."""
         pass
 
@@ -37,9 +35,7 @@ class Callback:
         """Called at the start of each batch."""
         pass
 
-    def on_batch_end(
-        self, trainer: Trainer, batch: int, logs: dict[str, float]
-    ) -> None:
+    def on_batch_end(self, trainer: Trainer, batch: int, logs: dict[str, float]) -> None:
         """Called at the end of each batch."""
         pass
 
@@ -78,9 +74,7 @@ class CheckpointCallback(Callback):
     def on_train_start(self, trainer: Trainer) -> None:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-    def on_epoch_end(
-        self, trainer: Trainer, epoch: int, logs: dict[str, float]
-    ) -> None:
+    def on_epoch_end(self, trainer: Trainer, epoch: int, logs: dict[str, float]) -> None:
         metric = logs.get(self.monitor)
         if metric is None:
             return
@@ -91,9 +85,7 @@ class CheckpointCallback(Callback):
 
         # Track best checkpoints
         self.best_metrics.append((metric, ckpt_path))
-        self.best_metrics.sort(
-            key=lambda x: x[0], reverse=(self.mode == "max")
-        )
+        self.best_metrics.sort(key=lambda x: x[0], reverse=(self.mode == "max"))
 
         # Remove old checkpoints
         while len(self.best_metrics) > self.save_top_k:
@@ -133,16 +125,13 @@ class EarlyStoppingCallback(Callback):
         self.best = float("inf") if mode == "min" else float("-inf")
         self.counter = 0
 
-    def on_epoch_end(
-        self, trainer: Trainer, epoch: int, logs: dict[str, float]
-    ) -> None:
+    def on_epoch_end(self, trainer: Trainer, epoch: int, logs: dict[str, float]) -> None:
         current = logs.get(self.monitor)
         if current is None:
             return
 
-        improved = (
-            (self.mode == "min" and current < self.best - self.min_delta)
-            or (self.mode == "max" and current > self.best + self.min_delta)
+        improved = (self.mode == "min" and current < self.best - self.min_delta) or (
+            self.mode == "max" and current > self.best + self.min_delta
         )
 
         if improved:
@@ -157,8 +146,6 @@ class EarlyStoppingCallback(Callback):
 class ProgressCallback(Callback):
     """Print training progress."""
 
-    def on_epoch_end(
-        self, trainer: Trainer, epoch: int, logs: dict[str, float]
-    ) -> None:
+    def on_epoch_end(self, trainer: Trainer, epoch: int, logs: dict[str, float]) -> None:
         log_str = " | ".join(f"{k}: {v:.4f}" for k, v in logs.items())
         print(f"Epoch {epoch + 1}: {log_str}")

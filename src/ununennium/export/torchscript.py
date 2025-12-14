@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import torch
-import torch.nn as nn
+from torch import nn
 
 
 def export_torchscript(
@@ -30,10 +30,7 @@ def export_torchscript(
 
     dummy_input = torch.randn(*input_shape)
 
-    if method == "trace":
-        scripted = torch.jit.trace(model, dummy_input)
-    else:
-        scripted = torch.jit.script(model)
+    scripted = torch.jit.trace(model, dummy_input) if method == "trace" else torch.jit.script(model)
 
     scripted.save(str(output_path))
 

@@ -1,12 +1,13 @@
 """GAN module for image-to-image translation."""
 
-from ununennium.models.gan.generators import (
-    UNetGenerator,
-    ResNetGenerator,
-)
+from ununennium.models.gan.cyclegan import CycleGAN
 from ununennium.models.gan.discriminators import (
-    PatchDiscriminator,
     MultiScaleDiscriminator,
+    PatchDiscriminator,
+)
+from ununennium.models.gan.generators import (
+    ResNetGenerator,
+    UNetGenerator,
 )
 from ununennium.models.gan.losses import (
     AdversarialLoss,
@@ -14,16 +15,15 @@ from ununennium.models.gan.losses import (
     SpectralAngleLoss,
 )
 from ununennium.models.gan.pix2pix import Pix2Pix
-from ununennium.models.gan.cyclegan import CycleGAN
 
 __all__ = [
-    "UNetGenerator",
-    "ResNetGenerator",
-    "PatchDiscriminator",
-    "MultiScaleDiscriminator",
     "AdversarialLoss",
-    "PerceptualLoss",
-    "SpectralAngleLoss",
-    "Pix2Pix",
     "CycleGAN",
+    "MultiScaleDiscriminator",
+    "PatchDiscriminator",
+    "PerceptualLoss",
+    "Pix2Pix",
+    "ResNetGenerator",
+    "SpectralAngleLoss",
+    "UNetGenerator",
 ]

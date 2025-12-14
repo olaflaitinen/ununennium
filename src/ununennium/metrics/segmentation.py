@@ -68,9 +68,7 @@ def dice_score(
         target_c = (target == c).float()
 
         intersection = (pred_c * target_c).sum()
-        dice_per_class[c] = (2 * intersection + smooth) / (
-            pred_c.sum() + target_c.sum() + smooth
-        )
+        dice_per_class[c] = (2 * intersection + smooth) / (pred_c.sum() + target_c.sum() + smooth)
 
     return dice_per_class
 

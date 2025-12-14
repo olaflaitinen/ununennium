@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
+from torch import nn
 
 
 class DiceLoss(nn.Module):
@@ -60,6 +60,6 @@ class CombinedLoss(nn.Module):
 
     def forward(self, pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
         total = torch.tensor(0.0, device=pred.device)
-        for loss, weight in zip(self.losses, self.weights):
+        for loss, weight in zip(self.losses, self.weights, strict=False):
             total = total + weight * loss(pred, target)
         return total

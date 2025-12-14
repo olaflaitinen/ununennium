@@ -3,12 +3,16 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Iterator, Self
+from typing import TYPE_CHECKING, Any, Self
 
 import torch
 
 from ununennium.core.geotensor import GeoTensor
-from ununennium.core.types import Device
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
+
+    from ununennium.core.types import Device
 
 
 @dataclass
@@ -44,23 +48,19 @@ class GeoBatch:
     def __post_init__(self) -> None:
         """Validate batch structure."""
         if self.images.ndim != 4:
+            raise ValueError(f"images must be 4D (B, C, H, W), got {self.images.ndim}D")
+
+        if self.labels is not None and self.labels.shape[0] != self.images.shape[0]:
             raise ValueError(
-                f"images must be 4D (B, C, H, W), got {self.images.ndim}D"
+                f"Batch size mismatch: images={self.images.shape[0]}, "
+                f"labels={self.labels.shape[0]}"
             )
 
-        if self.labels is not None:
-            if self.labels.shape[0] != self.images.shape[0]:
-                raise ValueError(
-                    f"Batch size mismatch: images={self.images.shape[0]}, "
-                    f"labels={self.labels.shape[0]}"
-                )
-
-        if self.metadata is not None:
-            if len(self.metadata) != self.images.shape[0]:
-                raise ValueError(
-                    f"Metadata length ({len(self.metadata)}) must match "
-                    f"batch size ({self.images.shape[0]})"
-                )
+        if self.metadata is not None and len(self.metadata) != self.images.shape[0]:
+            raise ValueError(
+                f"Metadata length ({len(self.metadata)}) must match "
+                f"batch size ({self.images.shape[0]})"
+            )
 
     @property
     def batch_size(self) -> int:
@@ -182,10 +182,7 @@ class GeoBatch:
         images_tensor = torch.stack(images)
 
         # Handle labels
-        if all(l.numel() > 0 for l in labels):
-            labels_tensor = torch.stack(labels)
-        else:
-            labels_tensor = None
+        labels_tensor = torch.stack(labels) if all(l.numel() > 0 for l in labels) else None
 
         return cls(
             images=images_tensor,
@@ -196,7 +193,4 @@ class GeoBatch:
 
     def __repr__(self) -> str:
         label_info = f", labels={self.labels.shape}" if self.labels is not None else ""
-        return (
-            f"GeoBatch(images={self.images.shape}{label_info}, "
-            f"device={self.device})"
-        )
+        return f"GeoBatch(images={self.images.shape}{label_info}, device={self.device})"

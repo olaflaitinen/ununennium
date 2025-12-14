@@ -5,7 +5,6 @@ from __future__ import annotations
 import time
 from collections import defaultdict
 from contextlib import contextmanager
-from typing import Dict, List
 
 import numpy as np
 import torch
@@ -15,8 +14,8 @@ class Profiler:
     """Hierarchical profiler for timing code sections."""
 
     def __init__(self):
-        self.timings: Dict[str, List[float]] = defaultdict(list)
-        self._stack: List[str] = []
+        self.timings: dict[str, list[float]] = defaultdict(list)
+        self._stack: list[str] = []
 
     @contextmanager
     def section(self, name: str):
@@ -28,7 +27,7 @@ class Profiler:
         Yields:
             Context manager.
         """
-        full_name = "/".join(self._stack + [name])
+        full_name = "/".join([*self._stack, name])
         self._stack.append(name)
         start = time.perf_counter()
         try:
@@ -38,7 +37,7 @@ class Profiler:
             self._stack.pop()
             self.timings[full_name].append(elapsed)
 
-    def report(self) -> Dict[str, Dict[str, float]]:
+    def report(self) -> dict[str, dict[str, float]]:
         """Generate timing report.
 
         Returns:
@@ -65,9 +64,9 @@ class MemoryProfiler:
 
     def __init__(self, track_cuda: bool = True):
         self.track_cuda = track_cuda
-        self.snapshots: List[Dict[str, float]] = []
+        self.snapshots: list[dict[str, float]] = []
 
-    def snapshot(self, label: str) -> Dict[str, float]:
+    def snapshot(self, label: str) -> dict[str, float]:
         """Take memory snapshot.
 
         Args:
@@ -78,7 +77,7 @@ class MemoryProfiler:
         """
         import tracemalloc
 
-        result: Dict[str, float] = {"label": label, "timestamp": time.time()}
+        result: dict[str, float] = {"label": label, "timestamp": time.time()}
 
         # CPU memory
         if tracemalloc.is_tracing():
@@ -129,6 +128,7 @@ class MemoryProfiler:
     def __enter__(self):
         # Start tracking manually
         import tracemalloc
+
         if torch.cuda.is_available():
             torch.cuda.reset_peak_memory_stats()
         tracemalloc.start()
@@ -137,5 +137,6 @@ class MemoryProfiler:
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         import tracemalloc
+
         self.snapshot("end")
         tracemalloc.stop()

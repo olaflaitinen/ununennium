@@ -1,12 +1,12 @@
 """Preprocessing module for data preparation."""
 
-from ununennium.preprocessing.normalization import normalize, denormalize
-from ununennium.preprocessing.indices import ndvi, ndwi, evi
+from ununennium.preprocessing.indices import evi, ndvi, ndwi
+from ununennium.preprocessing.normalization import denormalize, normalize
 
 __all__ = [
-    "normalize",
     "denormalize",
+    "evi",
     "ndvi",
     "ndwi",
-    "evi",
+    "normalize",
 ]

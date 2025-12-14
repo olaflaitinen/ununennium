@@ -2,18 +2,25 @@
 
 from __future__ import annotations
 
+import sys
 from dataclasses import dataclass, field
-from typing import TYPE_CHECKING, Any, Literal, Self, overload
+from typing import TYPE_CHECKING, Any, overload
+
+if sys.version_info >= (3, 11):
+    from typing import Self
+else:
+    from typing_extensions import Self
 
 import numpy as np
 import torch
+from affine import Affine
 
 from ununennium.core.bounds import BoundingBox
-from ununennium.core.types import CRSType, Device, ResamplingMethod
 
 if TYPE_CHECKING:
-    from affine import Affine
     from pyproj import CRS
+
+    from ununennium.core.types import Device
 
 
 @dataclass
@@ -333,9 +340,7 @@ class GeoTensor:
             names = list(bands)
         else:
             indices = list(bands)
-            names = (
-                [self.band_names[i] for i in indices] if self.band_names else None
-            )
+            names = [self.band_names[i] for i in indices] if self.band_names else None
 
         if self.data.ndim == 3:
             selected = self.data[indices]

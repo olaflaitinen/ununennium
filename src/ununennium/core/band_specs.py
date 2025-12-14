@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, List
 
 
 @dataclass(frozen=True)
@@ -28,7 +27,7 @@ class BandSpec:
 
 
 # Sentinel-2 MSI L2A Band Specifications
-SENTINEL2_BANDS: Dict[str, BandSpec] = {
+SENTINEL2_BANDS: dict[str, BandSpec] = {
     "B01": BandSpec("B01", "coastal", 443, 20, 60, "Coastal aerosol"),
     "B02": BandSpec("B02", "blue", 490, 65, 10, "Blue"),
     "B03": BandSpec("B03", "green", 560, 35, 10, "Green"),
@@ -44,7 +43,7 @@ SENTINEL2_BANDS: Dict[str, BandSpec] = {
 }
 
 # Landsat-8/9 OLI Band Specifications
-LANDSAT8_BANDS: Dict[str, BandSpec] = {
+LANDSAT8_BANDS: dict[str, BandSpec] = {
     "B1": BandSpec("B1", "coastal", 443, 16, 30, "Coastal Aerosol"),
     "B2": BandSpec("B2", "blue", 482, 60, 30, "Blue"),
     "B3": BandSpec("B3", "green", 561, 57, 30, "Green"),
@@ -57,7 +56,7 @@ LANDSAT8_BANDS: Dict[str, BandSpec] = {
 }
 
 # MODIS Band Specifications (selected bands)
-MODIS_BANDS: Dict[str, BandSpec] = {
+MODIS_BANDS: dict[str, BandSpec] = {
     "B1": BandSpec("B1", "red", 645, 50, 250, "Red"),
     "B2": BandSpec("B2", "nir", 858, 35, 250, "NIR"),
     "B3": BandSpec("B3", "blue", 469, 20, 500, "Blue"),
@@ -65,7 +64,7 @@ MODIS_BANDS: Dict[str, BandSpec] = {
 }
 
 
-def get_band_names(sensor: str, resolution: int | None = None) -> List[str]:
+def get_band_names(sensor: str, resolution: int | None = None) -> list[str]:
     """Get band names for a sensor, optionally filtered by resolution.
 
     Args:

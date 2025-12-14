@@ -3,10 +3,9 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Callable, Dict, Tuple
 
 import torch
-import torch.nn as nn
+from torch import nn
 
 
 class PDEEquation(ABC):
@@ -108,7 +107,7 @@ class PINN(nn.Module):
         x_collocation: torch.Tensor | None = None,
         x_boundary: torch.Tensor | None = None,
         u_boundary: torch.Tensor | None = None,
-    ) -> Dict[str, torch.Tensor]:
+    ) -> dict[str, torch.Tensor]:
         """Compute PINN loss components.
 
         Args:
@@ -122,7 +121,9 @@ class PINN(nn.Module):
             Dictionary with loss components and total.
         """
         losses = {}
-        total = torch.tensor(0.0, device=x_collocation.device if x_collocation is not None else "cpu")
+        total = torch.tensor(
+            0.0, device=x_collocation.device if x_collocation is not None else "cpu"
+        )
 
         # Data loss
         if x_data is not None and u_data is not None:

@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
-import torch
+from typing import TYPE_CHECKING
 
 from ununennium.core.geotensor import GeoTensor
+
+if TYPE_CHECKING:
+    import torch
 
 
 def ndvi(
@@ -139,16 +142,16 @@ def compute_index(
     # Default Sentinel-2 L2A band ordering (10m + 20m bands)
     if band_mapping is None:
         band_mapping = {
-            "blue": 0,      # B02
-            "green": 1,     # B03
-            "red": 2,       # B04
+            "blue": 0,  # B02
+            "green": 1,  # B03
+            "red": 2,  # B04
             "rededge1": 3,  # B05
             "rededge2": 4,  # B06
             "rededge3": 5,  # B07
-            "nir": 6,       # B08
+            "nir": 6,  # B08
             "rededge4": 7,  # B8A
-            "swir16": 8,    # B11
-            "swir22": 9,    # B12
+            "swir16": 8,  # B11
+            "swir22": 9,  # B12
         }
 
     data = tensor.data

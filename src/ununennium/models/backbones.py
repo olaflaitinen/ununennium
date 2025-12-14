@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Literal, ClassVar
+from typing import ClassVar, Literal
 
 import torch
 import torch.nn.functional as F
@@ -231,7 +231,9 @@ class EfficientNetBackbone(Backbone):
         try:
             import timm  # noqa: PLC0415  # noqa: PLC0415
         except ImportError as err:
-            raise ImportError("timm is required for EfficientNet. Install with: pip install timm") from err
+            raise ImportError(
+                "timm is required for EfficientNet. Install with: pip install timm"
+            ) from err
 
         self.model = timm.create_model(
             variant,

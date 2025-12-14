@@ -3,8 +3,7 @@
 from __future__ import annotations
 
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
+from torch import nn
 
 
 class UNetGenerator(nn.Module):
@@ -49,23 +48,19 @@ class UNetGenerator(nn.Module):
             else:
                 in_ch = min(base_channels * (2**i), 512) * 2
 
-            if i == 0:
-                out_ch = out_channels
-            else:
-                out_ch = min(base_channels * (2 ** (i - 1)), 512)
+            out_ch = out_channels if i == 0 else min(base_channels * 2 ** (i - 1), 512)
 
             self.decoders.append(
                 self._decoder_block(
-                    in_ch, out_ch,
+                    in_ch,
+                    out_ch,
                     dropout=(use_dropout and num_downs - 1 - i < 3),
                     norm_type=norm_type,
                     is_last=(i == 0),
                 )
             )
 
-    def _encoder_block(
-        self, in_ch: int, out_ch: int, normalize: bool, norm_type: str
-    ) -> nn.Module:
+    def _encoder_block(self, in_ch: int, out_ch: int, normalize: bool, norm_type: str) -> nn.Module:
         layers: list[nn.Module] = [
             nn.Conv2d(in_ch, out_ch, 4, stride=2, padding=1, bias=not normalize)
         ]

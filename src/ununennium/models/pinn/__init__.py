@@ -1,22 +1,22 @@
 """PINN (Physics-Informed Neural Networks) module."""
 
-from ununennium.models.pinn.base import PDEEquation, PINN
-from ununennium.models.pinn.equations import (
-    DiffusionEquation,
-    AdvectionEquation,
-)
+from ununennium.models.pinn.base import PINN, PDEEquation
 from ununennium.models.pinn.collocation import (
+    AdaptiveSampler,
     CollocationSampler,
     UniformSampler,
-    AdaptiveSampler,
+)
+from ununennium.models.pinn.equations import (
+    AdvectionEquation,
+    DiffusionEquation,
 )
 
 __all__ = [
-    "PDEEquation",
     "PINN",
-    "DiffusionEquation",
+    "AdaptiveSampler",
     "AdvectionEquation",
     "CollocationSampler",
+    "DiffusionEquation",
+    "PDEEquation",
     "UniformSampler",
-    "AdaptiveSampler",
 ]
