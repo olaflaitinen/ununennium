@@ -5,6 +5,7 @@ from __future__ import annotations
 import contextlib
 import os
 import random
+from typing import Any
 
 import numpy as np
 import torch
@@ -34,13 +35,13 @@ def set_seed(seed: int, deterministic: bool = True) -> None:
             torch.use_deterministic_algorithms(True)
 
 
-def get_seed_state() -> dict[str, bytes]:
+def get_seed_state() -> dict[str, Any]:
     """Capture current random state for later restoration.
 
     Returns:
         Dictionary with state for each RNG.
     """
-    state = {
+    state: dict[str, Any] = {
         "random": random.getstate(),
         "numpy": np.random.get_state(),
         "torch": torch.get_rng_state(),
@@ -52,7 +53,7 @@ def get_seed_state() -> dict[str, bytes]:
     return state
 
 
-def restore_seed_state(state: dict[str, bytes]) -> None:
+def restore_seed_state(state: dict[str, Any]) -> None:
     """Restore random state from captured state.
 
     Args:

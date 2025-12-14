@@ -7,20 +7,22 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any, overload
 
 if sys.version_info >= (3, 11):
-    from typing import Self
+    pass
 else:
-    from typing_extensions import Self
+    pass
 
 import numpy as np
 import torch
 from affine import Affine
 
 from ununennium.core.bounds import BoundingBox
+from ununennium.core.types import Device
 
 if TYPE_CHECKING:
     from pyproj import CRS
 
     from ununennium.core.types import Device
+
 
 
 @dataclass
@@ -185,7 +187,7 @@ class GeoTensor:
             timestamp=self.timestamp,
         )
 
-    def cuda(self, device: int = 0) -> Self:
+    def cuda(self, device: int = 0) -> GeoTensor:
         """Move tensor to CUDA device.
 
         Args:
@@ -196,7 +198,7 @@ class GeoTensor:
         """
         return self.to(f"cuda:{device}")
 
-    def cpu(self) -> Self:
+    def cpu(self) -> GeoTensor:
         """Move tensor to CPU.
 
         Returns:
@@ -259,15 +261,15 @@ class GeoTensor:
         )
 
     @overload
-    def __getitem__(self, key: int) -> Self: ...
+    def __getitem__(self, key: int) -> GeoTensor: ...
 
     @overload
-    def __getitem__(self, key: slice) -> Self: ...
+    def __getitem__(self, key: slice) -> GeoTensor: ...
 
     @overload
-    def __getitem__(self, key: tuple[Any, ...]) -> Self: ...
+    def __getitem__(self, key: tuple[Any, ...]) -> GeoTensor: ...
 
-    def __getitem__(self, key: int | slice | tuple[Any, ...]) -> Self:
+    def __getitem__(self, key: int | slice | tuple[Any, ...]) -> GeoTensor:
         """Index into the tensor.
 
         Note:
@@ -287,7 +289,7 @@ class GeoTensor:
                 y_start = h_key.start if isinstance(h_key, slice) and h_key.start else 0
                 x_start = w_key.start if isinstance(w_key, slice) and w_key.start else 0
 
-                new_transform = self.transform * Affine.translation(x_start, y_start)
+                new_transform = self.transform * Affine.translation(x_start, y_start)  # type: ignore
 
         return GeoTensor(
             data=data,
@@ -298,7 +300,7 @@ class GeoTensor:
             timestamp=self.timestamp,
         )
 
-    def crop(self, bounds: BoundingBox) -> Self:
+    def crop(self, bounds: BoundingBox) -> GeoTensor:
         """Crop to geographic bounds.
 
         Args:
@@ -321,8 +323,8 @@ class GeoTensor:
 
         inv_transform = ~self.transform
 
-        col_start, row_start = inv_transform * (bounds.minx, bounds.maxy)
-        col_end, row_end = inv_transform * (bounds.maxx, bounds.miny)
+        col_start, row_start = inv_transform * (bounds.minx, bounds.maxy)  # type: ignore
+        col_end, row_end = inv_transform * (bounds.maxx, bounds.miny)  # type: ignore
 
         # Clamp to image bounds
         col_start = max(0, int(col_start))
@@ -350,7 +352,7 @@ class GeoTensor:
             timestamp=self.timestamp,
         )
 
-    def select_bands(self, bands: list[int] | list[str]) -> Self:
+    def select_bands(self, bands: list[int] | list[str]) -> GeoTensor:
         """Select specific bands by index or name.
 
         Args:

@@ -7,9 +7,9 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, Any
 
 if sys.version_info >= (3, 11):
-    from typing import Self
+    pass
 else:
-    from typing_extensions import Self
+    pass
 
 import torch
 
@@ -109,11 +109,11 @@ class GeoBatch:
             transforms=self.transforms,
         )
 
-    def cuda(self, device: int = 0) -> Self:
+    def cuda(self, device: int = 0) -> GeoBatch:
         """Move batch to CUDA."""
         return self.to(f"cuda:{device}")
 
-    def cpu(self) -> Self:
+    def cpu(self) -> GeoBatch:
         """Move batch to CPU."""
         return self.to("cpu")
 

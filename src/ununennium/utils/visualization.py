@@ -31,6 +31,8 @@ def plot_rgb(
     """
     if ax is None:
         _fig, ax = plt.subplots(figsize=(10, 10))
+    if ax is None:  # Should be unreachable but satisfies type checker
+         raise RuntimeError("Failed to create axes")
 
     if bands is None:
         if sensor:

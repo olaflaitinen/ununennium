@@ -162,8 +162,8 @@ class Trainer:
             # Use 'cuda' for autocast if mixed precision is on
             with autocast(device_type=self.config.device, enabled=self.scaler is not None):
                 if hasattr(batch, "images"):
-                    outputs = self.model(batch.images)
-                    targets = batch.labels
+                    outputs = self.model(batch.images)  # type: ignore
+                    targets = batch.labels  # type: ignore
                 elif isinstance(batch, (tuple, list)):
                     outputs = self.model(batch[0])
                     targets = batch[1]
@@ -226,8 +226,8 @@ class Trainer:
 
             # Forward pass
             if hasattr(batch, "images"):
-                outputs = self.model(batch.images)
-                targets = batch.labels
+                outputs = self.model(batch.images)  # type: ignore
+                targets = batch.labels  # type: ignore
             elif isinstance(batch, (tuple, list)):
                 outputs = self.model(batch[0])
                 targets = batch[1]
