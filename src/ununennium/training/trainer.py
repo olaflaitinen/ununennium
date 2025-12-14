@@ -220,7 +220,7 @@ class Trainer:
         if self.val_loader is None:
              # Should be unreachable given prior checks
             return {}
-        
+
         for batch in self.val_loader:
             # Move to device
             if hasattr(batch, "to"):
