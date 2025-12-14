@@ -40,7 +40,7 @@ def benchmark_inference(
     # Warmup
     for _ in range(warmup_iterations):
         with torch.no_grad():
-            with torch.cuda.amp.autocast(enabled=mixed_precision):
+            with torch.amp.autocast("cuda", enabled=mixed_precision):
                 _ = model(dummy_input)
 
     if device == "cuda":
@@ -56,7 +56,7 @@ def benchmark_inference(
     with profiler.section("inference"):
         for _ in range(n_iterations):
             with torch.no_grad():
-                with torch.cuda.amp.autocast(enabled=mixed_precision):
+                with torch.amp.autocast("cuda", enabled=mixed_precision):
                     _ = model(dummy_input)
 
     if device == "cuda":
@@ -112,14 +112,14 @@ def benchmark_training(
     model.train()
 
     optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4)
-    scaler = torch.cuda.amp.GradScaler() if mixed_precision else None
+    scaler = torch.amp.GradScaler("cuda") if mixed_precision else None
 
     dummy_input = torch.randn(*input_shape, device=device)
     dummy_target = torch.randint(0, 10, target_shape, device=device)
 
     # Warmup
     for _ in range(warmup_iterations):
-        with torch.cuda.amp.autocast(enabled=mixed_precision):
+        with torch.amp.autocast("cuda", enabled=mixed_precision):
             output = model(dummy_input)
             loss = loss_fn(output, dummy_target)
 
@@ -142,7 +142,7 @@ def benchmark_training(
     with profiler.section("training"):
         for _ in range(n_iterations):
             with profiler.section("forward"):
-                with torch.cuda.amp.autocast(enabled=mixed_precision):
+                with torch.amp.autocast("cuda", enabled=mixed_precision):
                     output = model(dummy_input)
                     loss = loss_fn(output, dummy_target)
 

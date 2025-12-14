@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "ununennium"
-version = "1.0.2"
+version = "1.0.3"
 description = "Production-grade Python library for satellite and geospatial imagery machine learning"
 readme = "README.md"
 license = "Apache-2.0"

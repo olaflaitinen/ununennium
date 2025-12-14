@@ -40,7 +40,7 @@ class RandomRotate:
         self, image: torch.Tensor, mask: torch.Tensor | None = None
     ) -> Tuple[torch.Tensor, torch.Tensor | None]:
         if torch.rand(1).item() < self.p:
-            k = torch.randint(1, 4, (1,)).item()
+            k = int(torch.randint(1, 4, (1,)).item())
             image = torch.rot90(image, k=k, dims=[-2, -1])
             if mask is not None:
                 mask = torch.rot90(mask, k=k, dims=[-2, -1])
