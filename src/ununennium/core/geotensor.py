@@ -222,12 +222,10 @@ class GeoTensor:
         """
         if isinstance(self.data, torch.Tensor):
             data = self.data.float()
+        elif isinstance(self.data, np.ndarray):
+            data = self.data.astype(np.float32)
         else:
-
-             if isinstance(self.data, np.ndarray):
-                data = self.data.astype(np.float32)
-             else:
-                data = self.data
+            data = self.data
 
         return GeoTensor(
             data=data,
@@ -246,12 +244,10 @@ class GeoTensor:
         """
         if isinstance(self.data, torch.Tensor):
             data = self.data.half()
+        elif isinstance(self.data, np.ndarray):
+            data = self.data.astype(np.float16)
         else:
-
-             if isinstance(self.data, np.ndarray):
-                data = self.data.astype(np.float16)
-             else:
-                data = self.data
+            data = self.data
 
         return GeoTensor(
             data=data,

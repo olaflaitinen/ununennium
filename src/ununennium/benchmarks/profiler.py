@@ -6,6 +6,7 @@ import time
 import tracemalloc
 from collections import defaultdict
 from contextlib import contextmanager
+from typing import Any
 
 import numpy as np
 import torch
