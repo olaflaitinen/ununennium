@@ -109,7 +109,7 @@ def scale_transform(transform: Affine, scale: float) -> Affine:
     Returns:
         Scaled affine transform.
     """
-    return transform * Affine.scale(1 / scale, 1 / scale)
+    return transform * Affine.scale(1 / scale, 1 / scale)  # type: ignore[return-value]
 
 
 def translate_transform(transform: Affine, dx: float, dy: float) -> Affine:

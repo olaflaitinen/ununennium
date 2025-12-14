@@ -16,6 +16,7 @@ class AdversarialLoss(nn.Module):
     def __init__(self, mode: str = "lsgan"):
         super().__init__()
         self.mode = mode
+        self.loss: nn.Module | None = None
 
         if mode == "vanilla":
             self.loss = nn.BCEWithLogitsLoss()
@@ -116,8 +117,8 @@ class PerceptualLoss(nn.Module):
         pred = (pred + 1) / 2
         target = (target + 1) / 2
 
-        pred = (pred - self.mean) / self.std  # type: ignore
-        target = (target - self.std) / self.std  # type: ignore
+        pred = (pred - self.mean) / self.std  # type: ignore[operator]
+        target = (target - self.mean) / self.std  # type: ignore[operator]
 
         loss = torch.tensor(0.0, device=pred.device)
         for block, weight in zip(self.blocks, self.weights, strict=True):

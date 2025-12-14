@@ -101,7 +101,7 @@ class GeoBatch:
         Returns:
             New GeoBatch on target device.
         """
-        return GeoBatch(
+        return self.__class__(
             images=self.images.to(device),
             labels=self.labels.to(device) if self.labels is not None else None,
             metadata=self.metadata,
@@ -119,7 +119,7 @@ class GeoBatch:
 
     def float(self) -> GeoBatch:
         """Convert images to float32."""
-        return GeoBatch(
+        return self.__class__(
             images=self.images.float(),
             labels=self.labels,
             metadata=self.metadata,
@@ -129,7 +129,7 @@ class GeoBatch:
 
     def half(self) -> GeoBatch:
         """Convert images to float16."""
-        return GeoBatch(
+        return self.__class__(
             images=self.images.half(),
             labels=self.labels,
             metadata=self.metadata,

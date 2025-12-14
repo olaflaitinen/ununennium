@@ -154,23 +154,30 @@ def compute_index(
             "swir22": 9,  # B12
         }
 
-    data = tensor.data
+    import numpy as np  # noqa: PLC0415
+    import torch as _torch  # noqa: PLC0415
+
+    raw_data = tensor.data
+    if isinstance(raw_data, _torch.Tensor):
+        data = raw_data
+    else:
+        data = _torch.from_numpy(np.asarray(raw_data))
 
     if index_name.lower() == "ndvi":
         result = ndvi(
-            data[..., band_mapping["nir"], :, :],  # type: ignore
-            data[..., band_mapping["red"], :, :],  # type: ignore
+            data[..., band_mapping["nir"], :, :],
+            data[..., band_mapping["red"], :, :],
         )
     elif index_name.lower() == "ndwi":
         result = ndwi(
-            data[..., band_mapping["green"], :, :],  # type: ignore
-            data[..., band_mapping["nir"], :, :],  # type: ignore
+            data[..., band_mapping["green"], :, :],
+            data[..., band_mapping["nir"], :, :],
         )
     elif index_name.lower() == "evi":
         result = evi(
-            data[..., band_mapping["nir"], :, :],  # type: ignore
-            data[..., band_mapping["red"], :, :],  # type: ignore
-            data[..., band_mapping["blue"], :, :],  # type: ignore
+            data[..., band_mapping["nir"], :, :],
+            data[..., band_mapping["red"], :, :],
+            data[..., band_mapping["blue"], :, :],
         )
     else:
         raise ValueError(f"Unknown index: {index_name}")

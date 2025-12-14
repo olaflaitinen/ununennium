@@ -68,7 +68,7 @@ class MemoryProfiler:
         self.track_cuda = track_cuda
         self.snapshots: list[dict[str, Any]] = []
 
-    def snapshot(self, label: str) -> dict[str, float]:
+    def snapshot(self, label: str) -> dict[str, Any]:
         """Take memory snapshot.
 
         Args:

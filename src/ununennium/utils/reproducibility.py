@@ -59,9 +59,9 @@ def restore_seed_state(state: dict[str, Any]) -> None:
     Args:
         state: Dictionary from get_seed_state().
     """
-    random.setstate(state["random"])
-    np.random.set_state(state["numpy"])
-    torch.set_rng_state(state["torch"])
+    random.setstate(state["random"])  # type: ignore[arg-type]
+    np.random.set_state(state["numpy"])  # type: ignore[arg-type]
+    torch.set_rng_state(state["torch"])  # type: ignore[arg-type]
 
     if torch.cuda.is_available() and "cuda" in state:
-        torch.cuda.set_rng_state_all(state["cuda"])
+        torch.cuda.set_rng_state_all(state["cuda"])  # type: ignore[arg-type]

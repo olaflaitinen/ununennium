@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import ClassVar, Literal
+from typing import Any, ClassVar, Literal
 
 import torch
 import torch.nn.functional as F
@@ -235,15 +235,15 @@ class EfficientNetBackbone(Backbone):
                 "timm is required for EfficientNet. Install with: pip install timm"
             ) from err
 
-        self.model = timm.create_model(
+        self.model: Any = timm.create_model(
             variant,
             pretrained=pretrained,
             in_chans=in_channels,
             features_only=True,
             out_indices=[1, 2, 3, 4],
         )
-        self._out_channels = self.model.feature_info.channels()  # type: ignore
-        self._out_strides = self.model.feature_info.reduction()  # type: ignore
+        self._out_channels: list[int] = self.model.feature_info.channels()
+        self._out_strides: list[int] = self.model.feature_info.reduction()
 
     @property
     def out_channels(self) -> list[int]:
@@ -254,4 +254,4 @@ class EfficientNetBackbone(Backbone):
         return self._out_strides
 
     def forward(self, x: torch.Tensor) -> list[torch.Tensor]:
-        return self.model(x)
+        return self.model(x)  # type: ignore[return-value]

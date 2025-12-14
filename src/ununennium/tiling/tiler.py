@@ -52,7 +52,7 @@ class Tiler:
     def tile(
         self,
         image: torch.Tensor | GeoTensor,
-    ) -> Iterator[Any]:
+    ) -> Iterator[tuple[torch.Tensor, tuple[int, int, int, int]]]:
         """Generate tiles from an image.
 
         Args:
@@ -61,14 +61,22 @@ class Tiler:
         Yields:
             Tuples of (tile, window) where window is (y, x, h, w).
         """
-        data = image.data if isinstance(image, GeoTensor) else image
+        data: torch.Tensor
+        if isinstance(image, GeoTensor):
+            if isinstance(image.data, torch.Tensor):
+                data = image.data
+            else:
+                import numpy as np  # noqa: PLC0415
+                data = torch.from_numpy(np.asarray(image.data))
+        else:
+            data = image
 
         # Handle batch dimension
         if data.ndim == 4:
             data = data[0]  # Process one image at a time
 
         _, h, w = data.shape
-        self._image_shape = data.shape
+        self._image_shape = tuple(data.shape)
         self._results = []
 
         th, tw = self.tile_size
@@ -91,7 +99,7 @@ class Tiler:
                     tile = torch.nn.functional.pad(
                         tile,
                         (0, pad_w, 0, pad_h),
-                        mode=self.padding_mode,  # type: ignore
+                        mode=self.padding_mode,  # type: ignore[arg-type]
                     )
 
                 yield tile, (y, x, y_end - y, x_end - x)

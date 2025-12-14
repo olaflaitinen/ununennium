@@ -58,7 +58,7 @@ class GeoTensor:
     data: torch.Tensor | np.ndarray
     crs: CRS | None = None
     transform: Affine | None = None
-    band_names: list[Any] | None = None
+    band_names: list[str] | None = None
     nodata: float | None = None
     timestamp: str | None = None
     _bounds: BoundingBox | None = field(default=None, repr=False)
@@ -103,7 +103,10 @@ class GeoTensor:
     @property
     def device(self) -> torch.device:
         """Device where the tensor resides."""
-        return torch.device(self.data.device)
+        if isinstance(self.data, torch.Tensor):
+            return self.data.device
+        # NumPy arrays are always on CPU
+        return torch.device("cpu")
 
     @property
     def height(self) -> int:
@@ -177,7 +180,7 @@ class GeoTensor:
         else:
             data = self.data  # type: ignore
 
-        return GeoTensor(
+        return self.__class__(
             data=data,
             crs=self.crs,
             transform=self.transform,
@@ -228,7 +231,7 @@ class GeoTensor:
         else:
             data = self.data
 
-        return GeoTensor(
+        return self.__class__(
             data=data,
             crs=self.crs,
             transform=self.transform,
@@ -250,7 +253,7 @@ class GeoTensor:
         else:
             data = self.data
 
-        return GeoTensor(
+        return self.__class__(
             data=data,
             crs=self.crs,
             transform=self.transform,
@@ -290,7 +293,7 @@ class GeoTensor:
 
                 new_transform = self.transform * Affine.translation(x_start, y_start)  # type: ignore
 
-        return GeoTensor(
+        return self.__class__(
             data=data,
             crs=self.crs,
             transform=new_transform,
@@ -340,9 +343,9 @@ class GeoTensor:
             cropped_data = self.data[..., row_start:row_end, col_start:col_end]
 
         # Update transform
-        new_transform = self.transform * Affine.translation(col_start, row_start)
+        new_transform = self.transform * Affine.translation(col_start, row_start)  # type: ignore[operator]
 
-        return GeoTensor(
+        return self.__class__(
             data=cropped_data,
             crs=self.crs,
             transform=new_transform,
@@ -360,23 +363,25 @@ class GeoTensor:
         Returns:
             GeoTensor with selected bands.
         """
+        indices: list[int]
+        names: list[str] | None
         if isinstance(bands[0], str):
             if self.band_names is None:
                 raise ValueError("Cannot select by name without band_names")
-            indices = [self.band_names.index(b) for b in bands]
-            names = list(bands)
+            indices = [self.band_names.index(str(b)) for b in bands]
+            names = [str(b) for b in bands]
         else:
-            indices = list(bands)
+            indices = [int(b) for b in bands]
             names = [self.band_names[i] for i in indices] if self.band_names else None
 
         if self.data.ndim == 3:
-            selected = self.data[indices]
+            selected = self.data[indices]  # type: ignore[index]
         elif self.data.ndim >= 4:
-            selected = self.data[..., indices, :, :]
+            selected = self.data[..., indices, :, :]  # type: ignore[index]
         else:
             raise ValueError("Cannot select bands from 2D data")
 
-        return GeoTensor(
+        return self.__class__(
             data=selected,
             crs=self.crs,
             transform=self.transform,

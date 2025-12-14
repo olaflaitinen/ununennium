@@ -31,22 +31,17 @@ def plot_rgb(
     """
     if ax is None:
         _fig, ax = plt.subplots(figsize=(10, 10))
-    if ax is None:  # Should be unreachable but satisfies type checker
-        raise RuntimeError("Failed to create axes")
 
     if bands is None:
         if sensor:
             bands = get_rgb_bands(sensor)
-        else:
-            # Default to first 3 bands
-            bands = (
-                tuple(tensor.band_names[:3])
-                if tensor.band_names and len(tensor.band_names) >= 3
-                else None
-            )  # type: ignore
+        elif tensor.band_names and len(tensor.band_names) >= 3:
+            bands = (tensor.band_names[0], tensor.band_names[1], tensor.band_names[2])
 
     if bands is None:
         raise ValueError("Must provide 3 bands for RGB plotting.")
+    if tensor.band_names is None:
+        raise ValueError("tensor.band_names is required for RGB plotting.")
 
     # Select indices
     try:
@@ -54,7 +49,12 @@ def plot_rgb(
     except ValueError as e:
         raise ValueError(f"Band not found in tensor: {e}") from e
 
-    rgb = tensor.data[indices, :, :].float()
+    data = tensor.data
+    if isinstance(data, torch.Tensor):
+        rgb = data[indices, :, :].float()
+    else:
+        import numpy as np  # noqa: PLC0415
+        rgb = torch.from_numpy(np.array(data)[indices, :, :]).float()
 
     # Normalize
     p2 = torch.quantile(rgb, 0.02)
@@ -65,10 +65,10 @@ def plot_rgb(
     # To channel last numpy
     rgb_np = rgb.permute(1, 2, 0).cpu().numpy()
 
-    ax.imshow(rgb_np)
-    ax.set_title(f"RGB Composite ({', '.join(bands)})")
-    ax.axis("off")
-    return ax
+    ax.imshow(rgb_np)  # type: ignore[union-attr]
+    ax.set_title(f"RGB Composite ({', '.join(bands)})")  # type: ignore[union-attr]
+    ax.axis("off")  # type: ignore[union-attr]
+    return ax  # type: ignore[return-value]
 
 
 def plot_bands(
@@ -89,30 +89,36 @@ def plot_bands(
         Matplotlib figure.
     """
     if bands is None:
+        if tensor.band_names is None:
+            raise ValueError("bands must be specified if tensor.band_names is None")
         bands = tensor.band_names
+
+    if tensor.band_names is None:
+        raise ValueError("tensor.band_names is required for band plotting")
 
     n = len(bands)
     rows = math.ceil(n / cols)
 
     fig, axes = plt.subplots(rows, cols, figsize=(4 * cols, 4 * rows))
-    axes = axes.flatten()
-
-    if bands is None:
-        return fig
+    axes_flat = axes.flatten()
 
     for i, band in enumerate(bands):
         idx = tensor.band_names.index(band)
-        data = tensor.data[idx].float().cpu().numpy()
+        data_tensor = tensor.data[idx]
+        if isinstance(data_tensor, torch.Tensor):
+            data_np = data_tensor.float().cpu().numpy()
+        else:
+            data_np = data_tensor.astype(float)  # type: ignore[union-attr]
 
-        ax = axes[i]
-        im = ax.imshow(data, cmap=cmap)
+        ax = axes_flat[i]
+        im = ax.imshow(data_np, cmap=cmap)
         ax.set_title(band)
         ax.axis("off")
         plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
 
     # Hide empty axes
-    for i in range(n, len(axes)):
-        axes[i].axis("off")
+    for i in range(n, len(axes_flat)):
+        axes_flat[i].axis("off")
 
     plt.tight_layout()
     return fig
