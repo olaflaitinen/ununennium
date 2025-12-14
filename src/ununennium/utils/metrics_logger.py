@@ -1,0 +1,34 @@
+"""Metrics logger for experiment tracking."""
+
+import json
+import csv
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
+class MetricsLogger:
+    """Log metrics to JSON/CSV files."""
+    
+    def __init__(self, log_dir: str):
+        self.log_dir = Path(log_dir)
+        self.log_dir.mkdir(parents=True, exist_ok=True)
+        self.metrics_history: List[Dict[str, float]] = []
+        
+    def log_metrics(self, metrics: Dict[str, float], step: int):
+        """Log a dictionary of metrics at a given step."""
+        entry = {"step": step, **metrics}
+        self.metrics_history.append(entry)
+        
+        # Append to CSV
+        csv_path = self.log_dir / "metrics.csv"
+        file_exists = csv_path.exists()
+        
+        with open(csv_path, "a", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=entry.keys())
+            if not file_exists:
+                writer.writeheader()
+            writer.writerow(entry)
+            
+    def save_summary(self):
+        """Save full history to JSON."""
+        with open(self.log_dir / "metrics_history.json", "w") as f:
+            json.dump(self.metrics_history, f, indent=2)

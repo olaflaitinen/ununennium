@@ -1,0 +1,5 @@
+diffusivity: 0.1
+lambda_pde: 10.0
+lambda_data: 1.0
+n_collocation: 1000
+epochs: 5000

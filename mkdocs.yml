@@ -1,0 +1,59 @@
+site_name: Ununennium
+site_description: Production-grade Python library for satellite imagery ML
+site_url: https://ununennium.readthedocs.io
+
+repo_name: ununennium/ununennium
+repo_url: https://github.com/ununennium/ununennium
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+    - content.code.annotate
+
+nav:
+  - Home: index.md
+  - Getting Started: getting_started.md
+  - API Reference:
+    - Core: api/core.md
+    - I/O: api/io.md
+    - Models: api/models.md
+    - Training: api/training.md
+  - Tutorials:
+    - Segmentation: tutorials/segmentation.md
+    - Change Detection: tutorials/change_detection.md
+  - Model Zoo: models/zoo.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+            show_root_heading: true
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - admonition
+  - pymdownx.details
+  - tables

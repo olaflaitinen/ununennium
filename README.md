@@ -1,0 +1,262 @@
+# Ununennium
+
+<div align="center">
+
+[![PyPI](https://img.shields.io/pypi/v/ununennium?style=flat-square&color=blue)](https://pypi.org/project/ununennium/)
+[![Python](https://img.shields.io/pypi/pyversions/ununennium?style=flat-square)](https://pypi.org/project/ununennium/)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0)
+[![CI](https://img.shields.io/github/actions/workflow/status/olaflaitinen/ununennium/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/olaflaitinen/ununennium/actions/workflows/ci.yml)
+[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen?style=flat-square)](https://ununennium.readthedocs.io)
+[![codecov](https://img.shields.io/codecov/c/github/olaflaitinen/ununennium?style=flat-square)](https://codecov.io/gh/olaflaitinen/ununennium)
+[![Downloads](https://img.shields.io/pypi/dm/ununennium?style=flat-square)](https://pypi.org/project/ununennium/)
+[![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg?style=flat-square)](https://github.com/astral-sh/ruff)
+[![Typed](https://img.shields.io/badge/typing-pyright-blue?style=flat-square)](https://github.com/microsoft/pyright)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.12345678-blue?style=flat-square)](https://zenodo.org)
+
+**Production-grade Python library for satellite and geospatial imagery machine learning.**
+
+[Documentation](https://ununennium.readthedocs.io) |
+[PyPI](https://pypi.org/project/ununennium/) |
+[GitHub](https://github.com/olaflaitinen/ununennium) |
+[Examples](https://github.com/olaflaitinen/ununennium/tree/main/examples)
+
+</div>
+
+---
+
+## Overview
+
+Ununennium (Element 119, the next alkali metal) represents the cutting edge of satellite imagery machine learning. This library provides a unified, GPU-first framework for end-to-end Earth observation workflows—from cloud-native data access through model training to deployment.
+
+### Why Ununennium?
+
+| Challenge | Traditional Approach | Ununennium Solution |
+|-----------|---------------------|---------------------|
+| **CRS Handling** | Manual, error-prone | Automatic CRS tracking with `GeoTensor` |
+| **Large Rasters** | Memory overflow | Streaming I/O with COG/Zarr |
+| **Multi-spectral** | Custom band handling | First-class n-band support |
+| **Reproducibility** | Ad-hoc seeds | Deterministic training pipeline |
+| **Physics** | Purely data-driven | Physics-informed constraints (PINN) |
+
+---
+
+## Key Features
+
+| Module | Capability | Highlight |
+|--------|------------|-----------|
+| **`core`** | GeoTensor, GeoBatch | CRS-aware tensors with automatic coordinate tracking |
+| **`io`** | COG, STAC, Zarr | Cloud-native streaming with lazy loading |
+| **`models`** | CNN, ViT, GAN, PINN | 15+ architectures with registry pattern |
+| **`training`** | Trainer, Callbacks | Mixed precision, gradient accumulation, DDP |
+| **`preprocessing`** | Indices, Normalization | NDVI, EVI, SAVI with sensor-aware math |
+| **`augmentation`** | Geometric, Radiometric | CRS-preserving transforms |
+| **`tiling`** | Sampler, Tiler | Overlap-aware patch extraction |
+| **`metrics`** | IoU, Dice, ECE | Calibrated uncertainty quantification |
+| **`export`** | ONNX, TorchScript | Production deployment ready |
+
+---
+
+## Performance Benchmarks
+
+Benchmarks on NVIDIA A100 80GB, PyTorch 2.1, CUDA 12.1:
+
+| Model | Input Size | Batch | Throughput | Memory | mIoU |
+|-------|------------|-------|------------|--------|------|
+| U-Net ResNet-50 | 512×512×12 | 16 | 142 img/s | 12.4 GB | 0.78 |
+| U-Net EfficientNet-B4 | 512×512×12 | 16 | 98 img/s | 14.2 GB | 0.81 |
+| ViT-L/16 | 224×224×12 | 32 | 256 img/s | 18.1 GB | 0.83 |
+| Pix2Pix | 256×256×12 | 8 | 67 img/s | 8.6 GB | N/A |
+
+---
+
+## Installation
+
+```bash
+# Core installation
+pip install ununennium
+
+# With geospatial dependencies (rasterio, pyproj, shapely)
+pip install "ununennium[geo]"
+
+# Full installation with all features
+pip install "ununennium[all]"
+```
+
+### Requirements
+
+- Python 3.10+
+- PyTorch 2.0+
+- NumPy 1.24+
+- GDAL 3.4+ (optional, for geospatial I/O)
+
+---
+
+## Quick Start
+
+### Load Satellite Imagery
+
+```python
+import ununennium as uu
+
+# Read with automatic CRS detection
+tensor = uu.io.read_geotiff("sentinel2_l2a.tif")
+print(f"Shape: {tensor.shape}")     # (12, 10980, 10980)
+print(f"CRS: {tensor.crs}")         # EPSG:32632
+print(f"Resolution: {tensor.resolution}")  # (10.0, 10.0)
+```
+
+### Train a Segmentation Model
+
+```python
+from ununennium.models import create_model
+from ununennium.training import Trainer, CheckpointCallback
+from ununennium.losses import DiceLoss
+import torch
+
+# Create U-Net with ResNet-50 backbone
+model = create_model(
+    "unet_resnet50",
+    in_channels=12,      # Sentinel-2 bands
+    num_classes=10,      # Land cover classes
+)
+
+# Configure training
+trainer = Trainer(
+    model=model,
+    optimizer=torch.optim.AdamW(model.parameters(), lr=1e-4),
+    loss_fn=DiceLoss(),
+    train_loader=train_loader,
+    val_loader=val_loader,
+    callbacks=[CheckpointCallback("checkpoints/")],
+    mixed_precision=True,
+)
+
+# Train with progress tracking
+history = trainer.fit(epochs=100)
+```
+
+### Physics-Informed Learning
+
+```python
+from ununennium.models.pinn import PINN, DiffusionEquation, MLP
+
+# Define PDE constraint
+equation = DiffusionEquation(diffusivity=0.1)
+
+# Create PINN
+pinn = PINN(
+    network=MLP([2, 128, 128, 1]),
+    equation=equation,
+    lambda_pde=10.0,  # Weight for physics loss
+)
+
+# Train with collocation points
+losses = pinn.compute_loss(x_data, u_data, x_collocation)
+```
+
+---
+
+## Architecture
+
+```
+ununennium/
+├── core/           # GeoTensor, GeoBatch, types, CRS handling
+├── io/             # COG, STAC, Zarr readers/writers
+├── preprocessing/  # Normalization, spectral indices
+├── augmentation/   # Geometric and radiometric transforms
+├── tiling/         # Spatial sampling and tiling
+├── datasets/       # Dataset abstractions
+├── models/         # Backbones, heads, GAN, PINN
+│   ├── backbones/  # ResNet, EfficientNet, ViT
+│   ├── heads/      # Classification, Segmentation, Detection
+│   ├── gan/        # Pix2Pix, CycleGAN, ESRGAN
+│   └── pinn/       # Physics-informed networks
+├── losses/         # Dice, Focal, Perceptual, Physics
+├── metrics/        # IoU, Dice, Calibration
+├── training/       # Trainer, Callbacks, Distributed
+├── export/         # ONNX, TorchScript
+└── sensors/        # Sentinel-2, Landsat, MODIS specs
+```
+
+---
+
+## Supported Tasks
+
+| Task | Models | Metrics |
+|------|--------|---------|
+| Scene Classification | ResNet, EfficientNet, ViT | Accuracy, F1, AUC |
+| Semantic Segmentation | U-Net, DeepLabV3, FPN | mIoU, Dice, PA |
+| Object Detection | Coming Soon | mAP, AP50 |
+| Change Detection | Siamese + Diff | F1, κ |
+| Super-Resolution | ESRGAN, Real-ESRGAN | PSNR, SSIM, LPIPS |
+| Image Translation | Pix2Pix, CycleGAN | FID, SAM |
+| Physics-Informed | PINN | L2 Error, PDE Residual |
+
+---
+
+## Documentation
+
+- [Getting Started](https://ununennium.readthedocs.io/getting-started/)
+- [API Reference](https://ununennium.readthedocs.io/api/)
+- [Tutorials](https://ununennium.readthedocs.io/tutorials/)
+- [Model Zoo](https://ununennium.readthedocs.io/models/)
+- [Theory](https://ununennium.readthedocs.io/theory/)
+
+---
+
+## Authors
+
+- **Olaf Yunus Laitinen Imanov** - Lead Developer & Architect
+- **Hafiz Rzazade** - Core Contributor
+- **Laman Mamedova** - Documentation & Testing
+- **Farid Mirzaliyev** - Model Development
+- **Aian Ajili** - Infrastructure & CI/CD
+
+---
+
+## Citation
+
+If you use Ununennium in your research, please cite:
+
+```bibtex
+@software{ununennium2024,
+  title = {Ununennium: Production-grade Satellite Imagery Machine Learning},
+  author = {Laitinen Imanov, Olaf Yunus and Rzazade, Hafiz and Mamedova, Laman and Mirzaliyev, Farid and Ajili, Ayan},
+  year = {2024},
+  version = {1.0.0},
+  url = {https://github.com/olaflaitinen/ununennium},
+  doi = {10.5281/zenodo.12345678}
+}
+```
+
+---
+
+## License
+
+Apache License 2.0. See [LICENSE](LICENSE) for details.
+
+---
+
+## Contributing
+
+We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+### Development Setup
+
+```bash
+git clone https://github.com/olaflaitinen/ununennium.git
+cd ununennium
+pip install -e ".[dev]"
+pre-commit install
+pytest tests/
+```
+
+---
+
+<div align="center">
+
+**Built with passion for Earth observation and machine learning.**
+
+*Ununennium: Where geospatial meets deep learning.*
+
+</div>

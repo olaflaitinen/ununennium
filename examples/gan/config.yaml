@@ -1,0 +1,5 @@
+lambda_l1: 100
+lambda_cycle: 10
+lr_g: 0.0002
+lr_d: 0.0002
+epochs: 200
