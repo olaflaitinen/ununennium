@@ -8,6 +8,7 @@ from contextlib import contextmanager
 
 import numpy as np
 import torch
+import tracemalloc
 
 
 class Profiler:
@@ -75,7 +76,6 @@ class MemoryProfiler:
         Returns:
             Memory stats dictionary.
         """
-        import tracemalloc
 
         result: dict[str, float] = {"label": label, "timestamp": time.time()}
 
@@ -101,7 +101,6 @@ class MemoryProfiler:
         Args:
             label: Section label.
         """
-        import tracemalloc
 
         if torch.cuda.is_available():
             torch.cuda.reset_peak_memory_stats()
@@ -127,7 +126,6 @@ class MemoryProfiler:
 
     def __enter__(self):
         # Start tracking manually
-        import tracemalloc
 
         if torch.cuda.is_available():
             torch.cuda.reset_peak_memory_stats()
@@ -136,7 +134,5 @@ class MemoryProfiler:
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        import tracemalloc
-
         self.snapshot("end")
         tracemalloc.stop()

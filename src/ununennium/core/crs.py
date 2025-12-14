@@ -7,7 +7,7 @@ from typing import Any, Union
 import pyproj
 from pyproj import CRS
 
-CRSType = Union[str, int, CRS, dict[str, Any]]
+CRSType = str | int | CRS | dict[str, Any]
 
 
 def parse_crs(crs: CRSType) -> CRS:

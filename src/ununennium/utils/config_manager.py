@@ -18,7 +18,7 @@ class ConfigManager:
         if not self.config_path.exists():
             raise FileNotFoundError(f"Config not found: {self.config_path}")
 
-        with open(self.config_path) as f:
+        with self.config_path.open() as f:
             self.config = yaml.safe_load(f)
         return self.config
 

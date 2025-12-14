@@ -71,7 +71,7 @@ class CheckpointCallback(Callback):
 
         self.best_metrics: list[tuple[float, Path]] = []
 
-    def on_train_start(self, trainer: Trainer) -> None:
+    def on_train_start(self, _trainer: Trainer) -> None:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
     def on_epoch_end(self, trainer: Trainer, epoch: int, logs: dict[str, float]) -> None:
@@ -125,7 +125,7 @@ class EarlyStoppingCallback(Callback):
         self.best = float("inf") if mode == "min" else float("-inf")
         self.counter = 0
 
-    def on_epoch_end(self, trainer: Trainer, epoch: int, logs: dict[str, float]) -> None:
+    def on_epoch_end(self, trainer: Trainer, _epoch: int, logs: dict[str, float]) -> None:
         current = logs.get(self.monitor)
         if current is None:
             return
@@ -146,6 +146,6 @@ class EarlyStoppingCallback(Callback):
 class ProgressCallback(Callback):
     """Print training progress."""
 
-    def on_epoch_end(self, trainer: Trainer, epoch: int, logs: dict[str, float]) -> None:
+    def on_epoch_end(self, _trainer: Trainer, epoch: int, logs: dict[str, float]) -> None:
         log_str = " | ".join(f"{k}: {v:.4f}" for k, v in logs.items())
         print(f"Epoch {epoch + 1}: {log_str}")

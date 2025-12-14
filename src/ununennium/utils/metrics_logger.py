@@ -22,7 +22,7 @@ class MetricsLogger:
         csv_path = self.log_dir / "metrics.csv"
         file_exists = csv_path.exists()
 
-        with open(csv_path, "a", newline="") as f:
+        with csv_path.open("a", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=entry.keys())
             if not file_exists:
                 writer.writeheader()
@@ -30,5 +30,5 @@ class MetricsLogger:
 
     def save_summary(self):
         """Save full history to JSON."""
-        with open(self.log_dir / "metrics_history.json", "w") as f:
+        with (self.log_dir / "metrics_history.json").open("w") as f:
             json.dump(self.metrics_history, f, indent=2)

@@ -3,7 +3,13 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Any, Self
+from typing import TYPE_CHECKING, Any
+import sys
+
+if sys.version_info >= (3, 11):
+    from typing import Self
+else:
+    from typing_extensions import Self
 
 import torch
 
@@ -52,8 +58,7 @@ class GeoBatch:
 
         if self.labels is not None and self.labels.shape[0] != self.images.shape[0]:
             raise ValueError(
-                f"Batch size mismatch: images={self.images.shape[0]}, "
-                f"labels={self.labels.shape[0]}"
+                f"Batch size mismatch: images={self.images.shape[0]}, labels={self.labels.shape[0]}"
             )
 
         if self.metadata is not None and len(self.metadata) != self.images.shape[0]:
@@ -182,7 +187,7 @@ class GeoBatch:
         images_tensor = torch.stack(images)
 
         # Handle labels
-        labels_tensor = torch.stack(labels) if all(l.numel() > 0 for l in labels) else None
+        labels_tensor = torch.stack(labels) if all(label.numel() > 0 for label in labels) else None
 
         return cls(
             images=images_tensor,
