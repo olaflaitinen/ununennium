@@ -831,12 +831,12 @@
   <a href="#21-global-morans-i" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.1 Global Moran's $I$
+        2.1 Global Moran's \(I\)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2.1 Global Moran&#39;s $I$">
+    <nav class="md-nav" aria-label="2.1 Global Moran&#39;s \(I\)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -854,7 +854,7 @@
   <a href="#212-the-spatial-weight-matrix-w" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.1.2 The Spatial Weight Matrix ($W$)
+        2.1.2 The Spatial Weight Matrix (\(W\))
       
     </span>
   </a>
@@ -881,7 +881,7 @@
   <a href="#22-gearys-c-ratio" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.2 Geary's $C$ Ratio
+        2.2 Geary's \(C\) Ratio
       
     </span>
   </a>
@@ -892,7 +892,7 @@
   <a href="#23-getis-ord-general-g" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2.3 Getis-Ord General $G$
+        2.3 Getis-Ord General \(G\)
       
     </span>
   </a>
@@ -920,7 +920,7 @@
   <a href="#31-local-morans-i_i" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.1 Local Moran's $I_i$
+        3.1 Local Moran's \(I_i\)
       
     </span>
   </a>
@@ -931,7 +931,7 @@
   <a href="#32-getis-ord-g_i-gi-star" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3.2 Getis-Ord $G_i^*$ (Gi-Star)
+        3.2 Getis-Ord \(G_i^*\) (Gi-Star)
       
     </span>
   </a>
@@ -1059,7 +1059,7 @@
   <a href="#61-effective-sample-size-n_eff" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.1 Effective Sample Size ($N_{eff}$)
+        6.1 Effective Sample Size (\(N_{eff}\))
       
     </span>
   </a>
@@ -1197,21 +1197,21 @@
 <hr />
 <h2 id="1-foundations-of-spatial-dependence">1. Foundations of Spatial Dependence</h2>
 <h3 id="11-the-independent-and-identically-distributed-iid-fallacy">1.1 The Independent and Identically Distributed (i.i.d.) Fallacy</h3>
-<p>Classical statistical learning theory assumes that a dataset $D = {(x_1, y_1), ..., (x_N, y_N)}$ consists of samples drawn independently from a joint probability distribution $P(X, Y)$.</p>
-<p>$$ P(D) = \prod_{i=1}^N P(x_i, y_i) $$</p>
-<p>This assumption simplifies the calculation of the likelihood function $\mathcal{L}(\theta)$ and ensures that the empirical risk converges to the expected risk as $N \to \infty$.</p>
+<p>Classical statistical learning theory assumes that a dataset <span class="arithmatex">\(D = \{(x_1, y_1), ..., (x_N, y_N)\}\)</span> consists of samples drawn independently from a joint probability distribution <span class="arithmatex">\(P(X, Y)\)</span>.</p>
+<div class="arithmatex">\[ P(D) = \prod_{i=1}^N P(x_i, y_i) \]</div>
+<p>This assumption simplifies the calculation of the likelihood function <span class="arithmatex">\(\mathcal{L}(\theta)\)</span> and ensures that the empirical risk converges to the expected risk as <span class="arithmatex">\(N \to \infty\)</span>.</p>
 <p><strong>The Geospatial Reality:</strong>
-In satellite imagery, $x_i$ (a pixel or patch) is functionally dependent on $x_j$ where distance $d(i, j)$ is small.
+In satellite imagery, <span class="arithmatex">\(x_i\)</span> (a pixel or patch) is functionally dependent on <span class="arithmatex">\(x_j\)</span> where distance <span class="arithmatex">\(d(i, j)\)</span> is small.
 *   <strong>Atmospheric Continuity:</strong> Haze and clouds are continuous fields.
 *   <strong>ecological Continuity:</strong> A forest does not end abruptly at a pixel boundary; biases in species distribution persist over kilometers.
 *   <strong>Sensor Noise:</strong> CCD strips introduce row-correlated noise.</p>
-<p>Consequently, the effective sample size $N_{eff}$ is fundamentally different from the observed sample size $N$.</p>
+<p>Consequently, the effective sample size <span class="arithmatex">\(N_{eff}\)</span> is fundamentally different from the observed sample size <span class="arithmatex">\(N\)</span>.</p>
 <h3 id="12-toblers-first-law-tfl">1.2 Tobler's First Law (TFL)</h3>
 <blockquote>
 <p>"Everything is related to everything else, but near things are more related than distant things."
 — Waldo Tobler, <em>A Computer Movie Simulating Urban Growth in the Detroit Region</em> (1970)</p>
 </blockquote>
-<p>While TFL is intuitive, its mathematical formalization leads to the concept of the <strong>Spatial Weight Matrix</strong> ($W$) or the <strong>Covariance Function</strong> ($C(h)$) in Geostatistics. High autocorrelation implies that the information content of new samples decays rapidly as sampling density increases within a fixed region.</p>
+<p>While TFL is intuitive, its mathematical formalization leads to the concept of the <strong>Spatial Weight Matrix</strong> (<span class="arithmatex">\(W\)</span>) or the <strong>Covariance Function</strong> (<span class="arithmatex">\(C(h)\)</span>) in Geostatistics. High autocorrelation implies that the information content of new samples decays rapidly as sampling density increases within a fixed region.</p>
 <h3 id="13-the-modifiable-areal-unit-problem-maup">1.3 The Modifiable Areal Unit Problem (MAUP)</h3>
 <p>Spatial autocorrelation is inextricably linked to MAUP (Openshaw, 1984). The correlation observed depends on the scale and aggregation of units.
 1.  <strong>Scale Effect:</strong> Correlations change as we aggregate pixels into larger patches. A strong correlation at 10m resolution (individual tree crowns) may vanish at 1km resolution (forest stand).
@@ -1220,69 +1220,69 @@ In satellite imagery, $x_i$ (a pixel or patch) is functionally dependent on $x_j
 <hr />
 <h2 id="2-statistical-quantification-measures">2. Statistical Quantification Measures</h2>
 <p>To mitigate autocorrelation, we first must measure it. We employ several statistics, each sensitive to different aspects of spatial structure.</p>
-<h3 id="21-global-morans-i">2.1 Global Moran's $I$</h3>
-<p>Moran's $I$ (Moran, 1950) is the spatial equivalent of the Pearson correlation coefficient. It measures the global tendency of similar values to cluster.</p>
+<h3 id="21-global-morans-i">2.1 Global Moran's <span class="arithmatex">\(I\)</span></h3>
+<p>Moran's <span class="arithmatex">\(I\)</span> (Moran, 1950) is the spatial equivalent of the Pearson correlation coefficient. It measures the global tendency of similar values to cluster.</p>
 <h4 id="211-formal-definition">2.1.1 Formal Definition</h4>
-<p>$$ I = \frac{N}{S_0} \frac{\sum_{i=1}^N \sum_{j=1}^N w_{ij} (x_i - \bar{x})(x_j - \bar{x})}{\sum_{i=1}^N (x_i - \bar{x})^2} $$</p>
+<div class="arithmatex">\[ I = \frac{N}{S_0} \frac{\sum_{i=1}^N \sum_{j=1}^N w_{ij} (x_i - \bar{x})(x_j - \bar{x})}{\sum_{i=1}^N (x_i - \bar{x})^2} \]</div>
 <p>Where:
-*   $N$: Total number of spatial units (e.g., image patches).
-*   $x_i$: Attribute value at location $i$ (e.g., prediction error, class label).
-*   $\bar{x}$: Global mean of $x$.
-*   $w_{ij}$: Spatial weight describing the proximity of $i$ and $j$.
-*   $S_0$: Sum of all spatial weights, $S_0 = \sum_{i=1}^N \sum_{j=1}^N w_{ij}$.</p>
-<h4 id="212-the-spatial-weight-matrix-w">2.1.2 The Spatial Weight Matrix ($W$)</h4>
-<p>The choice of $W$ dictates the "neighborhood."
-*   <strong>Contiguity Weights:</strong> $w_{ij} = 1$ if $i$ and $j$ share a boundary (Queen or Rook).
-*   <strong>Distance Weights:</strong> $w_{ij} = 1/d_{ij}^\alpha$ (Inverse Distance Weighting).
-*   <strong>K-Nearest Neighbors:</strong> $w_{ij} = 1$ if $j \in \text{KNN}(i)$.</p>
+*   <span class="arithmatex">\(N\)</span>: Total number of spatial units (e.g., image patches).
+*   <span class="arithmatex">\(x_i\)</span>: Attribute value at location <span class="arithmatex">\(i\)</span> (e.g., prediction error, class label).
+*   <span class="arithmatex">\(\bar{x}\)</span>: Global mean of <span class="arithmatex">\(x\)</span>.
+*   <span class="arithmatex">\(w_{ij}\)</span>: Spatial weight describing the proximity of <span class="arithmatex">\(i\)</span> and <span class="arithmatex">\(j\)</span>.
+*   <span class="arithmatex">\(S_0\)</span>: Sum of all spatial weights, <span class="arithmatex">\(S_0 = \sum_{i=1}^N \sum_{j=1}^N w_{ij}\)</span>.</p>
+<h4 id="212-the-spatial-weight-matrix-w">2.1.2 The Spatial Weight Matrix (<span class="arithmatex">\(W\)</span>)</h4>
+<p>The choice of <span class="arithmatex">\(W\)</span> dictates the "neighborhood."
+*   <strong>Contiguity Weights:</strong> <span class="arithmatex">\(w_{ij} = 1\)</span> if <span class="arithmatex">\(i\)</span> and <span class="arithmatex">\(j\)</span> share a boundary (Queen or Rook).
+*   <strong>Distance Weights:</strong> <span class="arithmatex">\(w_{ij} = 1/d_{ij}^\alpha\)</span> (Inverse Distance Weighting).
+*   <strong>K-Nearest Neighbors:</strong> <span class="arithmatex">\(w_{ij} = 1\)</span> if <span class="arithmatex">\(j \in \text{KNN}(i)\)</span>.</p>
 <p>In deep learning, we typically use a <strong>Kernel-based Weight</strong>, typically Gaussian:</p>
-<p>$$ w_{ij} = \exp\left(-\frac{d_{ij}^2}{2\sigma^2}\right) $$</p>
+<div class="arithmatex">\[ w_{ij} = \exp\left(-\frac{d_{ij}^2}{2\sigma^2}\right) \]</div>
 <h4 id="213-hypothesis-testing">2.1.3 Hypothesis Testing</h4>
-<p>The expected value of Moran's $I$ under the null hypothesis (complete spatial randomness) is:</p>
-<p>$$ E[I] = \frac{-1}{N-1} $$</p>
-<p>As $N \to \infty$, $E[I] \to 0$. Values significantly greater than $E[I]$ indicate positive autocorrelation (clustering), while values less indicate negative autocorrelation (dispersion).</p>
+<p>The expected value of Moran's <span class="arithmatex">\(I\)</span> under the null hypothesis (complete spatial randomness) is:</p>
+<div class="arithmatex">\[ E[I] = \frac{-1}{N-1} \]</div>
+<p>As <span class="arithmatex">\(N \to \infty\)</span>, <span class="arithmatex">\(E[I] \to 0\)</span>. Values significantly greater than <span class="arithmatex">\(E[I]\)</span> indicate positive autocorrelation (clustering), while values less indicate negative autocorrelation (dispersion).</p>
 <p>We calculate the Z-score for significance testing:</p>
-<p>$$ Z_I = \frac{I - E[I]}{\sqrt{\text{Var}(I)}} $$</p>
-<p>If $|Z_I| &gt; 1.96$, we reject the null hypothesis at $p &lt; 0.05$. This is a critical check before trusting any grid-search or hyperparameter tuning result.</p>
-<h3 id="22-gearys-c-ratio">2.2 Geary's $C$ Ratio</h3>
-<p>Geary's $C$ (Geary, 1954) is based on squared differences rather than cross-products.</p>
-<p>$$ C = \frac{(N-1) \sum_{i=1}^N \sum_{j=1}^N w_{ij} (x_i - x_j)^2}{2 S_0 \sum_{i=1}^N (x_i - \bar{x})^2} $$</p>
+<div class="arithmatex">\[ Z_I = \frac{I - E[I]}{\sqrt{\text{Var}(I)}} \]</div>
+<p>If <span class="arithmatex">\(|Z_I| &gt; 1.96\)</span>, we reject the null hypothesis at <span class="arithmatex">\(p &lt; 0.05\)</span>. This is a critical check before trusting any grid-search or hyperparameter tuning result.</p>
+<h3 id="22-gearys-c-ratio">2.2 Geary's <span class="arithmatex">\(C\)</span> Ratio</h3>
+<p>Geary's <span class="arithmatex">\(C\)</span> (Geary, 1954) is based on squared differences rather than cross-products.</p>
+<div class="arithmatex">\[ C = \frac{(N-1) \sum_{i=1}^N \sum_{j=1}^N w_{ij} (x_i - x_j)^2}{2 S_0 \sum_{i=1}^N (x_i - \bar{x})^2} \]</div>
 <p><strong>Key Differences:</strong>
-*   <strong>Range:</strong> $0 \le C \le 2$ (approx).
+*   <strong>Range:</strong> <span class="arithmatex">\(0 \le C \le 2\)</span> (approx).
 *   <strong>Interpretation:</strong>
-    *   $C &lt; 1$: Positive autocorrelation (similar values are close).
-    *   $C = 1$: Randomness.
-    *   $C &gt; 1$: Negative autocorrelation.
-*   <strong>Sensitivity:</strong> Geary's $C$ is more sensitive to local deviations, whereas Moran's $I$ is more sensitive to global trends.</p>
-<h3 id="23-getis-ord-general-g">2.3 Getis-Ord General $G$</h3>
-<p>The General $G$ statistic distinguishes between "High-High" clusters (hotspots) and "Low-Low" clusters (coldspots), which Moran's $I$ cannot differentiate (both are just "positive").</p>
-<p>$$ G = \frac{\sum_{i=1}^N \sum_{j=1, j \neq i}^N w_{ij} x_i x_j}{\sum_{i=1}^N \sum_{j=1, j \neq i}^N x_i x_j} $$</p>
+    *   <span class="arithmatex">\(C &lt; 1\)</span>: Positive autocorrelation (similar values are close).
+    *   <span class="arithmatex">\(C = 1\)</span>: Randomness.
+    *   <span class="arithmatex">\(C &gt; 1\)</span>: Negative autocorrelation.
+*   <strong>Sensitivity:</strong> Geary's <span class="arithmatex">\(C\)</span> is more sensitive to local deviations, whereas Moran's <span class="arithmatex">\(I\)</span> is more sensitive to global trends.</p>
+<h3 id="23-getis-ord-general-g">2.3 Getis-Ord General <span class="arithmatex">\(G\)</span></h3>
+<p>The General <span class="arithmatex">\(G\)</span> statistic distinguishes between "High-High" clusters (hotspots) and "Low-Low" clusters (coldspots), which Moran's <span class="arithmatex">\(I\)</span> cannot differentiate (both are just "positive").</p>
+<div class="arithmatex">\[ G = \frac{\sum_{i=1}^N \sum_{j=1, j \neq i}^N w_{ij} x_i x_j}{\sum_{i=1}^N \sum_{j=1, j \neq i}^N x_i x_j} \]</div>
 <hr />
 <h2 id="3-local-indicators-of-spatial-association-lisa">3. Local Indicators of Spatial Association (LISA)</h2>
 <p>Global statistics summarize the entire study area into a single number. However, geospatial processes are rarely stationary; relationships vary across space (Spatial Heterogeneity). LISA statistics (Anselin, 1995) decompose global measures into local contributions.</p>
-<h3 id="31-local-morans-i_i">3.1 Local Moran's $I_i$</h3>
-<p>$$ I_i = z_i \sum_{j} w_{ij} z_j $$</p>
-<p>Where $z_i = (x_i - \bar{x}) / \sigma$ is the standardized score.</p>
+<h3 id="31-local-morans-i_i">3.1 Local Moran's <span class="arithmatex">\(I_i\)</span></h3>
+<div class="arithmatex">\[ I_i = z_i \sum_{j} w_{ij} z_j \]</div>
+<p>Where <span class="arithmatex">\(z_i = (x_i - \bar{x}) / \sigma\)</span> is the standardized score.</p>
 <p><strong>The Summation Property:</strong>
 $$ \sum_{i=1}^N I_i \propto I_{global} $$</p>
 <p><strong>Cluster Map Generation:</strong>
-By computing $I_i$ for every pixel (or tile) and testing significance, we generate a LISA Cluster Map with four categories:
+By computing <span class="arithmatex">\(I_i\)</span> for every pixel (or tile) and testing significance, we generate a LISA Cluster Map with four categories:
 1.  <strong>HH (High-High):</strong> High values surrounded by high values (Hotspot).
 2.  <strong>LL (Low-Low):</strong> Low values surrounded by low values (Coldspot).
 3.  <strong>HL (High-Low):</strong> High value outlier in a low value field (<em>Spatial Outlier</em>).
 4.  <strong>LH (Low-High):</strong> Low value outlier in a high value field (<em>Spatial Outlier</em>).</p>
 <p><strong>Ununennium Use Case:</strong>
 We use <strong>HL</strong> and <strong>LH</strong> regions for <strong>Hard Negative Mining</strong>. These represent unexpected features (e.g., a building in the middle of a forest, a hole in a cloud) that constitute the most informative training examples.</p>
-<h3 id="32-getis-ord-g_i-gi-star">3.2 Getis-Ord $G_i^*$ (Gi-Star)</h3>
-<p>The $G_i^*$ statistic is widely used for heatmap generation.</p>
-<p>$$ G_i^* = \frac{\sum_{j=1}^N w_{ij} x_j - \bar{X} \sum_{j=1}^N w_{ij}}{S \sqrt{\frac{N \sum_{j=1}^N w_{ij}^2 - (\sum_{j=1}^N w_{ij})^2}{N-1}}} $$</p>
-<p>Unlike Local Moran, $G_i^*$ includes the value at $i$ in the summation.</p>
+<h3 id="32-getis-ord-g_i-gi-star">3.2 Getis-Ord <span class="arithmatex">\(G_i^*\)</span> (Gi-Star)</h3>
+<p>The <span class="arithmatex">\(G_i^*\)</span> statistic is widely used for heatmap generation.</p>
+<div class="arithmatex">\[ G_i^* = \frac{\sum_{j=1}^N w_{ij} x_j - \bar{X} \sum_{j=1}^N w_{ij}}{S \sqrt{\frac{N \sum_{j=1}^N w_{ij}^2 - (\sum_{j=1}^N w_{ij})^2}{N-1}}} \]</div>
+<p>Unlike Local Moran, <span class="arithmatex">\(G_i^*\)</span> includes the value at <span class="arithmatex">\(i\)</span> in the summation.</p>
 <hr />
 <h2 id="4-variography-and-geostatistics">4. Variography and Geostatistics</h2>
 <p>For continuous fields, we model spatial dependence using the <strong>Semivariogram</strong>.</p>
 <h3 id="41-the-experimental-variogram">4.1 The Experimental Variogram</h3>
-<p>$$ \hat{\gamma}(h) = \frac{1}{2|N(h)|} \sum_{(i,j) \in N(h)} (x_i - x_j)^2 $$</p>
-<p>Where $N(h)$ is the set of pairs separated by distance vector $h$ (lag).</p>
+<div class="arithmatex">\[ \hat{\gamma}(h) = \frac{1}{2|N(h)|} \sum_{(i,j) \in N(h)} (x_i - x_j)^2 \]</div>
+<p>Where <span class="arithmatex">\(N(h)\)</span> is the set of pairs separated by distance vector <span class="arithmatex">\(h\)</span> (lag).</p>
 <h3 id="42-analytical-models">4.2 Analytical Models</h3>
 <p>To utilize the variogram, we fit a theoretical model to the experimental points:</p>
 <ol>
@@ -1301,42 +1301,42 @@ We use <strong>HL</strong> and <strong>LH</strong> regions for <strong>Hard Nega
 </ol>
 <h3 id="43-key-parameters-interpretation">4.3 Key Parameters Interpretation</h3>
 <ul>
-<li><strong>Nugget ($c_0$):</strong> The discontinuous jump at the origin. Represents measurement error + micro-scale variation smaller than the sampling interval.</li>
-<li><strong>Sill ($c_0 + c$):</strong> The variance of the random field.</li>
-<li><strong>Range ($a$):</strong> The distance at which correlation becomes negligible.</li>
+<li><strong>Nugget (<span class="arithmatex">\(c_0\)</span>):</strong> The discontinuous jump at the origin. Represents measurement error + micro-scale variation smaller than the sampling interval.</li>
+<li><strong>Sill (<span class="arithmatex">\(c_0 + c\)</span>):</strong> The variance of the random field.</li>
+<li><strong>Range (<span class="arithmatex">\(a\)</span>):</strong> The distance at which correlation becomes negligible.</li>
 </ul>
 <p><strong>Critical for Deep Learning:</strong>
-The <strong>effective range</strong> determines the minimum required buffer size between training and validation chips. If you split your dataset into Train/Val with a buffer $d &lt; a$, your validation score is contaminated by leakage.</p>
+The <strong>effective range</strong> determines the minimum required buffer size between training and validation chips. If you split your dataset into Train/Val with a buffer <span class="arithmatex">\(d &lt; a\)</span>, your validation score is contaminated by leakage.</p>
 <hr />
 <h2 id="5-the-impact-on-cross-validation">5. The Impact on Cross-Validation</h2>
 <p>Standard K-Fold Cross-Validation (CV) assumes independence. In the presence of autocorrelation, random K-Fold leads to <strong>Optimism Bias</strong>.</p>
 <h3 id="51-the-bias-mechanism">5.1 The Bias Mechanism</h3>
-<p>Let error $\epsilon \sim N(0, \Sigma)$, where $\Sigma$ is not diagonal (non-zero off-diagonal elements).
-If $i \in \text{Train}$ and $j \in \text{Test}$ are close, $\rho_{ij}$ is high. The model "remembers" $i$ and essentially "interpolates" $j$ rather than "generalizing" to it.</p>
+<p>Let error <span class="arithmatex">\(\epsilon \sim N(0, \Sigma)\)</span>, where <span class="arithmatex">\(\Sigma\)</span> is not diagonal (non-zero off-diagonal elements).
+If <span class="arithmatex">\(i \in \text{Train}\)</span> and <span class="arithmatex">\(j \in \text{Test}\)</span> are close, <span class="arithmatex">\(\rho_{ij}\)</span> is high. The model "remembers" <span class="arithmatex">\(i\)</span> and essentially "interpolates" <span class="arithmatex">\(j\)</span> rather than "generalizing" to it.</p>
 <p>Studies (e.g., Roberts et al., 2017) show that random CV can overestimate accuracy by <strong>20-30%</strong> in tasks like crop classification or biomass estimation.</p>
 <h3 id="52-block-cross-validation-blockcv">5.2 Block Cross-Validation (BlockCV)</h3>
 <p><strong>Algorithm:</strong>
-1.  Tessellate the ROI into independent blocks $B_1, ..., B_K$.
-2.  Blocks must be larger than the variogram range $a$.
+1.  Tessellate the ROI into independent blocks <span class="arithmatex">\(B_1, ..., B_K\)</span>.
+2.  Blocks must be larger than the variogram range <span class="arithmatex">\(a\)</span>.
 3.  Assign entire blocks to folds.</p>
 <h3 id="53-buffered-block-cross-validation">5.3 Buffered Block Cross-Validation</h3>
-<p>Even with blocks, pixels at the edge of $B_{train}$ correlate with boundary pixels of $B_{test}$.
+<p>Even with blocks, pixels at the edge of <span class="arithmatex">\(B_{train}\)</span> correlate with boundary pixels of <span class="arithmatex">\(B_{test}\)</span>.
 <strong>Solution:</strong>
-Remove a "Dead Zone" buffer of width $R$ between blocks.</p>
-<p>$$ \text{Buffer Width} \ge \text{Autocorrelation Range}(\gamma) $$</p>
+Remove a "Dead Zone" buffer of width <span class="arithmatex">\(R\)</span> between blocks.</p>
+<div class="arithmatex">\[ \text{Buffer Width} \ge \text{Autocorrelation Range}(\gamma) \]</div>
 <p>Ununennium implements <code>SpatialKFold</code> which automates this buffering logic.</p>
 <hr />
 <h2 id="6-variance-inflation-and-effective-sample-size">6. Variance Inflation and Effective Sample Size</h2>
 <p>When data is positively autocorrelated, each new sample adds less than 1 unit of information.</p>
-<h3 id="61-effective-sample-size-n_eff">6.1 Effective Sample Size ($N_{eff}$)</h3>
-<p>For a spatial series with autocorrelation $\rho$ at lag 1:</p>
-<p>$$ N_{eff} \approx N \frac{1 - \rho}{1 + \rho} $$</p>
+<h3 id="61-effective-sample-size-n_eff">6.1 Effective Sample Size (<span class="arithmatex">\(N_{eff}\)</span>)</h3>
+<p>For a spatial series with autocorrelation <span class="arithmatex">\(\rho\)</span> at lag 1:</p>
+<div class="arithmatex">\[ N_{eff} \approx N \frac{1 - \rho}{1 + \rho} \]</div>
 <p><strong>Implication for Significance Testing:</strong>
-If you have $N=10,000$ pixels but $\rho=0.95$:
+If you have <span class="arithmatex">\(N=10,000\)</span> pixels but <span class="arithmatex">\(\rho=0.95\)</span>:
 $$ N_{eff} \approx 10,000 \cdot \frac{0.05}{1.95} \approx 256 $$
-Your standard error ($\frac{\sigma}{\sqrt{N}}$) is vastly underestimated. This leads to <strong>Type I Errors</strong> (false positives) where we claim a model improvement is statistically significant when it is merely fitting the spatial noise.</p>
+Your standard error (<span class="arithmatex">\(\frac{\sigma}{\sqrt{N}}\)</span>) is vastly underestimated. This leads to <strong>Type I Errors</strong> (false positives) where we claim a model improvement is statistically significant when it is merely fitting the spatial noise.</p>
 <p><strong>Correction:</strong>
-All p-values in Ununennium's reporting module are computed using $N_{eff}$.</p>
+All p-values in Ununennium's reporting module are computed using <span class="arithmatex">\(N_{eff}\)</span>.</p>
 <hr />
 <h2 id="7-deep-learning-specifics-receptive-fields-and-autocorrelation">7. Deep Learning Specifics: Receptive Fields and Autocorrelation</h2>
 <p>CNNs are explicitly designed to exploit local autocorrelation via convolution operations. However, the interplay between the network's <strong>Effective Receptive Field (ERF)</strong> and the data's <strong>Spatial Correlation Length</strong> is complex.</p>
@@ -1351,7 +1351,7 @@ All p-values in Ununennium's reporting module are computed using $N_{eff}$.</p>
     The feature map integrates uncorrelated noise. While this averages out noise (good), it may dilute sharp features.</p>
 </li>
 <li>
-<p><strong>Case 3: ERF $\approx$ Correlation Length.</strong>
+<p><strong>Case 3: ERF <span class="arithmatex">\(\approx\)</span> Correlation Length.</strong>
     Optimal. The network context matches the physical scale of the objects.</p>
 </li>
 </ul>
@@ -1362,7 +1362,7 @@ We must tune the depth and dilation rates of the network based on the average va
 *   A cloud mask algorithm fails on an entire cloud (blob of error).
 *   A lazy annotator labels a whole region loosely.</p>
 <p>This <strong>structured noise</strong> is highly dangerous because a CNN can easily learn to model the spatial structure of the noise itself (e.g., "blob-like error patterns").</p>
-<p><strong>Mitigation:</strong> <code>SpatialLabelSmoothing</code>. Instead of uniform smoothing $\epsilon$, we smooth based on the local variance of labels in the neighborhood.</p>
+<p><strong>Mitigation:</strong> <code>SpatialLabelSmoothing</code>. Instead of uniform smoothing <span class="arithmatex">\(\epsilon\)</span>, we smooth based on the local variance of labels in the neighborhood.</p>
 <hr />
 <h2 id="8-ununennium-implementation-details">8. Ununennium Implementation Details</h2>
 <h3 id="81-the-ununenniumstatsautocorrelation-module">8.1 The <code>ununennium.stats.autocorrelation</code> Module</h3>
@@ -1398,12 +1398,12 @@ We must tune the depth and dilation rates of the network based on the average va
 <a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    <span class="k">return</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span> <span class="o">*</span> <span class="n">numerator</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="n">denominator</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="82-spatially-weighted-loss-function">8.2 Spatially-Weighted Loss Function</h3>
-<p>To counter the redundancy of autocorrelated samples, we re-weight the loss function using the inverse of Local Moran's $I$.</p>
-<p>$$ \mathcal{L}<em>{final} = \frac{1}{B H W} \sum</em>{b,h,w} \omega_{bhw} \cdot \ell(y_{bhw}, \hat{y}_{bhw}) $$</p>
-<p>$$ \omega_{bhw} \propto \frac{1}{|I_i| + \epsilon} $$</p>
+<p>To counter the redundancy of autocorrelated samples, we re-weight the loss function using the inverse of Local Moran's <span class="arithmatex">\(I\)</span>.</p>
+<div class="arithmatex">\[ \mathcal{L}_{final} = \frac{1}{B H W} \sum_{b,h,w} \omega_{bhw} \cdot \ell(y_{bhw}, \hat{y}_{bhw}) \]</div>
+<div class="arithmatex">\[ \omega_{bhw} \propto \frac{1}{|I_i| + \epsilon} \]</div>
 <ul>
-<li><strong>High $I_i$ (Redundant):</strong> $\omega \to 0$. The model learns less from highly clustered, repetitive data.</li>
-<li><strong>Low $I_i$ (Unique):</strong> $\omega \to 1$. The model focuses on edges, transitions, and outliers.</li>
+<li><strong>High <span class="arithmatex">\(I_i\)</span> (Redundant):</strong> <span class="arithmatex">\(\omega \to 0\)</span>. The model learns less from highly clustered, repetitive data.</li>
+<li><strong>Low <span class="arithmatex">\(I_i\)</span> (Unique):</strong> <span class="arithmatex">\(\omega \to 1\)</span>. The model focuses on edges, transitions, and outliers.</li>
 </ul>
 <hr />
 <h2 id="9-conclusion">9. Conclusion</h2>
@@ -1476,6 +1476,10 @@ We must tune the depth and dilation rates of the network based on the average va
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

@@ -1054,37 +1054,37 @@
 
 <h1 id="uncertainty-quantification-in-geospatial-ai-a-theoretical-treatise">Uncertainty Quantification in Geospatial AI: A Theoretical Treatise</h1>
 <h2 id="abstract">Abstract</h2>
-<p>In safety-critical EO applications—such as disaster response, autonomous aerial navigation, and climate policy enforcement—a point prediction ($\hat{y}$) is insufficient and potentially dangerous. Decision-makers require a rigorous quantification of confidence. However, standard Deep Neural Networks (DNNs) are notoriously overconfident, often assigning $99\%$ probability to incorrect predictions on out-of-distribution (OOD) data. This document explores the theoretical decomposition of uncertainty into Aleatoric and Epistemic components and details the advanced Bayesian and conformal prediction methods implemented in Ununennium to calibrate these estimates.</p>
+<p>In safety-critical EO applications—such as disaster response, autonomous aerial navigation, and climate policy enforcement—a point prediction (<span class="arithmatex">\(\hat{y}\)</span>) is insufficient and potentially dangerous. Decision-makers require a rigorous quantification of confidence. However, standard Deep Neural Networks (DNNs) are notoriously overconfident, often assigning <span class="arithmatex">\(99\%\)</span> probability to incorrect predictions on out-of-distribution (OOD) data. This document explores the theoretical decomposition of uncertainty into Aleatoric and Epistemic components and details the advanced Bayesian and conformal prediction methods implemented in Ununennium to calibrate these estimates.</p>
 <hr />
 <h2 id="1-the-anatomy-of-uncertainty">1. The Anatomy of Uncertainty</h2>
-<p>Formally, given input $x$ and output $y$, we seek the predictive posterior distribution $P(y|x, D)$, where $D$ is the training data.</p>
-<p>$$ P(y|x, D) = \int P(y|x, \theta) P(\theta|D) d\theta $$</p>
-<p>This marginalization over parameters $\theta$ is intractable for modern DNNs. We approximate detailed components:</p>
+<p>Formally, given input <span class="arithmatex">\(x\)</span> and output <span class="arithmatex">\(y\)</span>, we seek the predictive posterior distribution <span class="arithmatex">\(P(y|x, D)\)</span>, where <span class="arithmatex">\(D\)</span> is the training data.</p>
+<div class="arithmatex">\[ P(y|x, D) = \int P(y|x, \theta) P(\theta|D) d\theta \]</div>
+<p>This marginalization over parameters <span class="arithmatex">\(\theta\)</span> is intractable for modern DNNs. We approximate detailed components:</p>
 <h3 id="11-aleatoric-uncertainty-data-noise">1.1 Aleatoric Uncertainty (Data Noise)</h3>
 <p>The uncertainty inherent in the observation process. Even with infinite data and a perfect model, this cannot be reduced.
-*   <strong>Homoscedastic:</strong> Constant noise variance $\sigma^2$ (e.g., thermal sensor noise).
-*   <strong>Heteroscedastic:</strong> Noise variance $\sigma(x)^2$ depends on input.
+*   <strong>Homoscedastic:</strong> Constant noise variance <span class="arithmatex">\(\sigma^2\)</span> (e.g., thermal sensor noise).
+*   <strong>Heteroscedastic:</strong> Noise variance <span class="arithmatex">\(\sigma(x)^2\)</span> depends on input.
     *   <em>Example:</em> Clouds, shadows, or mixed pixels (land/water border) have higher ambiguity than clear pixels.</p>
 <h3 id="12-epistemic-uncertainty-model-knowledge">1.2 Epistemic Uncertainty (Model Knowledge)</h3>
-<p>The uncertainty in the model parameters $\theta$ due to lack of knowledge (finite data).
+<p>The uncertainty in the model parameters <span class="arithmatex">\(\theta\)</span> due to lack of knowledge (finite data).
 *   <strong>Reducible:</strong> Can be reduced by observing more data in the sparse region of the manifold.
-*   <strong>Indicator of OOD:</strong> High epistemic uncertainty implies the input $x$ is far from the training distribution $P_{train}(x)$.
+*   <strong>Indicator of OOD:</strong> High epistemic uncertainty implies the input <span class="arithmatex">\(x\)</span> is far from the training distribution <span class="arithmatex">\(P_{train}(x)\)</span>.
     *   <em>Example:</em> A model trained on European cities receiving an input from the Sahara Desert.</p>
 <hr />
 <h2 id="2-modeling-aleatoric-uncertainty">2. Modeling Aleatoric Uncertainty</h2>
 <p>We model the output not as a deterministic value but as a distribution (e.g., Gaussian for regression).</p>
 <h3 id="21-heteroscedastic-regression-loss">2.1 Heteroscedastic Regression Loss</h3>
-<p>The network predicts two heads: mean $\mu(x)$ and variance $\sigma^2(x)$.</p>
+<p>The network predicts two heads: mean <span class="arithmatex">\(\mu(x)\)</span> and variance <span class="arithmatex">\(\sigma^2(x)\)</span>.</p>
 <p>The Negative Log Likelihood (NLL) for a Gaussian:</p>
-<p>$$ \mathcal{L}_{NLL} = -\log P(y | \mu, \sigma) = \frac{1}{2\sigma^2} | y - \mu |^2 + \frac{1}{2} \log \sigma^2 + \text{const} $$</p>
+<div class="arithmatex">\[ \mathcal{L}_{NLL} = -\log P(y | \mu, \sigma) = \frac{1}{2\sigma^2} \| y - \mu \|^2 + \frac{1}{2} \log \sigma^2 + \text{const} \]</div>
 <ul>
 <li><strong>Interpretation:</strong><ul>
-<li>The first term is the MSE weighted by precision ($1/\sigma^2$). This allows the model to "attenuate" the loss on noisy samples by predicting high $\sigma^2$.</li>
-<li>The second term ($\log \sigma^2$) prevents the model from predicting infinite variance (collapse).</li>
+<li>The first term is the MSE weighted by precision (<span class="arithmatex">\(1/\sigma^2\)</span>). This allows the model to "attenuate" the loss on noisy samples by predicting high <span class="arithmatex">\(\sigma^2\)</span>.</li>
+<li>The second term (<span class="arithmatex">\(\log \sigma^2\)</span>) prevents the model from predicting infinite variance (collapse).</li>
 </ul>
 </li>
 </ul>
-<p><strong>Numerical Stability:</strong> To avoid division by zero or negative variance, we usually predict $s = \log \sigma^2$ and optimize:
+<p><strong>Numerical Stability:</strong> To avoid division by zero or negative variance, we usually predict <span class="arithmatex">\(s = \log \sigma^2\)</span> and optimize:
 $$ \mathcal{L} = \frac{1}{2} \exp(-s) | y - \mu |^2 + \frac{1}{2} s $$</p>
 <hr />
 <h2 id="3-modeling-epistemic-uncertainty-bayesian-dl">3. Modeling Epistemic Uncertainty (Bayesian DL)</h2>
@@ -1092,29 +1092,29 @@ $$ \mathcal{L} = \frac{1}{2} \exp(-s) | y - \mu |^2 + \frac{1}{2} s $$</p>
 <h3 id="31-monte-carlo-mc-dropout-gal-ghahramani-2016">3.1 Monte Carlo (MC) Dropout (Gal &amp; Ghahramani, 2016)</h3>
 <p>Dropout, usually viewed as regularization, can be interpreted as a variational Bayesian approximation.
 *   <strong>Training:</strong> Dropout active.
-*   <strong>Inference:</strong> Dropout <strong>kept active</strong>. We perform $T$ stochastic forward passes ${\hat{y}<em>t}</em>{t=1}^T$.</p>
+*   <strong>Inference:</strong> Dropout <strong>kept active</strong>. We perform <span class="arithmatex">\(T\)</span> stochastic forward passes <span class="arithmatex">\(\{\hat{y}_t\}_{t=1}^T\)</span>.</p>
 <p><strong>Predictive Mean:</strong>
 $$ \mathbb{E}[y] \approx \frac{1}{T} \sum_{t=1}^T \hat{y}_t $$</p>
 <p><strong>Predictive Entropy (Classification):</strong>
 $$ H(y|x) = - \sum_{c=1}^C p_{avg}(c) \log p_{avg}(c) $$
-Where $p_{avg}$ is the numerical average of Softmax vectors.</p>
+Where <span class="arithmatex">\(p_{avg}\)</span> is the numerical average of Softmax vectors.</p>
 <p><strong>Predictive Variance (Regression):</strong>
 $$ \text{Var}(y) \approx \underbrace{\frac{1}{T} \sum \sigma^2_t}<em>{\text{Aleatoric}} + \underbrace{\frac{1}{T} \sum (\mu_t - \bar{\mu})^2}</em>{\text{Epistemic}} $$</p>
 <h3 id="32-deep-ensembles-lakshminarayanan-et-al-2017">3.2 Deep Ensembles (Lakshminarayanan et al., 2017)</h3>
-<p>Train $M$ models independently with random initialization and shuffled data.
+<p>Train <span class="arithmatex">\(M\)</span> models independently with random initialization and shuffled data.
 *   <strong>Pros:</strong> Empirically the Gold Standard. Better calibration and OOD detection than MC Dropout.
-*   <strong>Cons:</strong> $M \times$ training and inference cost (computationally heavy).
+*   <strong>Cons:</strong> <span class="arithmatex">\(M \times\)</span> training and inference cost (computationally heavy).
 *   <strong>Ununennium Strategy:</strong> We support "Snapshots Ensembles" (Cyclic Learning Rate) to get ensemble diversity within a single training run.</p>
 <h3 id="33-evidential-deep-learning-edl-sensoy-et-al-2018">3.3 Evidential Deep Learning (EDL) (Sensoy et al., 2018)</h3>
 <p>This deterministic method places a distribution over the distribution (Dirichlet Distribution for classification).
-The network predicts evidence $e_k \ge 0$.
+The network predicts evidence <span class="arithmatex">\(e_k \ge 0\)</span>.
 $$ \alpha_k = e_k + 1 $$
 $$ S = \sum \alpha_k $$
 $$ \text{Expected Probability } \hat{p}_k = \alpha_k / S $$
 $$ \text{Uncertainty (Vacuity) } u = K / S $$</p>
 <ul>
-<li><strong>Mechanism:</strong> High evidence (lots of support) $\to$ High $S$ $\to$ Low $u$.</li>
-<li><strong>Effect:</strong> A pure OOD sample will have $e_k \approx 0$ for all classes, so $u \to 1$.</li>
+<li><strong>Mechanism:</strong> High evidence (lots of support) <span class="arithmatex">\(\to\)</span> High <span class="arithmatex">\(S\)</span> <span class="arithmatex">\(\to\)</span> Low <span class="arithmatex">\(u\)</span>.</li>
+<li><strong>Effect:</strong> A pure OOD sample will have <span class="arithmatex">\(e_k \approx 0\)</span> for all classes, so <span class="arithmatex">\(u \to 1\)</span>.</li>
 <li><strong>Loss:</strong> KL-divergence between predicted Dirichlet and Uniform Dirichlet + Accuracy term.</li>
 </ul>
 <hr />
@@ -1123,33 +1123,33 @@ $$ \text{Uncertainty (Vacuity) } u = K / S $$</p>
 $$ P(Y=y | \hat{P}=p) = p $$</p>
 <h3 id="41-reliability-diagrams">4.1 Reliability Diagrams</h3>
 <p>Plot Accuracy vs Confidence in bins (e.g., 0-0.1, 0.1-0.2, ...).
-*   <strong>Perfect Calibration:</strong> $y=x$ diagonal line.
+*   <strong>Perfect Calibration:</strong> <span class="arithmatex">\(y=x\)</span> diagonal line.
 *   <strong>Under-confident:</strong> Above diagonal.
 *   <strong>Over-confident:</strong> Below diagonal (Typical DNN behavior).</p>
 <h3 id="42-expected-calibration-error-ece">4.2 Expected Calibration Error (ECE)</h3>
 <p>Weighted average gap.</p>
-<p>$$ \text{ECE} = \sum_{m=1}^M \frac{|B_m|}{N} | \text{acc}(B_m) - \text{conf}(B_m) | $$</p>
+<div class="arithmatex">\[ \text{ECE} = \sum_{m=1}^M \frac{|B_m|}{N} | \text{acc}(B_m) - \text{conf}(B_m) | \]</div>
 <h3 id="43-temperature-scaling-platt-scaling">4.3 Temperature Scaling (Platt Scaling)</h3>
 <p>A post-processing step to fix calibration on a validation set.
 $$ \hat{q}<em>i = \max_k \sigma</em>{SM}(\mathbf{z}_i / T)^{(k)} $$
-We learn a single scalar parameter $T$ (Temperature) that softens ($T&gt;1$) or sharpens ($T&lt;1$) the logits $\mathbf{z}$ to minimize NLL.
+We learn a single scalar parameter <span class="arithmatex">\(T\)</span> (Temperature) that softens (<span class="arithmatex">\(T&gt;1\)</span>) or sharpens (<span class="arithmatex">\(T&lt;1\)</span>) the logits <span class="arithmatex">\(\mathbf{z}\)</span> to minimize NLL.
 *   <strong>Note:</strong> Does not change accuracy (rank preserving), only confidence values.</p>
 <hr />
 <h2 id="5-conformal-prediction-cp">5. Conformal Prediction (CP)</h2>
 <p>Bayesian methods provide a <em>score</em> of uncertainty but no guarantees. <strong>Conformal Prediction</strong> provides rigorous statistical guarantees of finite-sample validity.</p>
-<p>"We guarantee with probability $1-\alpha$ that the true label $y$ is contained in the predicted set $\mathcal{C}(x)$."</p>
+<p>"We guarantee with probability <span class="arithmatex">\(1-\alpha\)</span> that the true label <span class="arithmatex">\(y\)</span> is contained in the predicted set <span class="arithmatex">\(\mathcal{C}(x)\)</span>."</p>
 <h3 id="51-inductive-conformal-prediction-icp">5.1 Inductive Conformal Prediction (ICP)</h3>
 <ol>
-<li><strong>Calibration Set:</strong> Hold out a set ${(x_i, y_i)}$.</li>
-<li><strong>Non-Conformity Score ($s_i$):</strong> e.g., $s_i = 1 - \hat{P}(y_i | x_i)$. (How "weird" is the true label given the model?).</li>
-<li><strong>Quantile:</strong> Compute $\hat{q}$ as the $\lceil (N+1)(1-\alpha) \rceil / N$ quantile of scores $s_i$.</li>
-<li><strong>Prediction:</strong> For test $x_{new}$, include all classes $k$ where $1 - \hat{P}(k|x_{new}) \le \hat{q}$.</li>
+<li><strong>Calibration Set:</strong> Hold out a set <span class="arithmatex">\(\{(x_i, y_i)\}\)</span>.</li>
+<li><strong>Non-Conformity Score (<span class="arithmatex">\(s_i\)</span>):</strong> e.g., <span class="arithmatex">\(s_i = 1 - \hat{P}(y_i | x_i)\)</span>. (How "weird" is the true label given the model?).</li>
+<li><strong>Quantile:</strong> Compute <span class="arithmatex">\(\hat{q}\)</span> as the <span class="arithmatex">\(\lceil (N+1)(1-\alpha) \rceil / N\)</span> quantile of scores <span class="arithmatex">\(s_i\)</span>.</li>
+<li><strong>Prediction:</strong> For test <span class="arithmatex">\(x_{new}\)</span>, include all classes <span class="arithmatex">\(k\)</span> where <span class="arithmatex">\(1 - \hat{P}(k|x_{new}) \le \hat{q}\)</span>.</li>
 </ol>
 <p><strong>Result:</strong>
 The model outputs a set of classes (e.g., <code>{"Forest", "Shrub"}</code>).
-*   Easy sample $\to$ Set size 1.
-*   Hard sample $\to$ Set size 5.
-*   OOD sample $\to$ Set size $C$ (all classes).</p>
+*   Easy sample <span class="arithmatex">\(\to\)</span> Set size 1.
+*   Hard sample <span class="arithmatex">\(\to\)</span> Set size 5.
+*   OOD sample <span class="arithmatex">\(\to\)</span> Set size <span class="arithmatex">\(C\)</span> (all classes).</p>
 <p>Ununennium implements <code>ConformalClassifier</code> wrappers that transform any PyTorch model into a set predictor with coverage guarantees.</p>
 <hr />
 <h2 id="6-applications-in-earth-observation">6. Applications in Earth Observation</h2>
@@ -1158,7 +1158,7 @@ The model outputs a set of classes (e.g., <code>{"Forest", "Shrub"}</code>).
 $$ \text{if } \text{mean}(H(y)) &gt; \tau \implies \text{Trigger Retraining/Labeling} $$</p>
 <h3 id="62-reliable-mapping">6.2 Reliable Mapping</h3>
 <p>Flood mapping requires high precision. We threshold the uncertainty map:
-*   <strong>Mask:</strong> $y_{out} = \text{bg}$ if $u(x) &gt; \tau$ else $\operatorname{argmax} P(y|x)$.
+*   <strong>Mask:</strong> <span class="arithmatex">\(y_{out} = \text{bg}\)</span> if <span class="arithmatex">\(u(x) &gt; \tau\)</span> else <span class="arithmatex">\(\operatorname{argmax} P(y|x)\)</span>.
 *   This creates "No Data" holes in the map where the model is unsure, rather than guessing.</p>
 <h3 id="63-active-learning">6.3 Active Learning</h3>
 <p>The <code>ununennium.active_learning</code> module prioritizes labeling patches with high Epistemic Uncertainty (maximizing information gain).</p>
@@ -1241,6 +1241,10 @@ $$ \text{if } \text{mean}(H(y)) &gt; \tau \implies \text{Trigger Retraining/Labe
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

@@ -1025,7 +1025,7 @@
 *   <code>path</code> <em>(str)</em>: Path to file. Supports VSI (e.g., <code>/vsis3/bucket/key</code>).
 *   <code>bands</code> <em>(list[int])</em>: 1-based indices of bands to read. Defaults to all.
 *   <code>window</code> <em>(Window)</em>: Rasterio window for lazy reading of subsets.
-*   <code>out_shape</code> <em>(tuple)</em>: Target $(H, W)$ for on-the-fly resizing.
+*   <code>out_shape</code> <em>(tuple)</em>: Target <span class="arithmatex">\((H, W)\)</span> for on-the-fly resizing.
 *   <code>resampling</code>: Kernel to use if <code>out_shape</code> differs from window size.</p>
 <p><strong>Performance Note:</strong>
 Uses <code>rasterio.Env</code> with <code>GDAL_DISABLE_READDIR_ON_OPEN</code> for optimized cloud performance.</p>
@@ -1130,6 +1130,10 @@ Ideal for datacube access (Time Series) where temporal slicing is efficient.</p>
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

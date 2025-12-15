@@ -804,7 +804,7 @@
   <a href="#121-toa-reflectance-rho_toa" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1.2.1 TOA Reflectance ($\rho_{TOA}$)
+        1.2.1 TOA Reflectance (\(\rho_{TOA}\))
       
     </span>
   </a>
@@ -815,7 +815,7 @@
   <a href="#122-boa-reflectance-rho_boa-surface-reflectance-sr" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1.2.2 BOA Reflectance ($\rho_{BOA}$) / Surface Reflectance (SR)
+        1.2.2 BOA Reflectance (\(\rho_{BOA}\)) / Surface Reflectance (SR)
       
     </span>
   </a>
@@ -1065,48 +1065,48 @@
 
 <h1 id="radiometric-calibration-and-correction-a-theoretical-treatise">Radiometric Calibration and Correction: A Theoretical Treatise</h1>
 <h2 id="abstract">Abstract</h2>
-<p>Remote sensing is the science of inferring physical properties of the Earth's surface from measurements of electromagnetic radiation. Unlike computer vision, where pixel values are arbitrary intensities (0-255), remote sensing data represents physical quantities (Radiance, Reflectance, Backscatter). To train Deep Learning models that generalize across time (seasonality) and space (atmosphere), we must strip away the confounding effects of the atmosphere, sun angle, and sensor geometry. This document details the physics of Radiative Transfer, the methods for Atmospheric Correction (L1C $\to$ L2A), and the rigorous harmonization of multi-sensor constellations.</p>
+<p>Remote sensing is the science of inferring physical properties of the Earth's surface from measurements of electromagnetic radiation. Unlike computer vision, where pixel values are arbitrary intensities (0-255), remote sensing data represents physical quantities (Radiance, Reflectance, Backscatter). To train Deep Learning models that generalize across time (seasonality) and space (atmosphere), we must strip away the confounding effects of the atmosphere, sun angle, and sensor geometry. This document details the physics of Radiative Transfer, the methods for Atmospheric Correction (L1C <span class="arithmatex">\(\to\)</span> L2A), and the rigorous harmonization of multi-sensor constellations.</p>
 <hr />
 <h2 id="1-the-physics-of-optical-remote-sensing">1. The Physics of Optical Remote Sensing</h2>
-<p>The fundamental measurement is the <strong>spectral radiance</strong> $L_\lambda$ reaching the sensor aperture. This signal is a complex sum of surface interactions and atmospheric scattering.</p>
+<p>The fundamental measurement is the <strong>spectral radiance</strong> <span class="arithmatex">\(L_\lambda\)</span> reaching the sensor aperture. This signal is a complex sum of surface interactions and atmospheric scattering.</p>
 <h3 id="11-the-radiative-transfer-equation-rte">1.1 The Radiative Transfer Equation (RTE)</h3>
-<p>For a simplified plane-parallel atmosphere, the radiance $L_{TOA}$ at the Top-Of-Atmosphere is:</p>
-<p>$$ L_{TOA} = L_{atm} + T^\uparrow (L_{surface} + L_{neighbor}) $$</p>
+<p>For a simplified plane-parallel atmosphere, the radiance <span class="arithmatex">\(L_{TOA}\)</span> at the Top-Of-Atmosphere is:</p>
+<div class="arithmatex">\[ L_{TOA} = L_{atm} + T^\uparrow (L_{surface} + L_{neighbor}) \]</div>
 <p>Where:
-*   $L_{atm}$ (Path Radiance): Light scattered by the atmosphere directly into the sensor (Rayleigh + Aerosol). Never touches the ground. "Haze".
-*   $T^\uparrow$: Upward atmospheric transmittance.
-*   $L_{surface}$: Radiance derived from the target pixel interaction.
-*   $L_{neighbor}$ (Adjacency Effect): Light reflected from neighboring pixels scattered into the sensor's view of the target pixel.</p>
+*   <span class="arithmatex">\(L_{atm}\)</span> (Path Radiance): Light scattered by the atmosphere directly into the sensor (Rayleigh + Aerosol). Never touches the ground. "Haze".
+*   <span class="arithmatex">\(T^\uparrow\)</span>: Upward atmospheric transmittance.
+*   <span class="arithmatex">\(L_{surface}\)</span>: Radiance derived from the target pixel interaction.
+*   <span class="arithmatex">\(L_{neighbor}\)</span> (Adjacency Effect): Light reflected from neighboring pixels scattered into the sensor's view of the target pixel.</p>
 <h3 id="12-reflectance">1.2 Reflectance</h3>
-<p>We convert Radiance (Unit: $W \cdot m^{-2} \cdot sr^{-1} \cdot \mu m^{-1}$) to <strong>Reflectance</strong> (Unitless Ratio), which is an intrinsic property of the material.</p>
-<h4 id="121-toa-reflectance-rho_toa">1.2.1 TOA Reflectance ($\rho_{TOA}$)</h4>
+<p>We convert Radiance (Unit: <span class="arithmatex">\(W \cdot m^{-2} \cdot sr^{-1} \cdot \mu m^{-1}\)</span>) to <strong>Reflectance</strong> (Unitless Ratio), which is an intrinsic property of the material.</p>
+<h4 id="121-toa-reflectance-rho_toa">1.2.1 TOA Reflectance (<span class="arithmatex">\(\rho_{TOA}\)</span>)</h4>
 <p>Corrects for solar illumination geometry.</p>
-<p>$$ \rho_{TOA} = \frac{\pi \cdot L_{TOA} \cdot d^2}{E_{sun} \cdot \cos(\theta_s)} $$</p>
+<div class="arithmatex">\[ \rho_{TOA} = \frac{\pi \cdot L_{TOA} \cdot d^2}{E_{sun} \cdot \cos(\theta_s)} \]</div>
 <ul>
-<li>$d$: Earth-Sun distance in astronomical units (varies with day of year).</li>
-<li>$E_{sun}$: Exoatmospheric solar irradiance (Solar Constant).</li>
-<li>$\theta_s$: Solar Zenith Angle (angle from vertical).</li>
+<li><span class="arithmatex">\(d\)</span>: Earth-Sun distance in astronomical units (varies with day of year).</li>
+<li><span class="arithmatex">\(E_{sun}\)</span>: Exoatmospheric solar irradiance (Solar Constant).</li>
+<li><span class="arithmatex">\(\theta_s\)</span>: Solar Zenith Angle (angle from vertical).</li>
 </ul>
-<p><em>Problem:</em> $\rho_{TOA}$ still includes the atmosphere. A forest looks brighter on a hazy day than a clear day due to path radiance.</p>
-<h4 id="122-boa-reflectance-rho_boa-surface-reflectance-sr">1.2.2 BOA Reflectance ($\rho_{BOA}$) / Surface Reflectance (SR)</h4>
+<p><em>Problem:</em> <span class="arithmatex">\(\rho_{TOA}\)</span> still includes the atmosphere. A forest looks brighter on a hazy day than a clear day due to path radiance.</p>
+<h4 id="122-boa-reflectance-rho_boa-surface-reflectance-sr">1.2.2 BOA Reflectance (<span class="arithmatex">\(\rho_{BOA}\)</span>) / Surface Reflectance (SR)</h4>
 <p>Corrects for the atmosphere to retrieve the "true" surface color.</p>
-<p>$$ \rho_{BOA} \approx \frac{\rho_{TOA} - \rho_{path}}{T^\downarrow \cdot T^\uparrow(1 + S \cdot \rho_{BOA})} $$</p>
+<div class="arithmatex">\[ \rho_{BOA} \approx \frac{\rho_{TOA} - \rho_{path}}{T^\downarrow \cdot T^\uparrow(1 + S \cdot \rho_{BOA})} \]</div>
 <ul>
-<li>$\rho_{path}$: Reflectance of the atmosphere.</li>
-<li>$T^\downarrow, T^\uparrow$: Downward/Upward transmittance (absorption by Ozone, Water Vapor).</li>
-<li>$S$: Spherical Albedo of the atmosphere (accounts for multiple scattering).</li>
+<li><span class="arithmatex">\(\rho_{path}\)</span>: Reflectance of the atmosphere.</li>
+<li><span class="arithmatex">\(T^\downarrow, T^\uparrow\)</span>: Downward/Upward transmittance (absorption by Ozone, Water Vapor).</li>
+<li><span class="arithmatex">\(S\)</span>: Spherical Albedo of the atmosphere (accounts for multiple scattering).</li>
 </ul>
 <hr />
 <h2 id="2-atmospheric-correction-methodologies">2. Atmospheric Correction Methodologies</h2>
 <h3 id="21-physics-based-models-6s-modtran">2.1 Physics-Based Models (6S, MODTRAN)</h3>
 <p>These solve the RTE utilizing Look-Up Tables (LUTs) pre-computed for various aerosol models (Continental, Maritime, Urban).
 *   <strong>Input:</strong> AOT (Aerosol Optical Thickness), Water Vapor column, Ozone.
-*   <strong>Process:</strong> Interpolate LUTs $\to$ Invert RTE.
+*   <strong>Process:</strong> Interpolate LUTs <span class="arithmatex">\(\to\)</span> Invert RTE.
 *   <strong>Software:</strong> Sen2Cor (ESA standard), LaSRC (Landsat standard).</p>
 <h3 id="22-image-based-methods-dark-object-subtraction-dos">2.2 Image-Based Methods (Dark Object Subtraction - DOS)</h3>
-<p>Assuming there is at least one "perfectly black" object (deep water, dense shadow) in the scene ($\rho_{BOA} \approx 0$).
-Any radiance observed over this dark object is assumed to be Path Radiance ($L_{atm}$).</p>
-<p>$$ L_{atm} \approx L_{min} - 0.01 \cdot (E_{sun} \cos \theta / \pi) $$</p>
+<p>Assuming there is at least one "perfectly black" object (deep water, dense shadow) in the scene (<span class="arithmatex">\(\rho_{BOA} \approx 0\)</span>).
+Any radiance observed over this dark object is assumed to be Path Radiance (<span class="arithmatex">\(L_{atm}\)</span>).</p>
+<div class="arithmatex">\[ L_{atm} \approx L_{min} - 0.01 \cdot (E_{sun} \cos \theta / \pi) \]</div>
 <ul>
 <li><em>Pros:</em> No external data needed.</li>
 <li><em>Cons:</em> Assumes uniform atmosphere across the scene (untrue for large tiles).</li>
@@ -1131,48 +1131,48 @@ To normalize time-series (e.g., winter sun vs summer sun), we model BRDF (e.g., 
 <p>To combine Sentinel-2 (ESA) and Landsat-9 (NASA) into a dense time series, we must harmonize them.</p>
 <h3 id="41-spectral-bandpass-mismatch">4.1 Spectral Bandpass Mismatch</h3>
 <ul>
-<li><em>Sentinel-2 Red:</em> 664.5 nm ($\pm$ 15 nm).</li>
-<li><em>Landsat-8 Red:</em> 654.5 nm ($\pm$ 18 nm).</li>
+<li><em>Sentinel-2 Red:</em> 664.5 nm (<span class="arithmatex">\(\pm\)</span> 15 nm).</li>
+<li><em>Landsat-8 Red:</em> 654.5 nm (<span class="arithmatex">\(\pm\)</span> 18 nm).</li>
 </ul>
 <p>The Landsat band is wider and shifted blue. Vegetation spectra have steep slopes (Red Edge). A Shift of 10nm changes the value significantly.</p>
 <p><strong>SBAF (Spectral Band Adjustment Factor):</strong>
 Ununennium implements linear transformation coefficients derived from Hyperspectral (Hyperion) profiles of global land cover.</p>
-<p>$$ \rho_{S2} = \alpha_0 + \alpha_1 \rho_{L8} $$</p>
+<div class="arithmatex">\[ \rho_{S2} = \alpha_0 + \alpha_1 \rho_{L8} \]</div>
 <h3 id="42-radiometric-resolution">4.2 Radiometric Resolution</h3>
 <ul>
 <li><em>Sentinel-2:</em> 12-bit (0-4096).</li>
 <li><em>Landsat-8:</em> 12-bit (scaled 0-55000 in Coll-2).</li>
 <li><em>Landsat-7:</em> 8-bit (0-255).</li>
 </ul>
-<p><strong>Ununennium Standard:</strong> We normalize ALL optical inputs to floating point $[0, 1]$ reflectance (and often standardization to $z$-scores) before the first network layer.</p>
+<p><strong>Ununennium Standard:</strong> We normalize ALL optical inputs to floating point <span class="arithmatex">\([0, 1]\)</span> reflectance (and often standardization to <span class="arithmatex">\(z\)</span>-scores) before the first network layer.</p>
 <hr />
 <h2 id="5-synthetic-aperture-radar-sar-physics">5. Synthetic Aperture Radar (SAR) Physics</h2>
 <p>Radars utilize active microwave pulses. The physics is fundamentally different (scattering mechanisms vs chemical absorption).</p>
 <h3 id="51-the-radar-equation">5.1 The Radar Equation</h3>
-<p>The received power $P_r$ is:</p>
-<p>$$ P_r = \frac{P_t G^2 \lambda^2 \sigma}{(4\pi)^3 R^4} $$</p>
+<p>The received power <span class="arithmatex">\(P_r\)</span> is:</p>
+<div class="arithmatex">\[ P_r = \frac{P_t G^2 \lambda^2 \sigma}{(4\pi)^3 R^4} \]</div>
 <ul>
-<li>$P_t$: Transmitted power.</li>
-<li>$R$: Range (Distance).</li>
-<li>$\sigma$: Radar Cross Section (RCS) of the target.</li>
+<li><span class="arithmatex">\(P_t\)</span>: Transmitted power.</li>
+<li><span class="arithmatex">\(R\)</span>: Range (Distance).</li>
+<li><span class="arithmatex">\(\sigma\)</span>: Radar Cross Section (RCS) of the target.</li>
 </ul>
 <h3 id="52-calibration-levels">5.2 Calibration Levels</h3>
 <ol>
-<li><strong>Beta Naught ($\beta^0$):</strong> Radar Brightness. Sensor geometry specific. Uncalibrated for terrain.</li>
-<li><strong>Sigma Naught ($\sigma^0$):</strong> Ground Backscatter coefficient. Normalized to ground area assuming a flat earth.<ul>
+<li><strong>Beta Naught (<span class="arithmatex">\(\beta^0\)</span>):</strong> Radar Brightness. Sensor geometry specific. Uncalibrated for terrain.</li>
+<li><strong>Sigma Naught (<span class="arithmatex">\(\sigma^0\)</span>):</strong> Ground Backscatter coefficient. Normalized to ground area assuming a flat earth.<ul>
 <li><em>Problem:</em> Slopes facing the radar are bright (compressed area); slopes facing away are dark (stretched area).</li>
 </ul>
 </li>
-<li><strong>Gamma Naught ($\gamma^0$):</strong> Radiometric Terrain Corrected (RTC). Normalized by the <em>actual</em> illuminated area from a DEM.</li>
+<li><strong>Gamma Naught (<span class="arithmatex">\(\gamma^0\)</span>):</strong> Radiometric Terrain Corrected (RTC). Normalized by the <em>actual</em> illuminated area from a DEM.</li>
 </ol>
-<p>$$ \gamma^0 = \frac{\sigma^0}{\cos \theta_{local}} $$</p>
+<div class="arithmatex">\[ \gamma^0 = \frac{\sigma^0}{\cos \theta_{local}} \]</div>
 <p>Ununennium's SAR processing pipeline mandates <strong>Gamma Naught RTC</strong> for all terrain analysis models.</p>
 <h3 id="53-speckle-statistics">5.3 Speckle Statistics</h3>
 <p>SAR images look "grainy". This is not additive thermal noise; it is coherent interference (Speckle).
 In a resolution cell, many scatterers interfere constructively or destructively.</p>
 <ul>
 <li><strong>PDF:</strong> Multi-look intensity follows a Gamma distribution.</li>
-<li><strong>Correction:</strong> We apply a LOG transform ($10 \log_{10}(x)$) to convert multiplicative Gamma noise into additive Gaussian-like noise, making MSE loss functions applicable.</li>
+<li><strong>Correction:</strong> We apply a LOG transform (<span class="arithmatex">\(10 \log_{10}(x)\)</span>) to convert multiplicative Gamma noise into additive Gaussian-like noise, making MSE loss functions applicable.</li>
 </ul>
 <hr />
 <h2 id="6-ununennium-implementation">6. Ununennium Implementation</h2>
@@ -1190,7 +1190,7 @@ In a resolution cell, many scatterers interfere constructively or destructively.
 <h2 id="7-deep-learning-implications">7. Deep Learning Implications</h2>
 <ol>
 <li><strong>Domain Adaptation:</strong> Minimizing calibration error reduces the domain gap between sensors. A model trained on harmonized Landsat+Sentinel data generalizes better than one trained on raw DNs.</li>
-<li><strong>Physical Constraints:</strong> In PINNs or generative in-painting, we enforce $0 \le \rho \le 1$.</li>
+<li><strong>Physical Constraints:</strong> In PINNs or generative in-painting, we enforce <span class="arithmatex">\(0 \le \rho \le 1\)</span>.</li>
 <li><strong>Data Augmentation:</strong> Since atmosphere is additive (mostly), we can simulate haze augmentation by adding biases to RGB channels.</li>
 </ol>
 <hr />
@@ -1254,6 +1254,10 @@ In a resolution cell, many scatterers interfere constructively or destructively.
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

@@ -953,45 +953,45 @@
 
 <h1 id="signal-processing-and-resampling-kernels-in-remote-sensing-a-theoretical-treatise">Signal Processing and Resampling Kernels in Remote Sensing: A Theoretical Treatise</h1>
 <h2 id="abstract">Abstract</h2>
-<p>Resampling is the digital signal processing operation of transforming a discrete sampled signal from one coordinate system to another. In Deep Learning for Remote Sensing, this occurs constantly: reprojecting maps to common CRS, resizing images for fixed-size CNN inputs, or aligning multi-temporal acquisitions. While often treated as a trivial implementation detail (<code>cv2.resize</code>), the choice of the resampling kernel $h(x)$ has profound spectral and spatial implications. Poor resampling introduces Aliasing (Moiré patterns), Ringing (Gibbs phenomenon), and Spectral Mixing, which establish hard ceilings on model performance. This treatise explores the Fourier Theory of resampling and guides the selection of optimal kernels for EO data.</p>
+<p>Resampling is the digital signal processing operation of transforming a discrete sampled signal from one coordinate system to another. In Deep Learning for Remote Sensing, this occurs constantly: reprojecting maps to common CRS, resizing images for fixed-size CNN inputs, or aligning multi-temporal acquisitions. While often treated as a trivial implementation detail (<code>cv2.resize</code>), the choice of the resampling kernel <span class="arithmatex">\(h(x)\)</span> has profound spectral and spatial implications. Poor resampling introduces Aliasing (Moiré patterns), Ringing (Gibbs phenomenon), and Spectral Mixing, which establish hard ceilings on model performance. This treatise explores the Fourier Theory of resampling and guides the selection of optimal kernels for EO data.</p>
 <hr />
 <h2 id="1-the-sampling-theorem-and-reconstruction">1. The Sampling Theorem and Reconstruction</h2>
-<p>A continuous signal $f(x)$ is sampled at intervals $T$ to create a discrete sequence $f[n] = f(nT)$. To recover or resample this signal at a new point $x'$, we must perform <strong>Reconstruction</strong>.</p>
-<p>$$ \hat{f}(x) = \sum_{n=-\infty}^{\infty} f[n] \cdot h\left(\frac{x - nT}{T}\right) $$</p>
-<p>Here, $h(t)$ is the <strong>Reconstruction Kernel</strong>.Ideally, to perfectly reconstruct a band-limited signal, $h(t)$ must be the normalized sinc function (Whittaker–Shannon interpolation formulation):</p>
-<p>$$ h(t) = \operatorname{sinc}(t) = \frac{\sin(\pi t)}{\pi t} $$</p>
-<p>However, the sinc function has infinite support (extends to $\pm \infty$), making it computationally impossible. All practical kernels are finite approximations of the sinc.</p>
+<p>A continuous signal <span class="arithmatex">\(f(x)\)</span> is sampled at intervals <span class="arithmatex">\(T\)</span> to create a discrete sequence <span class="arithmatex">\(f[n] = f(nT)\)</span>. To recover or resample this signal at a new point <span class="arithmatex">\(x'\)</span>, we must perform <strong>Reconstruction</strong>.</p>
+<div class="arithmatex">\[ \hat{f}(x) = \sum_{n=-\infty}^{\infty} f[n] \cdot h\left(\frac{x - nT}{T}\right) \]</div>
+<p>Here, <span class="arithmatex">\(h(t)\)</span> is the <strong>Reconstruction Kernel</strong>.Ideally, to perfectly reconstruct a band-limited signal, <span class="arithmatex">\(h(t)\)</span> must be the normalized sinc function (Whittaker–Shannon interpolation formulation):</p>
+<div class="arithmatex">\[ h(t) = \operatorname{sinc}(t) = \frac{\sin(\pi t)}{\pi t} \]</div>
+<p>However, the sinc function has infinite support (extends to <span class="arithmatex">\(\pm \infty\)</span>), making it computationally impossible. All practical kernels are finite approximations of the sinc.</p>
 <hr />
 <h2 id="2-kernel-taxonomy-in-frequency-domain">2. Kernel Taxonomy in Frequency Domain</h2>
-<p>We analyze kernels based on their spatial shape $h(x)$ and their Frequency Response $H(f) = \mathcal{F}{h(x)}$.</p>
+<p>We analyze kernels based on their spatial shape <span class="arithmatex">\(h(x)\)</span> and their Frequency Response <span class="arithmatex">\(H(f) = \mathcal{F}\{h(x)\}\)</span>.</p>
 <h3 id="21-nearest-neighbor-box-kernel">2.1 Nearest Neighbor (Box Kernel)</h3>
 <p>The 0th-order interpolator.</p>
-<p>$$ h(t) = \begin{cases} 1 &amp; |t| \le 0.5 \ 0 &amp; \text{otherwise} \end{cases} $$</p>
+<div class="arithmatex">\[ h(t) = \begin{cases} 1 &amp; |t| \le 0.5 \\ 0 &amp; \text{otherwise} \end{cases} \]</div>
 <ul>
-<li><strong>Frequency Response:</strong> $H(f) = \operatorname{sinc}(f)$.</li>
+<li><strong>Frequency Response:</strong> <span class="arithmatex">\(H(f) = \operatorname{sinc}(f)\)</span>.</li>
 <li><strong>analysis:</strong><ul>
 <li><strong>Passband:</strong> Poor. It begins attenuating frequencies well before the Nyquist limit.</li>
 <li><strong>Stopband:</strong> Terrible. It has infinite side-lobes that allow high-frequency aliases to fold back into the signal.</li>
 </ul>
 </li>
-<li><strong>Artifacts:</strong> "Jaggies" (aliasing), Blockiness, sub-pixel spatial shifts ($\pm 0.5$ px jitter).</li>
+<li><strong>Artifacts:</strong> "Jaggies" (aliasing), Blockiness, sub-pixel spatial shifts (<span class="arithmatex">\(\pm 0.5\)</span> px jitter).</li>
 <li><strong>Use Case:</strong> <strong>Categorical Masks</strong>. We cannot interpolate the integer "Class 5 (Forest)" and "Class 1 (Water)" to get "Class 3 (Urban)". We must strictly preserve values.</li>
 </ul>
 <h3 id="22-bilinear-interpolation-triangle-kernel">2.2 Bilinear Interpolation (Triangle Kernel)</h3>
 <p>The 1st-order interpolator. Convolution of two box kernels.</p>
-<p>$$ h(t) = \begin{cases} 1 - |t| &amp; |t| &lt; 1 \ 0 &amp; \text{otherwise} \end{cases} $$</p>
+<div class="arithmatex">\[ h(t) = \begin{cases} 1 - |t| &amp; |t| &lt; 1 \\ 0 &amp; \text{otherwise} \end{cases} \]</div>
 <ul>
-<li><strong>Frequency Response:</strong> $H(f) = \operatorname{sinc}^2(f)$.</li>
+<li><strong>Frequency Response:</strong> <span class="arithmatex">\(H(f) = \operatorname{sinc}^2(f)\)</span>.</li>
 <li><strong>Analysis:</strong><ul>
-<li>The squared sinc decays faster ($1/f^2$), reducing aliasing compared to Nearest.</li>
+<li>The squared sinc decays faster (<span class="arithmatex">\(1/f^2\)</span>), reducing aliasing compared to Nearest.</li>
 <li><strong>Low-Pass Filter:</strong> It strongly attenuates high frequencies within the passband. This results in <strong>Blurring</strong>.</li>
 </ul>
 </li>
 <li><strong>Use Case:</strong> fast on-the-fly resizing where sharpness is secondary to speed.</li>
 </ul>
 <h3 id="23-bicubic-convolution-keys-cubic">2.3 Bicubic Convolution (Keys' Cubic)</h3>
-<p>A 3rd-order polynomial approximation of the sinc. Defined by a parameter $\alpha$ (usually -0.5 or -0.75, which matches the slope of the sinc function at $x=1$).</p>
-<p>$$ h(t) = \begin{cases} (\alpha+2)|t|^3 - (\alpha+3)|t|^2 + 1 &amp; |t| &lt; 1 \ \alpha|t|^3 - 5\alpha|t|^2 + 8\alpha|t| - 4\alpha &amp; 1 \le |t| &lt; 2 \ 0 &amp; \text{otherwise} \end{cases} $$</p>
+<p>A 3rd-order polynomial approximation of the sinc. Defined by a parameter <span class="arithmatex">\(\alpha\)</span> (usually -0.5 or -0.75, which matches the slope of the sinc function at <span class="arithmatex">\(x=1\)</span>).</p>
+<div class="arithmatex">\[ h(t) = \begin{cases} (\alpha+2)|t|^3 - (\alpha+3)|t|^2 + 1 &amp; |t| &lt; 1 \\ \alpha|t|^3 - 5\alpha|t|^2 + 8\alpha|t| - 4\alpha &amp; 1 \le |t| &lt; 2 \\ 0 &amp; \text{otherwise} \end{cases} \]</div>
 <ul>
 <li><strong>Analysis:</strong><ul>
 <li>Sharper passband than bilinear.</li>
@@ -1003,28 +1003,28 @@
 <li><strong>Use Case:</strong> Visualization (RGB), DEMs (requires continuous derivatives).</li>
 </ul>
 <h3 id="24-lanczos-resampling">2.4 Lanczos Resampling</h3>
-<p>A Windowed Sinc function. $\operatorname{sinc}(x)$ multiplied by a "Lanczos Window" (central lobe of a larger sinc).</p>
-<p>$$ L(x) = \begin{cases} \operatorname{sinc}(x) \operatorname{sinc}(x/a) &amp; -a &lt; x &lt; a \ 0 &amp; \text{otherwise} \end{cases} $$</p>
-<p>Usually $a=3$ (Lanczos-3).
+<p>A Windowed Sinc function. <span class="arithmatex">\(\operatorname{sinc}(x)\)</span> multiplied by a "Lanczos Window" (central lobe of a larger sinc).</p>
+<div class="arithmatex">\[ L(x) = \begin{cases} \operatorname{sinc}(x) \operatorname{sinc}(x/a) &amp; -a &lt; x &lt; a \\ 0 &amp; \text{otherwise} \end{cases} \]</div>
+<p>Usually <span class="arithmatex">\(a=3\)</span> (Lanczos-3).
 *   <strong>Analysis:</strong> The closest practical approximation to the ideal low-pass filter.
 *   <strong>Pros:</strong> Extreme sharpness, minimal aliasing.
 *   <strong>Cons:</strong> Computatioanlty expensive (larger support window), still suffers from Ringing.</p>
 <hr />
 <h2 id="3-aliasing-and-the-nyquist-limit">3. Aliasing and The Nyquist Limit</h2>
-<p><strong>Aliasing</strong> occurs when we downsample (decimate) a signal without removing frequencies higher than the new Nyquist rate ($f_{new} = f_{old} / \text{scale}$).</p>
+<p><strong>Aliasing</strong> occurs when we downsample (decimate) a signal without removing frequencies higher than the new Nyquist rate (<span class="arithmatex">\(f_{new} = f_{old} / \text{scale}\)</span>).</p>
 <ul>
 <li><strong>Spatial Moiré:</strong> High-frequency patterns (e.g., rows of crops, tile roofs) create low-frequency interference patterns when resized carelessly.</li>
 <li><strong>Deep Learning Impact:</strong> CNNs are texture-biased. If a Corn field (periodic texture) is downsampled aliased to look like a swamp (noisy texture), the model fails.</li>
 </ul>
 <p><strong>The Golden Rule of Downsampling:</strong>
-Always apply a Low-Pass Filter (Blur) <em>before</em> decimation to remove frequencies $&gt; f_{new}$.
+Always apply a Low-Pass Filter (Blur) <em>before</em> decimation to remove frequencies <span class="arithmatex">\(&gt; f_{new}\)</span>.
 *   <strong>Average / Area-Weighted Resampling:</strong> This is mathematically equivalent to integration (box filter) followed by sampling. It conserves the total radiometric energy (Flux).
 *   <strong>Ununennium Standard:</strong> For downscaling satellite imagery (e.g., converting 10m Sentinel to 30m Landsat grid), we strictly use <strong>Average</strong> or <strong>Gauss</strong> resampling mechanisms to preserve physical flux.</p>
 <hr />
 <h2 id="4-phase-shift-errors-the-shift-problem">4. Phase Shift Errors (The "Shift" Problem)</h2>
 <p>In Nearest Neighbor resampling, the grid snaps to the closest integer.
 $$ x_{new} = \operatorname{round}(x_{old}) $$
-This introduces a random shift error $\epsilon \sim U[-0.5, 0.5]$ pixels.</p>
+This introduces a random shift error <span class="arithmatex">\(\epsilon \sim U[-0.5, 0.5]\)</span> pixels.</p>
 <p>In <strong>Change Detection</strong> (Siamese Networks), this is fatal.
 *   Image T1 (Jan): Shifted -0.4 px.
 *   Image T2 (Feb): Shifted +0.4 px.
@@ -1034,7 +1034,7 @@ This introduces a random shift error $\epsilon \sim U[-0.5, 0.5]$ pixels.</p>
 <hr />
 <h2 id="5-spline-interpolation">5. Spline Interpolation</h2>
 <p>Beyond convolution kernels, we can fit piecewise polynomials (Splines) to the data points.
-<strong>B-Splines</strong> provide maximum smoothness ($C^n$ continuity).
+<strong>B-Splines</strong> provide maximum smoothness (<span class="arithmatex">\(C^n\)</span> continuity).
 *   <em>Application:</em> Creating Digital Elevation Models (DEMs) from sparse LiDAR points.
 *   <em>Relevance:</em> Calculating Slope and Aspect (derivatives of elevation) requires the surface to be differentiable. Nearest Neighbor produces valid elevation but garbage slope (0 or infinity). Cubic Splines ensure smooth derivatives.</p>
 <hr />
@@ -1151,6 +1151,10 @@ This introduces a random shift error $\epsilon \sim U[-0.5, 0.5]$ pixels.</p>
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

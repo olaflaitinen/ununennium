@@ -888,7 +888,7 @@
 <h1 id="ununennium-model-zoo-architecture-theory">Ununennium Model Zoo &amp; Architecture Theory</h1>
 <h2 id="1-design-philosophy">1. Design Philosophy</h2>
 <p>The Ununennium Model Zoo is not merely a collection of weights; it is a repository of <strong>Production-Grade</strong>, <strong>Geospatially-Aware</strong> neural architectures. Each model is curated to handle the specific challenges of Earth Observation:
-*   <strong>Multi-Modal Inputs:</strong> Native support for $N$-channel inputs (Optical + SAR + DEM).
+*   <strong>Multi-Modal Inputs:</strong> Native support for <span class="arithmatex">\(N\)</span>-channel inputs (Optical + SAR + DEM).
 *   <strong>Scale Invariance:</strong> Architectures designed to handle GSD (Ground Sampling Distance) variations.
 *   <strong>Rotation Equivariance:</strong> Recognition that "up" on a map is arbitrary.</p>
 <hr />
@@ -896,10 +896,10 @@
 <h3 id="21-the-u-net-family-standard-resnet-efficientnet">2.1 The U-Net Family (Standard, ResNet, EfficientNet)</h3>
 <p>The workhorse of semantic segmentation.</p>
 <p><strong>Mathematical Formulation:</strong>
-Let $E$ be the encoder function and $D$ be the decoder.
+Let <span class="arithmatex">\(E\)</span> be the encoder function and <span class="arithmatex">\(D\)</span> be the decoder.
 $$ z_l = E_l(z_{l-1}) \quad \text{(Downsampling)} $$
 $$ x_l = D_l(x_{l+1}, z_l) \quad \text{(Upsampling + Skip)} $$</p>
-<p>The skip connection $z_l$ is critical in EO because determining boundaries (e.g., road vs. building) requires high-frequency spatial details that are lost in the bottleneck.</p>
+<p>The skip connection <span class="arithmatex">\(z_l\)</span> is critical in EO because determining boundaries (e.g., road vs. building) requires high-frequency spatial details that are lost in the bottleneck.</p>
 <p><strong>Ununennium Variations:</strong>
 *   <strong><code>unet_resnet50</code></strong>: Deep residual backbone. Best for large datasets.
 *   <strong><code>unet_efficientnet_b4</code></strong>: Compound scaling. Best accuracy/FLOPS trade-off.
@@ -908,21 +908,21 @@ $$ x_l = D_l(x_{l+1}, z_l) \quad \text{(Upsampling + Skip)} $$</p>
 <p>Designed to capture multi-scale context without losing spatial resolution.</p>
 <p><strong>Atrous (Dilated) Convolution:</strong>
 $$ y[i] = \sum_k x[i + r \cdot k] w[k] $$
-Where $r$ is the dilation rate. This expands the Receptive Field (RF) exponentially without increasing parameters.</p>
+Where <span class="arithmatex">\(r\)</span> is the dilation rate. This expands the Receptive Field (RF) exponentially without increasing parameters.</p>
 <p><strong>ASPP (Atrous Spatial Pyramid Pooling):</strong>
-Parallel branches with rates $r={6, 12, 18}$.
+Parallel branches with rates <span class="arithmatex">\(r=\{6, 12, 18\}\)</span>.
 *   <em>EO Application:</em> Detecting large objects (lakes) and small objects (cars) simultaneously in the same scene.</p>
 <hr />
 <h2 id="3-generative-adversarial-networks-gans">3. Generative Adversarial Networks (GANs)</h2>
 <h3 id="31-pix2pix-conditional-gan">3.1 Pix2Pix (Conditional GAN)</h3>
-<p>Used for paired translation (e.g., SAR $\to$ Optical, Cloud $\to$ Clear).</p>
+<p>Used for paired translation (e.g., SAR <span class="arithmatex">\(\to\)</span> Optical, Cloud <span class="arithmatex">\(\to\)</span> Clear).</p>
 <p><strong>cGAN Objective:</strong>
 $$ \mathcal{L}<em>{cGAN}(G, D) = \mathbb{E}</em>{x,y}[\log D(x, y)] + \mathbb{E}<em>{x,z}[\log(1 - D(x, G(x, z)))] $$
 <strong>L1 Term:</strong>
 $$ \mathcal{L}</em>{L1}(G) = \mathbb{E}_{x,y,z}[| y - G(x, z) |_1] $$</p>
-<p>We use the <strong>PatchGAN</strong> discriminator, which classifies $N \times N$ patches as real/fake. This enforces high-frequency texture correctness (texture consistency) critical for visual interpretation.</p>
+<p>We use the <strong>PatchGAN</strong> discriminator, which classifies <span class="arithmatex">\(N \times N\)</span> patches as real/fake. This enforces high-frequency texture correctness (texture consistency) critical for visual interpretation.</p>
 <h3 id="32-cyclegan-unpaired-translation">3.2 CycleGAN (Unpaired Translation)</h3>
-<p>Used for domain adaptation (e.g., Summer $\to$ Winter) where paired data is impossible.</p>
+<p>Used for domain adaptation (e.g., Summer <span class="arithmatex">\(\to\)</span> Winter) where paired data is impossible.</p>
 <p><strong>Cycle Consistency Loss:</strong>
 $$ x \to G(x) \to F(G(x)) \approx x $$
 $$ | F(G(x)) - x |_1 $$</p>
@@ -932,7 +932,7 @@ $$ | F(G(x)) - x |_1 $$</p>
 <p>PINNs integrate differential equations directly into the loss function.</p>
 <p><strong>Total Loss:</strong>
 $$ \mathcal{L} = \mathcal{L}<em>{data} + \lambda \mathcal{L}</em>{PDE} $$</p>
-<p>Where $\mathcal{L}_{PDE}$ is the residual of the governing equation (e.g., Diffusion, Navier-Stokes).
+<p>Where <span class="arithmatex">\(\mathcal{L}_{PDE}\)</span> is the residual of the governing equation (e.g., Diffusion, Navier-Stokes).
 *   <em>Application:</em> Modeling atmospheric dispersion, groundwater flow, or sea surface temperature interpolation.
 *   <em>Advantage:</em> Generalizes outside the training data because it obeys physical laws.</p>
 <hr />
@@ -995,6 +995,10 @@ $$ \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

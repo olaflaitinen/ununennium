@@ -1092,28 +1092,28 @@
 <hr />
 <h2 id="1-the-shape-of-the-earth-from-sphere-to-geoid">1. The Shape of the Earth: From Sphere to Geoid</h2>
 <h3 id="11-the-spherical-approximation">1.1 The Spherical Approximation</h3>
-<p>Historically, for navigation over short distances, Earth was approximated as a sphere of radius $R \approx 6371 \text{km}$.
+<p>Historically, for navigation over short distances, Earth was approximated as a sphere of radius <span class="arithmatex">\(R \approx 6371 \text{km}\)</span>.
 *   <strong>Meridional Radius:</strong> Constant.
 *   <strong>Metric:</strong> Simple Spherical Trigonometry (Great Circles).
-*   <strong>Error:</strong> At $45^\circ$ latitude, the difference between a sphere and the true ellipsoid is approx 21km in radius. This results in distance errors of up to 0.5% (~5m per km), which is unacceptable for cadastral surveying or precision agriculture.</p>
+*   <strong>Error:</strong> At <span class="arithmatex">\(45^\circ\)</span> latitude, the difference between a sphere and the true ellipsoid is approx 21km in radius. This results in distance errors of up to 0.5% (~5m per km), which is unacceptable for cadastral surveying or precision agriculture.</p>
 <h3 id="12-the-oblate-spheroid-ellipsoid-of-revolution">1.2 The Oblate Spheroid (Ellipsoid of Revolution)</h3>
 <p>Due to rotation, centrifugal force causes the Earth to bulge at the equator and flatten at the poles. Ideally, this shape is an <strong>Oblate Spheroid</strong>.</p>
 <p>Defined by two parameters:
-1.  <strong>Semi-major axis ($a$):</strong> Equatorial radius.
-2.  <strong>Semi-minor axis ($b$):</strong> Polar radius.</p>
-<p><strong>Flattening ($f$):</strong>
+1.  <strong>Semi-major axis (<span class="arithmatex">\(a\)</span>):</strong> Equatorial radius.
+2.  <strong>Semi-minor axis (<span class="arithmatex">\(b\)</span>):</strong> Polar radius.</p>
+<p><strong>Flattening (<span class="arithmatex">\(f\)</span>):</strong>
 $$ f = \frac{a - b}{a} $$</p>
-<p><strong>First Eccentricity ($e$):</strong>
+<p><strong>First Eccentricity (<span class="arithmatex">\(e\)</span>):</strong>
 $$ e^2 = \frac{a^2 - b^2}{a^2} = 2f - f^2 $$</p>
-<p><strong>Second Eccentricity ($e'$):</strong>
+<p><strong>Second Eccentricity (<span class="arithmatex">\(e'\)</span>):</strong>
 $$ e'^2 = \frac{a^2 - b^2}{b^2} = \frac{e^2}{1-e^2} $$</p>
 <h4 id="standard-ellipsoids">Standard Ellipsoids</h4>
 <table>
 <thead>
 <tr>
 <th>Ellipsoid</th>
-<th>$a$ (meters)</th>
-<th>$1/f$</th>
+<th><span class="arithmatex">\(a\)</span> (meters)</th>
+<th><span class="arithmatex">\(1/f\)</span></th>
 <th>Usage</th>
 </tr>
 </thead>
@@ -1148,53 +1148,53 @@ $$ e'^2 = \frac{a^2 - b^2}{b^2} = \frac{e^2}{1-e^2} $$</p>
 <h3 id="13-the-geoid-the-gravity-model">1.3 The Geoid (The Gravity Model)</h3>
 <p>The ellipsoid is a geometric abstraction. The physical Earth is defined by gravity. The <strong>Geoid</strong> is the equipotential surface of the Earth's gravity field that equates to Mean Sea Level (MSL) if the oceans were at rest and extended through the continents.</p>
 <p>$$ h = H + N $$
-*   <strong>$h$ (Ellipsoidal Height):</strong> Native height from GPS (geometric).
-*   <strong>$H$ (Orthometric Height):</strong> Height above Sea Level (physical/gravitational).
-*   <strong>$N$ (Geoid Undulation):</strong> The separation between Ellipsoid and Geoid.</p>
-<p>$N$ ranges from -106m (in the Indian Ocean) to +85m (near Iceland).
+*   <strong><span class="arithmatex">\(h\)</span> (Ellipsoidal Height):</strong> Native height from GPS (geometric).
+*   <strong><span class="arithmatex">\(H\)</span> (Orthometric Height):</strong> Height above Sea Level (physical/gravitational).
+*   <strong><span class="arithmatex">\(N\)</span> (Geoid Undulation):</strong> The separation between Ellipsoid and Geoid.</p>
+<p><span class="arithmatex">\(N\)</span> ranges from -106m (in the Indian Ocean) to +85m (near Iceland).
 <strong>Deep Learning Implication:</strong>
 When training models on DSM/DTM (Digital Surface Models), mixing ellipsoidal heights (from raw LiDAR) with orthometric heights (from contour maps) creates significant bias. Ununennium's <code>io</code> module checks for vertical datum compatibility (e.g., EGM96 vs EGM2008).</p>
 <hr />
 <h2 id="2-the-geodesic-problem">2. The Geodesic Problem</h2>
 <p>The shortest path between two points on an ellipsoid is a <strong>Geodesic</strong>. Unlike a Great Circle on a sphere, a geodesic on an ellipsoid does not return to its starting point; it oscillates between maximum northern and southern latitudes.</p>
 <h3 id="21-the-metric-tensor">2.1 The Metric Tensor</h3>
-<p>The differential distance $ds$ on the surface is given by the First Fundamental Form:</p>
-<p>$$ ds^2 = M(\phi)^2 d\phi^2 + N(\phi)^2 \cos^2\phi d\lambda^2 $$</p>
+<p>The differential distance <span class="arithmatex">\(ds\)</span> on the surface is given by the First Fundamental Form:</p>
+<div class="arithmatex">\[ ds^2 = M(\phi)^2 d\phi^2 + N(\phi)^2 \cos^2\phi d\lambda^2 \]</div>
 <p>Where the radii of curvature are:
-*   <strong>Meridional Radius ($M$):</strong> Radius of curvature along the meridian (North-South).
+*   <strong>Meridional Radius (<span class="arithmatex">\(M\)</span>):</strong> Radius of curvature along the meridian (North-South).
     $$ M(\phi) = \frac{a(1-e^2)}{(1-e^2 \sin^2\phi)^{3/2}} $$
-*   <strong>Prime Vertical Radius ($N$):</strong> Radius of curvature perpendicular to the meridian (East-West).
+*   <strong>Prime Vertical Radius (<span class="arithmatex">\(N\)</span>):</strong> Radius of curvature perpendicular to the meridian (East-West).
     $$ N(\phi) = \frac{a}{\sqrt{1-e^2 \sin^2\phi}} $$</p>
-<p>Notably, $M(\phi)$ varies by ~1% from pole to equator. A "degree of latitude" is longer at the poles ($111.7$ km) than at the equator ($110.6$ km). This 1.1km discrepancy per degree is the primary source of error in spherical assumptions.</p>
+<p>Notably, <span class="arithmatex">\(M(\phi)\)</span> varies by ~1% from pole to equator. A "degree of latitude" is longer at the poles (<span class="arithmatex">\(111.7\)</span> km) than at the equator (<span class="arithmatex">\(110.6\)</span> km). This 1.1km discrepancy per degree is the primary source of error in spherical assumptions.</p>
 <hr />
 <h2 id="3-distance-algorithms">3. Distance Algorithms</h2>
 <h3 id="31-the-haversine-spherical">3.1 The Haversine (Spherical)</h3>
-<p>Fast, differentiable, but inaccurate ($0.5\%$ error).</p>
-<p>$$ \theta = 2 \arcsin \sqrt{\sin^2\left(\frac{\Delta\phi}{2}\right) + \cos\phi_1 \cos\phi_2 \sin^2\left(\frac{\Delta\lambda}{2}\right)} $$
-$$ d = R \cdot \theta $$</p>
+<p>Fast, differentiable, but inaccurate (<span class="arithmatex">\(0.5\%\)</span> error).</p>
+<div class="arithmatex">\[ \theta = 2 \arcsin \sqrt{\sin^2\left(\frac{\Delta\phi}{2}\right) + \cos\phi_1 \cos\phi_2 \sin^2\left(\frac{\Delta\lambda}{2}\right)} $$
+$$ d = R \cdot \theta \]</div>
 <p>Used in Ununennium only for "Quick Look" operations or lightweight neighbor search.</p>
 <h3 id="32-vincentys-formulae-iterative-ellipsoidal">3.2 Vincenty's Formulae (Iterative Ellipsoidal)</h3>
-<p>Vincenty (1975) proposed an iterative solution to the inverse problem accurate to $0.5$ mm.</p>
+<p>Vincenty (1975) proposed an iterative solution to the inverse problem accurate to <span class="arithmatex">\(0.5\)</span> mm.</p>
 <p><strong>Algorithm (Inverse Problem):</strong>
-Given $(\phi_1, \lambda_1)$ and $(\phi_2, \lambda_2)$, find distance $s$ and azimuths $\alpha_1, \alpha_2$.</p>
+Given <span class="arithmatex">\((\phi_1, \lambda_1)\)</span> and <span class="arithmatex">\((\phi_2, \lambda_2)\)</span>, find distance <span class="arithmatex">\(s\)</span> and azimuths <span class="arithmatex">\(\alpha_1, \alpha_2\)</span>.</p>
 <ol>
-<li>Compute reduced latitudes: $U_1 = \arctan((1-f)\tan\phi_1)$, $U_2 = \arctan((1-f)\tan\phi_2)$.</li>
-<li>Initialize longitude difference on auxiliary sphere $\Lambda = \lambda_2 - \lambda_1$.</li>
+<li>Compute reduced latitudes: <span class="arithmatex">\(U_1 = \arctan((1-f)\tan\phi_1)\)</span>, <span class="arithmatex">\(U_2 = \arctan((1-f)\tan\phi_2)\)</span>.</li>
+<li>Initialize longitude difference on auxiliary sphere <span class="arithmatex">\(\Lambda = \lambda_2 - \lambda_1\)</span>.</li>
 <li>
-<p><strong>Iterate until convergence ($\Delta \Lambda &lt; 10^{-12}$):</strong></p>
+<p><strong>Iterate until convergence (<span class="arithmatex">\(\Delta \Lambda &lt; 10^{-12}\)</span>):</strong></p>
 <ul>
-<li>$\sin\sigma = \sqrt{(\cos U_2 \sin\Lambda)^2 + (\cos U_1 \sin U_2 - \sin U_1 \cos U_2 \cos \Lambda)^2}$</li>
-<li>$\cos\sigma = \sin U_1 \sin U_2 + \cos U_1 \cos U_2 \cos \Lambda$</li>
-<li>$\sigma = \arctan2(\sin\sigma, \cos\sigma)$</li>
-<li>$\sin\alpha = \frac{\cos U_1 \cos U_2 \sin \Lambda}{\sin\sigma}$</li>
-<li>$\cos^2\alpha = 1 - \sin^2\alpha$</li>
-<li>$\cos(2\sigma_m) = \cos\sigma - \frac{2\sin U_1 \sin U_2}{\cos^2\alpha}$ (handle division by zero if equatorial)</li>
-<li>$C = \frac{f}{16} \cos^2\alpha [4 + f(4 - 3\cos^2\alpha)]$</li>
-<li>$\Lambda_{new} = L + (1-C)f\sin\alpha { \sigma + C\sin\sigma [\cos(2\sigma_m) + C\cos\sigma(-1 + 2\cos^2(2\sigma_m))] }$</li>
+<li><span class="arithmatex">\(\sin\sigma = \sqrt{(\cos U_2 \sin\Lambda)^2 + (\cos U_1 \sin U_2 - \sin U_1 \cos U_2 \cos \Lambda)^2}\)</span></li>
+<li><span class="arithmatex">\(\cos\sigma = \sin U_1 \sin U_2 + \cos U_1 \cos U_2 \cos \Lambda\)</span></li>
+<li><span class="arithmatex">\(\sigma = \arctan2(\sin\sigma, \cos\sigma)\)</span></li>
+<li><span class="arithmatex">\(\sin\alpha = \frac{\cos U_1 \cos U_2 \sin \Lambda}{\sin\sigma}\)</span></li>
+<li><span class="arithmatex">\(\cos^2\alpha = 1 - \sin^2\alpha\)</span></li>
+<li><span class="arithmatex">\(\cos(2\sigma_m) = \cos\sigma - \frac{2\sin U_1 \sin U_2}{\cos^2\alpha}\)</span> (handle division by zero if equatorial)</li>
+<li><span class="arithmatex">\(C = \frac{f}{16} \cos^2\alpha [4 + f(4 - 3\cos^2\alpha)]\)</span></li>
+<li><span class="arithmatex">\(\Lambda_{new} = L + (1-C)f\sin\alpha \{ \sigma + C\sin\sigma [\cos(2\sigma_m) + C\cos\sigma(-1 + 2\cos^2(2\sigma_m))] \}\)</span></li>
 </ul>
 </li>
 <li>
-<p>Calculate $s$ using Bessel's formula corrections.</p>
+<p>Calculate <span class="arithmatex">\(s\)</span> using Bessel's formula corrections.</p>
 </li>
 </ol>
 <p><strong>Limitations:</strong>
@@ -1215,9 +1215,9 @@ This uses the Danielsen (1989) integrals involving Fourier series expansions of 
 $$ (x, y) = P(\phi, \lambda) $$</p>
 <p><strong>Tissot's Indicatrix</strong> describes the distortion at any point.
 1.  <strong>Conformal Projections (e.g., Mercator, stereographic):</strong>
-    *   Preserve Angles (Shapers). A circle on Earth $\to$ Circle on Map.
-    *   Distort Area. $Scale \propto \sec(\phi)$.
-    *   <em>Issue:</em> A pixel at 60°N represents $4\times$ less real-world area than a pixel at the Equator. A "House" class at 60°N looks 4x bigger (in pixels) than a "House" at the Equator.</p>
+    *   Preserve Angles (Shapers). A circle on Earth <span class="arithmatex">\(\to\)</span> Circle on Map.
+    *   Distort Area. <span class="arithmatex">\(Scale \propto \sec(\phi)\)</span>.
+    *   <em>Issue:</em> A pixel at 60°N represents <span class="arithmatex">\(4\times\)</span> less real-world area than a pixel at the Equator. A "House" class at 60°N looks 4x bigger (in pixels) than a "House" at the Equator.</p>
 <ol>
 <li><strong>Equal-Area Projections (e.g., Albers Conic, Gall-Peters):</strong><ul>
 <li>Preserve Area.</li>
@@ -1245,15 +1245,15 @@ Tracking ships in AIS (Automatic Identification System) data. Ships often follow
 <p>The <code>GeoTensor</code> class enables algebraic operations that respect geodetic reality.</p>
 <h3 id="61-the-geodesic-buffer">6.1 The Geodesic Buffer</h3>
 <p><code>GeoTensor.buffer(distance_meters)</code>
-Naive buffering (dilating by $N$ pixels) creates circles of varying physical sizes depending on latitude.
+Naive buffering (dilating by <span class="arithmatex">\(N\)</span> pixels) creates circles of varying physical sizes depending on latitude.
 Ununennium computes the buffer in the Geodetic space and rasterizes it back, ensuring a 50m buffer is exactly 50m everywhere.</p>
 <h3 id="62-bearing-calculation">6.2 Bearing Calculation</h3>
 <p><code>GeoTensor.bearing_to(other_tensor)</code>
-Calculates the forward azimuth $\alpha_1$ for every pixel to a target.
-*   <strong>Input:</strong> Two $(B, H, W)$ tensors of lat/lons.
-*   <strong>Output:</strong> One $(B, H, W)$ tensor of bearings $[0, 360)$.
+Calculates the forward azimuth <span class="arithmatex">\(\alpha_1\)</span> for every pixel to a target.
+*   <strong>Input:</strong> Two <span class="arithmatex">\((B, H, W)\)</span> tensors of lat/lons.
+*   <strong>Output:</strong> One <span class="arithmatex">\((B, H, W)\)</span> tensor of bearings <span class="arithmatex">\([0, 360)\)</span>.
 *   <strong>Math:</strong> Uses vectorised <code>atan2</code> on the sphere (or Vincenty for precision).</p>
-<p>$$ \theta = \operatorname{atan2}(\sin\Delta\lambda \cdot \cos\phi_2, \cos\phi_1 \cdot \sin\phi_2 - \sin\phi_1 \cdot \cos\phi_2 \cdot \cos\Delta\lambda) $$</p>
+<div class="arithmatex">\[ \theta = \operatorname{atan2}(\sin\Delta\lambda \cdot \cos\phi_2, \cos\phi_1 \cdot \sin\phi_2 - \sin\phi_1 \cdot \cos\phi_2 \cdot \cos\Delta\lambda) \]</div>
 <hr />
 <h2 id="7-performance-considerations">7. Performance Considerations</h2>
 <p>Ellipsoidal math is computationally expensive.
@@ -1261,11 +1261,11 @@ Calculates the forward azimuth $\alpha_1$ for every pixel to a target.
 *   <strong>Vincenty:</strong> ~2000 FLOPS (Iterative).
 *   <strong>Karney:</strong> ~3000 FLOPS.</p>
 <p><strong>Batching Strategy:</strong>
-For heavy metric learning (e.g., Geodesic Triplet Loss), calculating exact geodesic distances matrix-wise $(N \times N)$ is too slow.
+For heavy metric learning (e.g., Geodesic Triplet Loss), calculating exact geodesic distances matrix-wise <span class="arithmatex">\((N \times N)\)</span> is too slow.
 <strong>Approximation:</strong>
-We project local batches to an <strong>Azimuthal Equidistant Projection</strong> centered on the batch centroid. In this local projected space, Euclidean distance $\approx$ Geodesic distance.
+We project local batches to an <strong>Azimuthal Equidistant Projection</strong> centered on the batch centroid. In this local projected space, Euclidean distance <span class="arithmatex">\(\approx\)</span> Geodesic distance.
 $$ d_{geo}(x, y) \approx | P_{local}(x) - P_{local}(y) |_2 $$
-This reduces complexity to $O(1)$ per pair, allowing massive batch sizes.</p>
+This reduces complexity to <span class="arithmatex">\(O(1)\)</span> per pair, allowing massive batch sizes.</p>
 <hr />
 <h2 id="8-conclusion">8. Conclusion</h2>
 <p>Geometry is the physics of geospatial data. Ununennium refuses to treat Earth as a plane. By implementing rigorous WGS84 ellipsoidal mathematics (Karney/Vincenty) and handling projection distortions explicitly, we ensure that the Deep Learning models we build are not just pattern matchers, but physical measurement instruments.</p>
@@ -1332,6 +1332,10 @@ This reduces complexity to $O(1)$ per pair, allowing massive batch sizes.</p>
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

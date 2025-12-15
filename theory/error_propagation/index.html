@@ -1027,93 +1027,93 @@
 
 <h1 id="error-propagation-and-sensitivity-analysis-in-geospatial-pyplines-a-theoretical-treatise">Error Propagation and Sensitivity Analysis in Geospatial Pyplines: A Theoretical Treatise</h1>
 <h2 id="abstract">Abstract</h2>
-<p>In multi-stage Earth Observation (EO) pipelines, errors are not merely additive additive nuisances; they are dynamic quantities that propagate, amplify, or attenuate through non-linear transformations. A $10m$ registration error in L1C data does not simply result in a $10m$ shift in the final output; it interacts with resampling kernels, classification boundaries, and vectorization algorithms to produce complex uncertainty manifolds. This document establishes the <strong>Calculus of Error</strong> for Ununennium, deriving the theoretical interactions between Geodesy, Radiometry, and Deep Learning inaccuracies, and presenting frameworks for rigorous <strong>Sensitivity Analysis</strong>.</p>
+<p>In multi-stage Earth Observation (EO) pipelines, errors are not merely additive additive nuisances; they are dynamic quantities that propagate, amplify, or attenuate through non-linear transformations. A <span class="arithmatex">\(10m\)</span> registration error in L1C data does not simply result in a <span class="arithmatex">\(10m\)</span> shift in the final output; it interacts with resampling kernels, classification boundaries, and vectorization algorithms to produce complex uncertainty manifolds. This document establishes the <strong>Calculus of Error</strong> for Ununennium, deriving the theoretical interactions between Geodesy, Radiometry, and Deep Learning inaccuracies, and presenting frameworks for rigorous <strong>Sensitivity Analysis</strong>.</p>
 <hr />
 <h2 id="1-the-cascade-effect-error-budgeting">1. The Cascade Effect (Error Budgeting)</h2>
-<p>A typical EO pipeline $\mathcal{P}$ is a composition of functions:</p>
-<p>$$ Y = \mathcal{P}(X) = (f_{vec} \circ f_{infer} \circ f_{norm} \circ f_{resample} \circ f_{reg})(X) $$</p>
-<p>Where $X$ is the raw sensor data. If $X$ is perturbed by noise $\epsilon$, the output error is approximated by the Taylor expansion:</p>
-<p>$$ \Delta Y \approx \sum_{i} \frac{\partial \mathcal{P}}{\partial x_i} \Delta x_i + \frac{1}{2} \sum_{i,j} \frac{\partial^2 \mathcal{P}}{\partial x_i \partial x_j} \Delta x_i \Delta x_j $$</p>
+<p>A typical EO pipeline <span class="arithmatex">\(\mathcal{P}\)</span> is a composition of functions:</p>
+<div class="arithmatex">\[ Y = \mathcal{P}(X) = (f_{vec} \circ f_{infer} \circ f_{norm} \circ f_{resample} \circ f_{reg})(X) \]</div>
+<p>Where <span class="arithmatex">\(X\)</span> is the raw sensor data. If <span class="arithmatex">\(X\)</span> is perturbed by noise <span class="arithmatex">\(\epsilon\)</span>, the output error is approximated by the Taylor expansion:</p>
+<div class="arithmatex">\[ \Delta Y \approx \sum_{i} \frac{\partial \mathcal{P}}{\partial x_i} \Delta x_i + \frac{1}{2} \sum_{i,j} \frac{\partial^2 \mathcal{P}}{\partial x_i \partial x_j} \Delta x_i \Delta x_j \]</div>
 <h3 id="11-positional-error-geolocation">1.1 Positional Error (Geolocation)</h3>
 <p>Satellite imagery has inherent geolocation uncertainty (RMSE).
-*   <strong>Sentinel-2:</strong> $\approx 12m$ ($2\sigma$) without GCPs (Ground Control Points).
-*   <strong>Landsat-8:</strong> $\approx 18m$ ($2\sigma$).</p>
+*   <strong>Sentinel-2:</strong> <span class="arithmatex">\(\approx 12m\)</span> (<span class="arithmatex">\(2\sigma\)</span>) without GCPs (Ground Control Points).
+*   <strong>Landsat-8:</strong> <span class="arithmatex">\(\approx 18m\)</span> (<span class="arithmatex">\(2\sigma\)</span>).</p>
 <p><strong>Propagation into Classification:</strong>
-Consider a binary boundary (e.g., Coastline). Let the true boundary be at position $x_b$. The sensor reports $x_{obs} = x_b + \mathcal{N}(0, \sigma^2_{pos})$.
+Consider a binary boundary (e.g., Coastline). Let the true boundary be at position <span class="arithmatex">\(x_b\)</span>. The sensor reports <span class="arithmatex">\(x_{obs} = x_b + \mathcal{N}(0, \sigma^2_{pos})\)</span>.
 If we train a CNN to predict "Water" vs "Land":
-1.  <strong>Training Noise:</strong> The label is effectively "smeared" by $\sigma_{pos}$. The CNN learns a fuzzy decision boundary of width $\approx 2\sigma_{pos}$.
+1.  <strong>Training Noise:</strong> The label is effectively "smeared" by <span class="arithmatex">\(\sigma_{pos}\)</span>. The CNN learns a fuzzy decision boundary of width <span class="arithmatex">\(\approx 2\sigma_{pos}\)</span>.
 2.  <strong>Inference Error:</strong> Even a perfect classifier will misclassify a strip of pixels along the coast with width equal to the registration error.</p>
 <p><strong>Ununennium Strategy:</strong>
 We explicitly model <strong>Aleatoric Uncertainty</strong> at boundaries.
 $$ \sigma_{pred}^2 = \sigma_{model}^2 + (\nabla I \cdot \sigma_{pos})^2 $$
-Where $\nabla I$ is the image gradient. High gradient areas (edges) inherit high positional error.</p>
+Where <span class="arithmatex">\(\nabla I\)</span> is the image gradient. High gradient areas (edges) inherit high positional error.</p>
 <hr />
 <h2 id="2-radiometric-error-propagation">2. Radiometric Error Propagation</h2>
-<p>Surface Reflectance ($\rho_{surf}$) is derived from TOA Randomness ($L_{TOA}$).</p>
-<p>$$ \rho_{surf} = \frac{\pi (L_{TOA} - L_{path})}{E_{sun} \cos \theta T} $$</p>
-<p>Errors in atmospheric parameters ($\Delta \tau$ - Aerosol Optical Depth) propagate non-linearly.</p>
+<p>Surface Reflectance (<span class="arithmatex">\(\rho_{surf}\)</span>) is derived from TOA Randomness (<span class="arithmatex">\(L_{TOA}\)</span>).</p>
+<div class="arithmatex">\[ \rho_{surf} = \frac{\pi (L_{TOA} - L_{path})}{E_{sun} \cos \theta T} \]</div>
+<p>Errors in atmospheric parameters (<span class="arithmatex">\(\Delta \tau\)</span> - Aerosol Optical Depth) propagate non-linearly.</p>
 <h3 id="21-the-ndvi-instability">2.1 The NDVI Instability</h3>
 <p>Consider the Normalized Difference Vegetation Index:
 $$ \text{NDVI} = \frac{N - R}{N + R} $$</p>
-<p>The sensitivity to noise in the Red band ($\Delta R$) is:</p>
-<p>$$ \frac{\partial \text{NDVI}}{\partial R} = \frac{-(N+R) - (N-R)}{(N+R)^2} = \frac{-2N}{(N+R)^2} $$</p>
+<p>The sensitivity to noise in the Red band (<span class="arithmatex">\(\Delta R\)</span>) is:</p>
+<div class="arithmatex">\[ \frac{\partial \text{NDVI}}{\partial R} = \frac{-(N+R) - (N-R)}{(N+R)^2} = \frac{-2N}{(N+R)^2} \]</div>
 <p><strong>Critical Observation:</strong>
-Sensitivity approaches infinity as $(N+R) \to 0$ (Dark targets like water/shadows).
+Sensitivity approaches infinity as <span class="arithmatex">\((N+R) \to 0\)</span> (Dark targets like water/shadows).
 *   <em>Implication:</em> A tiny sensor noise in a shadow pixel results in massive NDVI variance. A threshold-based water mask (<code>NDVI &lt; 0</code>) is extremely unstable in dark regions.</p>
 <hr />
 <h2 id="3-resampling-and-aliasing-error">3. Resampling and Aliasing Error</h2>
-<p>When reprojecting data (e.g., from UTM Zone 32 to Zone 33), we apply a resampling kernel $h(x)$.</p>
+<p>When reprojecting data (e.g., from UTM Zone 32 to Zone 33), we apply a resampling kernel <span class="arithmatex">\(h(x)\)</span>.</p>
 <h3 id="31-spectral-mixing-error">3.1 Spectral Mixing Error</h3>
 <p>Bilinear interpolation creates "synthetic" spectral signatures.
-Let Pixel A be "Pure Forest" ($\rho=0.2$) and Pixel B be "Pure Water" ($\rho=0.8$).
-A resampled pixel located at $0.5A + 0.5B$ has $\rho=0.5$.
-*   <strong>The Artifact:</strong> There is no material on Earth with $\rho=0.5$. It might look like "Urban" or "Soil".
+Let Pixel A be "Pure Forest" (<span class="arithmatex">\(\rho=0.2\)</span>) and Pixel B be "Pure Water" (<span class="arithmatex">\(\rho=0.8\)</span>).
+A resampled pixel located at <span class="arithmatex">\(0.5A + 0.5B\)</span> has <span class="arithmatex">\(\rho=0.5\)</span>.
+*   <strong>The Artifact:</strong> There is no material on Earth with <span class="arithmatex">\(\rho=0.5\)</span>. It might look like "Urban" or "Soil".
 *   <strong>Result:</strong> The classifier predicts "Building" in the middle of a lake.</p>
 <h3 id="32-volume-estimation-bias">3.2 Volume Estimation Bias</h3>
 <p>When summing pixels to estimate area (e.g., Water Volume), resampling introduces bias if the kernel is not <strong>Flux-Conserving</strong>.
 *   <em>Nearest:</em> Unbiased expectation, high variance.
 *   <em>Bilinear:</em> Biased at edges (smoothing reduces peaks).
 *   <em>Average:</em> Unbiased flux, blurs shapes.</p>
-<p>For <strong>Carbon Stock Estimation</strong>, Ununennium mandates <strong>Area-Weighted Resampling</strong> to ensure $\sum \text{Carbon}<em>{in} = \sum \text{Carbon}</em>{out}$.</p>
+<p>For <strong>Carbon Stock Estimation</strong>, Ununennium mandates <strong>Area-Weighted Resampling</strong> to ensure <span class="arithmatex">\(\sum \text{Carbon}_{in} = \sum \text{Carbon}_{out}\)</span>.</p>
 <hr />
 <h2 id="4-probabilistic-error-modeling-monte-carlo">4. Probabilistic Error Modeling (Monte Carlo)</h2>
-<p>Since analytical derivation of $\frac{\partial \mathcal{P}}{\partial X}$ for a Deep ResNet101 is impossible, we use <strong>Monte Carlo Simulation</strong>.</p>
+<p>Since analytical derivation of <span class="arithmatex">\(\frac{\partial \mathcal{P}}{\partial X}\)</span> for a Deep ResNet101 is impossible, we use <strong>Monte Carlo Simulation</strong>.</p>
 <h3 id="41-the-method-of-realizations">4.1 The Method of Realizations</h3>
 <p>To estimate the confidence interval of a result (e.g., "Total Deforested Area = 500 ha"):</p>
 <ol>
 <li><strong>Define Error Distributions:</strong><ul>
-<li>$\text{Pos} \sim \mathcal{N}(0, 10m)$</li>
-<li>$\text{Rad} \sim \mathcal{N}(0, 0.01)$</li>
-<li>$\text{Atm} \sim U(0.1, 0.4)$</li>
+<li><span class="arithmatex">\(\text{Pos} \sim \mathcal{N}(0, 10m)\)</span></li>
+<li><span class="arithmatex">\(\text{Rad} \sim \mathcal{N}(0, 0.01)\)</span></li>
+<li><span class="arithmatex">\(\text{Atm} \sim U(0.1, 0.4)\)</span></li>
 </ul>
 </li>
-<li><strong>Generate $N$ Perturbed Inputs:</strong>
-    $X_k = X + \delta_k$</li>
-<li><strong>Run Pipeline $N$ times:</strong>
-    $Y_k = \mathcal{P}(X_k)$</li>
+<li><strong>Generate <span class="arithmatex">\(N\)</span> Perturbed Inputs:</strong>
+    <span class="arithmatex">\(X_k = X + \delta_k\)</span></li>
+<li><strong>Run Pipeline <span class="arithmatex">\(N\)</span> times:</strong>
+    <span class="arithmatex">\(Y_k = \mathcal{P}(X_k)\)</span></li>
 <li><strong>Compute Statistics:</strong>
     $$ \mu_Y = \frac{1}{N} \sum Y_k $$
     $$ \sigma_Y = \sqrt{\frac{1}{N-1} \sum (Y_k - \mu_Y)^2} $$</li>
 </ol>
 <p><strong>Ununennium Implementation:</strong>
-The <code>ununennium.benchmarks.uncertainty</code> module enables wrapping any <code>GeoBatch</code> in a <code>StochasticTensor</code> which automatically forks the pipeline $N$ times.</p>
+The <code>ununennium.benchmarks.uncertainty</code> module enables wrapping any <code>GeoBatch</code> in a <code>StochasticTensor</code> which automatically forks the pipeline <span class="arithmatex">\(N\)</span> times.</p>
 <hr />
 <h2 id="5-temporal-error-propagation-time-series">5. Temporal Error Propagation (Time Series)</h2>
-<p>In change detection, we compare $t_1$ and $t_2$.</p>
-<p>$$ \Delta = y_{t2} - y_{t1} $$</p>
+<p>In change detection, we compare <span class="arithmatex">\(t_1\)</span> and <span class="arithmatex">\(t_2\)</span>.</p>
+<div class="arithmatex">\[ \Delta = y_{t2} - y_{t1} \]</div>
 <p>The variance of the difference is the sum of the variances (assuming independence):</p>
-<p>$$ \text{Var}(\Delta) = \text{Var}(y_{t2}) + \text{Var}(y_{t1}) $$</p>
+<div class="arithmatex">\[ \text{Var}(\Delta) = \text{Var}(y_{t2}) + \text{Var}(y_{t1}) \]</div>
 <h3 id="51-misregistration-induced-change">5.1 Misregistration Induced Change</h3>
-<p>If $t_1$ and $t_2$ are misaligned by vector $\vec{d}$, the "False Change" signal is proportional to the local texture gradient.</p>
-<p>$$ E_{reg} \approx \vec{d} \cdot \nabla I $$</p>
+<p>If <span class="arithmatex">\(t_1\)</span> and <span class="arithmatex">\(t_2\)</span> are misaligned by vector <span class="arithmatex">\(\vec{d}\)</span>, the "False Change" signal is proportional to the local texture gradient.</p>
+<div class="arithmatex">\[ E_{reg} \approx \vec{d} \cdot \nabla I \]</div>
 <p><strong>Pseudo-invariant Feature (PIF) Validation:</strong>
-To measure this error, we track objects that <em>should not change</em> (e.g., Roads, Large Buildings). Any $\Delta$ observed on PIFs is pure error.
+To measure this error, we track objects that <em>should not change</em> (e.g., Roads, Large Buildings). Any <span class="arithmatex">\(\Delta\)</span> observed on PIFs is pure error.
 Ununennium's <code>metrics.calibration</code> uses PIFs to normalize Time Series before change detection.</p>
 <hr />
 <h2 id="6-vectorization-and-topology-error">6. Vectorization and Topology Error</h2>
 <p>The final step is often converting probability rasters to Polygons (GeoJSON).</p>
 <h3 id="61-the-staircase-effect">6.1 The Staircase Effect</h3>
-<p>A raster is a grid. A grid representation of a straight line at $45^\circ$ has length $L \sqrt{2}$. The true length is $L$.
+<p>A raster is a grid. A grid representation of a straight line at <span class="arithmatex">\(45^\circ\)</span> has length <span class="arithmatex">\(L \sqrt{2}\)</span>. The true length is <span class="arithmatex">\(L\)</span>.
 *   <strong>Perimeter Bias:</strong> Raster perimeters always overestimate fractal coastlines.
 *   <strong>Correction:</strong> We apply <strong>Douglas-Peucker</strong> simplification or use <strong>Active Contour</strong> losses (Level Sets) during training to encourage smooth, vector-friendly boundaries.</p>
 <h3 id="62-topological-violations">6.2 Topological Violations</h3>
@@ -1122,17 +1122,17 @@ Ununennium's <code>metrics.calibration</code> uses PIFs to normalize Time Series
 2.  <strong>Islands:</strong> Single pixel noise in the ocean.
 3.  <strong>Self-Intersection:</strong> (During polygonization).</p>
 <p><strong>Morphological Post-Processing:</strong>
-We apply <code>Opening</code> (Erosion $\circ$ Dilation) and <code>Closing</code> (Dilation $\circ$ Erosion) to enforce topological consistency.
+We apply <code>Opening</code> (Erosion <span class="arithmatex">\(\circ\)</span> Dilation) and <code>Closing</code> (Dilation <span class="arithmatex">\(\circ\)</span> Erosion) to enforce topological consistency.
 $$ Y_{clean} = \text{Close}(\text{Open}(Y_{raw}, K), K) $$</p>
 <hr />
 <h2 id="7-validated-error-bounds-olofssons-protocol">7. Validated Error Bounds (Olofsson's Protocol)</h2>
 <p>For Area Estimation (e.g., REDD+ Reporting), simply counting pixels is scientifically invalid. We must use the <strong>Adjusted Estimator</strong>.</p>
 <h3 id="71-stratified-estimator">7.1 Stratified Estimator</h3>
-<p>Using the Confusion Matrix $P_{ij}$ (proportion of area of class $i$ mapped as class $j$):</p>
-<p>$$ \hat{A}<em>k = A</em>{total} \sum_{i} W_i \frac{n_{ik}}{n_{i.}} $$</p>
+<p>Using the Confusion Matrix <span class="arithmatex">\(P_{ij}\)</span> (proportion of area of class <span class="arithmatex">\(i\)</span> mapped as class <span class="arithmatex">\(j\)</span>):</p>
+<div class="arithmatex">\[ \hat{A}_k = A_{total} \sum_{i} W_i \frac{n_{ik}}{n_{i.}} \]</div>
 <ul>
-<li>$W_i$: Mapped proportion of class $i$.</li>
-<li>$n_{ik}$: Validation samples mapped as $i$ but truly $k$.</li>
+<li><span class="arithmatex">\(W_i\)</span>: Mapped proportion of class <span class="arithmatex">\(i\)</span>.</li>
+<li><span class="arithmatex">\(n_{ik}\)</span>: Validation samples mapped as <span class="arithmatex">\(i\)</span> but truly <span class="arithmatex">\(k\)</span>.</li>
 </ul>
 <p>This estimator corrects for the bias of the classifier (e.g., if the model systematically over-predicts Forest).</p>
 <hr />
@@ -1141,7 +1141,7 @@ $$ Y_{clean} = \text{Close}(\text{Open}(Y_{raw}, K), K) $$</p>
 *   <strong>Positional Error</strong> limits the smallest detectable feature.
 *   <strong>Radiometric Error</strong> limits the subtlest detectable change.
 *   <strong>Sampling Error</strong> limits the confidence of area estimates.</p>
-<p>Ununennium provides the primitives to not just predict $Y$, but to report $Y \pm \delta$, elevating Deep Learning from a black-box oracle to a calibrated scientific instrument.</p>
+<p>Ununennium provides the primitives to not just predict <span class="arithmatex">\(Y\)</span>, but to report <span class="arithmatex">\(Y \pm \delta\)</span>, elevating Deep Learning from a black-box oracle to a calibrated scientific instrument.</p>
 <hr />
 <h2 id="9-references">9. References</h2>
 <ol>
@@ -1204,6 +1204,10 @@ $$ Y_{clean} = \text{Close}(\text{Open}(Y_{raw}, K), K) $$</p>
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

@@ -1090,11 +1090,11 @@
 <p>Sampling is the mechanism by which we bridge the continuous reality of the physical world and the discrete, finite datasets required for machine learning. In the geospatial domain, sampling is complicated by <strong>Spatial Autocorrelation</strong>, <strong>Heterogeneity</strong>, and <strong>Class Imbalance</strong>. A naive Random Sampling strategy, while theoretically sound for i.i.d. data, is often catastrophic for Earth Observation (EO) models, leading to vast redundancy, missed rare events, and inflated accuracy metrics. This document presents a comprehensive theoretical framework for Spatial Sampling Design, covering Design-based vs. Model-based inference, advanced tiling strategies, and temporal sampling requirements for dynamic phenomena.</p>
 <hr />
 <h2 id="1-the-sampling-problem-in-continuum">1. The sampling Problem in Continuum</h2>
-<p>Geo-data is inherently continuous. A satellite image is a discrete discretization of a continuous radiance field $L(lat, lon, t)$. Our labels (e.g., "Forest") are discrete representations of continuous land cover gradients.</p>
+<p>Geo-data is inherently continuous. A satellite image is a discrete discretization of a continuous radiance field <span class="arithmatex">\(L(lat, lon, t)\)</span>. Our labels (e.g., "Forest") are discrete representations of continuous land cover gradients.</p>
 <h3 id="11-the-change-of-support-problem-cosp">1.1 The "Change of Support" Problem (COSP)</h3>
 <p>The "Support" refers to the size, shape, and orientation of the physical area associated with a data value.
 *   <strong>Point Support:</strong> A ground measurement (e.g., weather station thermometer).
-*   <strong>Areal Support:</strong> A satellite pixel (e.g., $10m \times 10m$ average).</p>
+*   <strong>Areal Support:</strong> A satellite pixel (e.g., <span class="arithmatex">\(10m \times 10m\)</span> average).</p>
 <p><strong>The Ecological Fallacy:</strong>
 Relationships observed at one support level (e.g., correlation between NDVI and Biomass at 30m) do not necessarily hold at another support level (e.g., 1km).
 *   <em>Implication:</em> A model trained on Sentinel-2 (10m) cannot simply be applied to MODIS (250m) by upsampling the input. The variance structure changes non-linearly.</p>
@@ -1102,23 +1102,23 @@ Relationships observed at one support level (e.g., correlation between NDVI and 
 <h2 id="2-theoretical-frameworks-of-inference">2. Theoretical Frameworks of Inference</h2>
 <h3 id="21-design-based-inference">2.1 Design-Based Inference</h3>
 <ul>
-<li><strong>Assumption:</strong> The population values $y$ are fixed constants. Randomness comes entirely from the selection probability of the sample sites $s$.</li>
+<li><strong>Assumption:</strong> The population values <span class="arithmatex">\(y\)</span> are fixed constants. Randomness comes entirely from the selection probability of the sample sites <span class="arithmatex">\(s\)</span>.</li>
 <li><strong>Goal:</strong> Estimate global population parameters (e.g., Total Wheat Area).</li>
-<li><strong>Key:</strong> Selection probabilities $\pi_i$ must be known and non-zero.</li>
+<li><strong>Key:</strong> Selection probabilities <span class="arithmatex">\(\pi_i\)</span> must be known and non-zero.</li>
 <li>** Estimator:** Horvitz-Thompson Estimator:
     $$ \hat{Y} = \sum_{i \in s} \frac{y_i}{\pi_i} $$</li>
 </ul>
 <h3 id="22-model-based-inference">2.2 Model-Based Inference</h3>
 <ul>
-<li><strong>Assumption:</strong> The observed values $y$ are realizations of a random process (spatial superpopulation).</li>
-<li><strong>Goal:</strong> Predict $y$ at unobserved locations (Krige/CNN predictions).</li>
+<li><strong>Assumption:</strong> The observed values <span class="arithmatex">\(y\)</span> are realizations of a random process (spatial superpopulation).</li>
+<li><strong>Goal:</strong> Predict <span class="arithmatex">\(y\)</span> at unobserved locations (Krige/CNN predictions).</li>
 <li><strong>Key:</strong> The model must correctly characterize the spatial covariance structure.</li>
-<li><strong>Role of Sampling:</strong> To minimize the variance of the prediction error ($E[ (\hat{Y} - Y)^2 ]$).</li>
+<li><strong>Role of Sampling:</strong> To minimize the variance of the prediction error (<span class="arithmatex">\(E[ (\hat{Y} - Y)^2 ]\)</span>).</li>
 </ul>
 <p>Ununennium effectively operates in the <strong>Model-Based</strong> paradigm (training neural networks) but uses <strong>Design-Based</strong> principles for validation to ensure unbiased metric reporting.</p>
 <hr />
 <h2 id="3-spatial-sampling-designs">3. Spatial Sampling Designs</h2>
-<p>How do we select $N$ locations (patches) from the study area $\mathcal{D}$?</p>
+<p>How do we select <span class="arithmatex">\(N\)</span> locations (patches) from the study area <span class="arithmatex">\(\mathcal{D}\)</span>?</p>
 <h3 id="31-simple-random-sampling-srs">3.1 Simple Random Sampling (SRS)</h3>
 <p>$$ P(x_i \in S) = \frac{1}{|\mathcal{D}|} $$
 *   <strong>Pros:</strong> Unbiased mean estimation.
@@ -1127,53 +1127,53 @@ Relationships observed at one support level (e.g., correlation between NDVI and 
     2.  <strong>Inefficiency:</strong> Due to autocorrelation, clustered points carry redundant information.
     3.  <strong>Gaps:</strong> Leaves large areas unsampled.</p>
 <h3 id="32-systematic-sampling-grid">3.2 Systematic Sampling (Grid)</h3>
-<p>Selects points on a regular lattice with spacing $\Delta$.
+<p>Selects points on a regular lattice with spacing <span class="arithmatex">\(\Delta\)</span>.
 *   <strong>Pros:</strong> Maximizes spatial coverage (minimizes Max(min(dist))). Even distribution of error.
 *   <strong>Cons:</strong>
     1.  <strong>Aliasing:</strong> If the landscape has a periodic feature (e.g., center-pivot irrigation, city blocks) matching the grid spacing, the sample will be completely biased.
     2.  <strong>Variance Estimation:</strong> No unbiased estimator for variance exists for a single random start systematic sample.</p>
 <h3 id="33-stratified-random-sampling">3.3 Stratified Random Sampling</h3>
-<p>Partition $\mathcal{D}$ into strata $H_1, ..., H_L$ (e.g., land cover classes: Forest, Urban, Water). Draw $n_h$ samples from each stratum.</p>
+<p>Partition <span class="arithmatex">\(\mathcal{D}\)</span> into strata <span class="arithmatex">\(H_1, ..., H_L\)</span> (e.g., land cover classes: Forest, Urban, Water). Draw <span class="arithmatex">\(n_h\)</span> samples from each stratum.</p>
 <p><strong>Neyman Optimal Allocation:</strong>
-To minimize variance of the global estimate, sample size $n_h$ should be proportional to the stratum size $N_h$ and the stratum standard deviation $\sigma_h$.</p>
-<p>$$ n_h = n \frac{N_h \sigma_h}{\sum_{k=1}^L N_k \sigma_k} $$</p>
+To minimize variance of the global estimate, sample size <span class="arithmatex">\(n_h\)</span> should be proportional to the stratum size <span class="arithmatex">\(N_h\)</span> and the stratum standard deviation <span class="arithmatex">\(\sigma_h\)</span>.</p>
+<div class="arithmatex">\[ n_h = n \frac{N_h \sigma_h}{\sum_{k=1}^L N_k \sigma_k} \]</div>
 <ul>
 <li><em>Implication for DL:</em> We should sample <em>more</em> from heterogeneous classes (Urban) and <em>less</em> from homogenous classes (Water), even if Water covers 70% of the Earth.</li>
 </ul>
 <h3 id="34-spatially-balanced-sampling-poisson-disk-grts">3.4 Spatially Balanced Sampling (Poisson Disk / GRTS)</h3>
 <p><strong>Generalized Random Tessellation Stratified (GRTS)</strong> and <strong>Poisson Disk</strong> sampling generate designs that are spatially balanced (no holes, no clumps) but maintain probability properties.
-*   <em>Algorithm (Poisson Disk):</em> Generate a point. Reject any subsequent point closer than radius $r$.
+*   <em>Algorithm (Poisson Disk):</em> Generate a point. Reject any subsequent point closer than radius <span class="arithmatex">\(r\)</span>.
 *   <em>Result:</em> "Blue Noise" distribution. Ideal for training set construction to force diversity.</p>
 <hr />
 <h2 id="4-tiling-strategies-for-cnns">4. Tiling Strategies for CNNs</h2>
-<p>In Deep Learning, our "samples" are not points but $H \times W$ image patches (tiles).</p>
+<p>In Deep Learning, our "samples" are not points but <span class="arithmatex">\(H \times W\)</span> image patches (tiles).</p>
 <h3 id="41-the-epoch-definition-problem">4.1 The Epoch Definition Problem</h3>
 <p>In standard computer vision (ImageNet), an "Epoch" is one pass over all images. In EO, we have one continuous image (The World). What is an epoch?
-*   <em>Approach A (Grid):</em> Fixed sliding window stride $S$. Epoch = one full cover.
-    *   <em>Drawback:</em> Massive redundancy ($95\%$ of ocean tiles looking identical).
-*   <em>Approach B (Random):</em> $N$ random crops per "epoch".
+*   <em>Approach A (Grid):</em> Fixed sliding window stride <span class="arithmatex">\(S\)</span>. Epoch = one full cover.
+    *   <em>Drawback:</em> Massive redundancy (<span class="arithmatex">\(95\%\)</span> of ocean tiles looking identical).
+*   <em>Approach B (Random):</em> <span class="arithmatex">\(N\)</span> random crops per "epoch".
     *   <em>Drawback:</em> No guarantee of coverage.</p>
 <p><strong>Ununennium approach:</strong>
-We define an epoch as $N$ iterations, where samples are drawn via <strong>Importance Sampling</strong> from a probability map $P(x,y)$.</p>
+We define an epoch as <span class="arithmatex">\(N\)</span> iterations, where samples are drawn via <strong>Importance Sampling</strong> from a probability map <span class="arithmatex">\(P(x,y)\)</span>.</p>
 <h3 id="42-importance-sampling-hard-example-mining">4.2 Importance Sampling (Hard Example Mining)</h3>
-<p>We construct a sampling probability map $M(x,y)$.</p>
-<p>$$ M(x,y) = \alpha P_{freq}(x,y) + \beta P_{edge}(x,y) + \gamma P_{error}(x,y) $$</p>
+<p>We construct a sampling probability map <span class="arithmatex">\(M(x,y)\)</span>.</p>
+<div class="arithmatex">\[ M(x,y) = \alpha P_{freq}(x,y) + \beta P_{edge}(x,y) + \gamma P_{error}(x,y) \]</div>
 <ol>
 <li>
-<p><strong>Class Frequency Balancing ($P_{freq}$):</strong>
+<p><strong>Class Frequency Balancing (<span class="arithmatex">\(P_{freq}\)</span>):</strong>
     Rare classes get higher weight.
     $$ w_c = \frac{1}{\ln(f_c + 1.2)} $$
     This "Soft Inverse Frequency" prevents over-sampling extreme outliers while boosting rare classes.</p>
 </li>
 <li>
-<p><strong>Structural Complexity ($P_{edge}$):</strong>
-    We compute the gradient magnitude $|\nabla I|$ or entropy of the image.</p>
+<p><strong>Structural Complexity (<span class="arithmatex">\(P_{edge}\)</span>):</strong>
+    We compute the gradient magnitude <span class="arithmatex">\(|\nabla I|\)</span> or entropy of the image.</p>
 <ul>
 <li><em>Logic:</em> Uniform green fields are easy. Edges are hard. Sample edges.</li>
 </ul>
 </li>
 <li>
-<p><strong>Active Learning ($P_{error}$):</strong>
+<p><strong>Active Learning (<span class="arithmatex">\(P_{error}\)</span>):</strong>
     Feed back previous epoch's loss/uncertainty.</p>
 <ul>
 <li><em>Logic:</em> Focus training on areas where the model is confused (High Entropy).</li>
@@ -1184,19 +1184,19 @@ We define an epoch as $N$ iterations, where samples are drawn via <strong>Import
 <p>CNNs suffer from padding artifacts at the edges of tiles.
 *   <strong>Feature Degradation:</strong> Zero-padding distorts features near boundaries.
 *   <strong>Inference Strategy:</strong>
-    1.  <strong>Overlap-Tile:</strong> Extract tiles of size $D \times D$ with stride $S &lt; D$.
-    2.  <strong>Center-Crop Prediction:</strong> Predict on $D \times D$, but only keep the center $S \times S$.
+    1.  <strong>Overlap-Tile:</strong> Extract tiles of size <span class="arithmatex">\(D \times D\)</span> with stride <span class="arithmatex">\(S &lt; D\)</span>.
+    2.  <strong>Center-Crop Prediction:</strong> Predict on <span class="arithmatex">\(D \times D\)</span>, but only keep the center <span class="arithmatex">\(S \times S\)</span>.
     3.  <strong>Gaussian Blending:</strong> Accumulate predictions with a Gaussian weight mask falling to zero at edges.</p>
 <p>$$ P_{final}(i, j) = \frac{\sum_k w_k(i,j) P_k(i,j)}{\sum_k w_k(i,j)} $$
-Where $k$ indexes the overlapping tiles.</p>
+Where <span class="arithmatex">\(k\)</span> indexes the overlapping tiles.</p>
 <hr />
 <h2 id="5-temporal-sampling-time-series">5. Temporal Sampling (Time Series)</h2>
-<p>For Satellite Image Time Series (SITS), the sampling dimension extends to Time $t$.</p>
+<p>For Satellite Image Time Series (SITS), the sampling dimension extends to Time <span class="arithmatex">\(t\)</span>.</p>
 <h3 id="51-the-nyquist-shannon-limit-in-phenology">5.1 The Nyquist-Shannon Limit in Phenology</h3>
 <p>To classify crops, we must capture the phenological curve (NDVI trajectory).
 *   <strong>Signal:</strong> Vegetation growth cycle (~120 days).
 *   <strong>Bandwidth:</strong> Key inflection points (emergence, flowering, harvest) happen in ~1-2 weeks.
-*   <strong>Requirement:</strong> Revisit rate $&lt; \frac{1}{2} \lambda_{min} \approx 5-10$ days.</p>
+*   <strong>Requirement:</strong> Revisit rate <span class="arithmatex">\(&lt; \frac{1}{2} \lambda_{min} \approx 5-10\)</span> days.</p>
 <p><strong>Sentinel-2 (5 days)</strong> satisfies this. <strong>Landsat (16 days)</strong> often fails, especially with cloud cover.</p>
 <h3 id="52-handling-irregular-sampling">5.2 Handling Irregular Sampling</h3>
 <p>Satellite time series are never regularly sampled due to clouds.
@@ -1205,7 +1205,7 @@ $$ T = {t_1, t_2, ..., t_N}, \quad \Delta t_i \neq \text{const} $$</p>
 1.  <strong>Linear Interpolation (Gap Filling):</strong> Simple, assumes linearity (bad for rapid changes).
 2.  <strong>Fourier/Harmonic Regression:</strong> Fits sines/cosines (good for seasonality).
 3.  <strong>Attention Models (Transformers):</strong>
-    Temporal Attention mechanisms (like in PSE+TAE) naturally handle irregular positions by encoding the time differences $\Delta t$ as Positional Embeddings.</p>
+    Temporal Attention mechanisms (like in PSE+TAE) naturally handle irregular positions by encoding the time differences <span class="arithmatex">\(\Delta t\)</span> as Positional Embeddings.</p>
 <div class="highlight"><pre><span></span><code>$$ PE(t) = [\sin(\omega_1 t), \cos(\omega_1 t), ...] $$
 </code></pre></div>
 <hr />
@@ -1213,28 +1213,28 @@ $$ T = {t_1, t_2, ..., t_N}, \quad \Delta t_i \neq \text{const} $$</p>
 <p>Creating a valid Test set in spatial data is arguably the hardest sampling problem.</p>
 <h3 id="61-spatial-leakage">6.1 Spatial Leakage</h3>
 <p>If using Random Sampling (Pixel-based split):
-*   Train Pixel $(i, j)$
-*   Test Pixel $(i, j+1)$
-*   Correlation $\approx 1.0$.
+*   Train Pixel <span class="arithmatex">\((i, j)\)</span>
+*   Test Pixel <span class="arithmatex">\((i, j+1)\)</span>
+*   Correlation <span class="arithmatex">\(\approx 1.0\)</span>.
 *   <strong>Test Accuracy = 99%</strong>, <strong>Real World Accuracy = 60%</strong>.</p>
 <h3 id="62-block-sampling-with-buffers">6.2 Block Sampling with Buffers</h3>
 <p>We must split by <strong>Blocks</strong> (or Scenes), separated by a <strong>Buffer Distance</strong>.</p>
-<p>$$ \text{Buffer} &gt; \text{Range of Variogram}(\alpha) $$</p>
+<div class="arithmatex">\[ \text{Buffer} &gt; \text{Range of Variogram}(\alpha) \]</div>
 <p><strong>Algorithm:</strong>
-1.  Compute empirical variogram of the target variable. Determine effective range $R$.
-2.  Divide ROI into grid cells of size $S &gt; R$.
+1.  Compute empirical variogram of the target variable. Determine effective range <span class="arithmatex">\(R\)</span>.
+2.  Divide ROI into grid cells of size <span class="arithmatex">\(S &gt; R\)</span>.
 3.  Randomly assign cells to Train/Val/Test.
-4.  Erode the training masks by $R/2$ and validation masks by $R/2$ to create a dead zone.</p>
+4.  Erode the training masks by <span class="arithmatex">\(R/2\)</span> and validation masks by <span class="arithmatex">\(R/2\)</span> to create a dead zone.</p>
 <h3 id="63-spatial-k-fold">6.3 Spatial k-Fold</h3>
 <p>Standard k-Fold is biased. We use <strong>Spatially Blocked k-Fold</strong>.
-*   This ensures that in Fold $k$, the model is tested on a geographic region effectively unseen during training.
+*   This ensures that in Fold <span class="arithmatex">\(k\)</span>, the model is tested on a geographic region effectively unseen during training.
 *   It measures <strong>Spatial Generalization</strong> (interpolation/extrapolation capability) rather than <strong>memorization</strong>.</p>
 <hr />
 <h2 id="7-mathematical-bounds-of-generalization">7. Mathematical Bounds of Generalization</h2>
 <p>Learning Theory (VC-Dimension, Rademacher Complexity) assumes i.i.d.
-For Spatial Mixing processes ($\beta$-mixing), the error bound loosens.</p>
-<p>$$ E_{gen} \le E_{train} + \mathcal{O}\left( \sqrt{\frac{d \log N_{eff}}{N_{eff}}} \right) $$</p>
-<p>where $N_{eff} \ll N$ is the effective sample size due to autocorrelation.
+For Spatial Mixing processes (<span class="arithmatex">\(\beta\)</span>-mixing), the error bound loosens.</p>
+<div class="arithmatex">\[ E_{gen} \le E_{train} + \mathcal{O}\left( \sqrt{\frac{d \log N_{eff}}{N_{eff}}} \right) \]</div>
+<p>where <span class="arithmatex">\(N_{eff} \ll N\)</span> is the effective sample size due to autocorrelation.
 *   <em>Conclusion:</em> You need vastly more labeled pointers in a clustered spatial dataset to achieve the same generalization guarantee as in an i.i.d. dataset (like MNIST).</p>
 <hr />
 <h2 id="8-implementation">8. Implementation</h2>
@@ -1314,6 +1314,10 @@ For Spatial Mixing processes ($\beta$-mixing), the error bound loosens.</p>
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

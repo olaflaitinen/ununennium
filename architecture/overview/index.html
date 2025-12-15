@@ -900,7 +900,7 @@
 <hr />
 <h2 id="2-component-deep-dive">2. Component Deep Dive</h2>
 <h3 id="21-the-geospatial-primitives-core">2.1 The Geospatial Primitives (<code>core</code>)</h3>
-<p>The fundamental unit is the <code>GeoTensor</code>. Unlike a standard <code>torch.Tensor</code> $(B, C, H, W)$, a <code>GeoTensor</code> carries:
+<p>The fundamental unit is the <code>GeoTensor</code>. Unlike a standard <code>torch.Tensor</code> <span class="arithmatex">\((B, C, H, W)\)</span>, a <code>GeoTensor</code> carries:
 *   <code>.transform</code>: Affine matrix defining the pixel-to-world mapping.
 *   <code>.crs</code>: The projection definition.
 *   <code>.bounds</code>: The exact spatial envelope.</p>
@@ -922,13 +922,13 @@
 <hr />
 <h2 id="3-data-flow">3. Data Flow</h2>
 <ol>
-<li><strong>Ingest</strong>: Raw GeoTIFFs $\to$ <code>GeoTensor</code> (Lazy).</li>
-<li><strong>Sample</strong>: <code>GridGeoSampler</code> selects tiles $\to$ <code>Window</code> objects.</li>
-<li><strong>Load</strong>: <code>DataLoader</code> triggers IO $\to$ <code>GeoTensor</code> (Dense).</li>
+<li><strong>Ingest</strong>: Raw GeoTIFFs <span class="arithmatex">\(\to\)</span> <code>GeoTensor</code> (Lazy).</li>
+<li><strong>Sample</strong>: <code>GridGeoSampler</code> selects tiles <span class="arithmatex">\(\to\)</span> <code>Window</code> objects.</li>
+<li><strong>Load</strong>: <code>DataLoader</code> triggers IO <span class="arithmatex">\(\to\)</span> <code>GeoTensor</code> (Dense).</li>
 <li><strong>Collate</strong>: Stack into <code>GeoBatch</code>.</li>
-<li><strong>Forward</strong>: <code>GeoBatch</code> $\to$ <code>Model</code> $\to$ <code>Prediction</code> (Logits).</li>
+<li><strong>Forward</strong>: <code>GeoBatch</code> <span class="arithmatex">\(\to\)</span> <code>Model</code> <span class="arithmatex">\(\to\)</span> <code>Prediction</code> (Logits).</li>
 <li><strong>Loss</strong>: <code>PhysicsLoss</code>(Prediction, GroundTruth, PhysicsConstraints).</li>
-<li><strong>Backward</strong>: Autograd $\to$ Optimizer Step.</li>
+<li><strong>Backward</strong>: Autograd <span class="arithmatex">\(\to\)</span> Optimizer Step.</li>
 </ol>
 <hr />
 <h2 id="4-scalability-strategy">4. Scalability Strategy</h2>
@@ -990,6 +990,10 @@
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

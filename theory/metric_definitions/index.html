@@ -1074,67 +1074,67 @@
 <p>Evaluation metrics are the compass by which we navigate the optimization landscape. In Geospatial AI, standard computer vision metrics (like Accuracy) are often misleading due to extreme class imbalance (the "99% Water" problem) and the geometric nature of the predictions. A model with 99% pixel accuracy can fail to detect 50% of buildings if the objects are small. This treatise rigorously defines the set-theoretic, topological, and probabilistic metrics used in Ununennium, analyzing their mathematical properties, failure modes, and optimal use-cases.</p>
 <hr />
 <h2 id="1-confusion-matrix-primitives">1. Confusion Matrix Primitives</h2>
-<p>Let $\mathcal{D} = { (y_i, \hat{y}<em>i) }</em>{i=1}^N$ be the set of Ground Truth ($y$) and Prediction ($\hat{y}$) pairs.
-For a class $c$, we define:
-*   <strong>TP (True Positive):</strong> $y=c \land \hat{y}=c$
-*   <strong>FP (False Positive):</strong> $y \neq c \land \hat{y}=c$ (Type I Error)
-*   <strong>FN (False Negative):</strong> $y=c \land \hat{y} \neq c$ (Type II Error)
-*   <strong>TN (True Negative):</strong> $y \neq c \land \hat{y} \neq c$</p>
+<p>Let <span class="arithmatex">\(\mathcal{D} = \{ (y_i, \hat{y}_i) \}_{i=1}^N\)</span> be the set of Ground Truth (<span class="arithmatex">\(y\)</span>) and Prediction (<span class="arithmatex">\(\hat{y}\)</span>) pairs.
+For a class <span class="arithmatex">\(c\)</span>, we define:
+*   <strong>TP (True Positive):</strong> <span class="arithmatex">\(y=c \land \hat{y}=c\)</span>
+*   <strong>FP (False Positive):</strong> <span class="arithmatex">\(y \neq c \land \hat{y}=c\)</span> (Type I Error)
+*   <strong>FN (False Negative):</strong> <span class="arithmatex">\(y=c \land \hat{y} \neq c\)</span> (Type II Error)
+*   <strong>TN (True Negative):</strong> <span class="arithmatex">\(y \neq c \land \hat{y} \neq c\)</span></p>
 <h3 id="11-the-accuracy-paradox">1.1 The Accuracy Paradox</h3>
 <p>$$ \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} $$
 In a dataset with 99% background and 1% target (e.g., Ships in Ocean), a trivial model predicting "All Background" achieves 99% accuracy. Thus, <strong>Accuracy is deprecated</strong> for all Ununennium tasks except balanced scene classification.</p>
 <hr />
 <h2 id="2-set-theoretic-metrics-overlap">2. Set-Theoretic Metrics (Overlap)</h2>
-<p>These metrics view the image as a set of indices $\Omega$. Let $A = {i | y_i = 1}$ and $B = {i | \hat{y}_i = 1}$.</p>
+<p>These metrics view the image as a set of indices <span class="arithmatex">\(\Omega\)</span>. Let <span class="arithmatex">\(A = \{i | y_i = 1\}\)</span> and <span class="arithmatex">\(B = \{i | \hat{y}_i = 1\}\)</span>.</p>
 <h3 id="21-jaccard-index-iou-intersection-over-union">2.1 Jaccard Index (IoU - Intersection over Union)</h3>
 <p>Measures the ratio of intersection to union.</p>
-<p>$$ \text{IoU}(A, B) = \frac{|A \cap B|}{|A \cup B|} = \frac{TP}{TP + FP + FN} $$</p>
+<div class="arithmatex">\[ \text{IoU}(A, B) = \frac{|A \cap B|}{|A \cup B|} = \frac{TP}{TP + FP + FN} \]</div>
 <ul>
-<li><strong>Range:</strong> $[0, 1]$.</li>
+<li><strong>Range:</strong> <span class="arithmatex">\([0, 1]\)</span>.</li>
 <li><strong>Properties:</strong> Symmetric, Scale Invariant.</li>
-<li><strong>Hardness:</strong> IoU penalizes errors more harshly than F1. $\text{IoU} \le \text{F1}$ always.</li>
+<li><strong>Hardness:</strong> IoU penalizes errors more harshly than F1. <span class="arithmatex">\(\text{IoU} \le \text{F1}\)</span> always.</li>
 </ul>
 <h3 id="22-dice-coefficient-f1-score">2.2 Dice Coefficient (F1 Score)</h3>
 <p>The Harmonic Mean of Precision and Recall.</p>
-<p>$$ \text{Dice}(A, B) = \frac{2 |A \cap B|}{|A| + |B|} = \frac{2TP}{2TP + FP + FN} $$</p>
+<div class="arithmatex">\[ \text{Dice}(A, B) = \frac{2 |A \cap B|}{|A| + |B|} = \frac{2TP}{2TP + FP + FN} \]</div>
 <ul>
 <li><strong>Use Case:</strong> Often used as a Loss Function (Soft Dice) because it is differentiable and convex-ish.</li>
-<li><strong>Relation to IoU:</strong> $Dice = \frac{2 \cdot IoU}{1 + IoU}$.</li>
+<li><strong>Relation to IoU:</strong> <span class="arithmatex">\(Dice = \frac{2 \cdot IoU}{1 + IoU}\)</span>.</li>
 </ul>
 <hr />
 <h2 id="3-geometric-and-boundary-metrics-topology">3. Geometric and Boundary Metrics (Topology)</h2>
 <p>For applications like Building Footprint extraction, pixel overlap is insufficient. A model that predicts a blob covering 90% of a building gets 0.9 IoU but fails to capture the square shape.</p>
 <h3 id="31-hausdorff-distance">3.1 Hausdorff Distance</h3>
 <p>Measures the maximum distance from a point in one set to the nearest point in the other set.</p>
-<p>$$ d_H(A, B) = \max \left( \sup_{a \in A} \inf_{b \in B} d(a, b), \sup_{b \in B} \inf_{a \in A} d(a, b) \right) $$</p>
+<div class="arithmatex">\[ d_H(A, B) = \max \left( \sup_{a \in A} \inf_{b \in B} d(a, b), \sup_{b \in B} \inf_{a \in A} d(a, b) \right) \]</div>
 <ul>
-<li><strong>Interpretation:</strong> The "worst case" error. If the model imagines a single outlier pixel 1km away, $d_H = 1km$, even if IoU $\approx 1.0$.</li>
+<li><strong>Interpretation:</strong> The "worst case" error. If the model imagines a single outlier pixel 1km away, <span class="arithmatex">\(d_H = 1km\)</span>, even if IoU <span class="arithmatex">\(\approx 1.0\)</span>.</li>
 <li><strong>Robustness:</strong> Highly sensitive to outliers.</li>
 </ul>
 <h3 id="32-boundary-f1-bf1-score">3.2 Boundary F1 (BF1) Score</h3>
-<p>Computes Precision and Recall only within a distance buffer $d$ of the boundaries.</p>
-<p>$$ \text{Boundary}(S) = { x \in S \mid \exists y \notin S, d(x, y) &lt; 1 \text{px} } $$</p>
-<p>We define a match if prediction boundary is within tolerance $\theta$ of ground truth boundary.
+<p>Computes Precision and Recall only within a distance buffer <span class="arithmatex">\(d\)</span> of the boundaries.</p>
+<div class="arithmatex">\[ \text{Boundary}(S) = \{ x \in S \mid \exists y \notin S, d(x, y) &lt; 1 \text{px} \} \]</div>
+<p>We define a match if prediction boundary is within tolerance <span class="arithmatex">\(\theta\)</span> of ground truth boundary.
 *   <em>Application:</em> Critical for Road Network extraction, where the width of the road changes but the centerline topology matters.</p>
 <hr />
 <h2 id="4-detection-metrics-object-level">4. Detection Metrics (Object Level)</h2>
 <p>For Object Detection (Bounding Boxes), we operate on discrete objects, not pixels.</p>
 <h3 id="41-average-precision-ap">4.1 Average Precision (AP)</h3>
 <p>AP is the area under the Precision-Recall Curve (PR Curve).</p>
-<p>$$ AP = \int_0^1 p(r) dr $$</p>
+<div class="arithmatex">\[ AP = \int_0^1 p(r) dr \]</div>
 <p>In practice, we compute interpolated AP (COCO style):
 $$ AP = \frac{1}{11} \sum_{r \in {0, 0.1, ..., 1.0}} p_{interp}(r) $$
-Where $p_{interp}(r) = \max_{\tilde{r} \ge r} p(\tilde{r})$.</p>
+Where <span class="arithmatex">\(p_{interp}(r) = \max_{\tilde{r} \ge r} p(\tilde{r})\)</span>.</p>
 <h3 id="42-mean-average-precision-map">4.2 Mean Average Precision (mAP)</h3>
 <p>The mean of AP across all classes.
 *   <strong>mAP@50:</strong> IoU threshold = 0.5.
 *   <strong>mAP@[50:95]:</strong> Average over IoU thresholds 0.50 to 0.95 (step 0.05). Rewards tight localization.</p>
 <hr />
 <h2 id="5-calibration-metrics-probabilistic">5. Calibration Metrics (Probabilistic)</h2>
-<p>Measures the reliability of the confidence scores $\hat{p}$.</p>
+<p>Measures the reliability of the confidence scores <span class="arithmatex">\(\hat{p}\)</span>.</p>
 <h3 id="51-brier-score">5.1 Brier Score</h3>
 <p>The Mean Squared Error of the probability vector.</p>
-<p>$$ BS = \frac{1}{N} \sum_{i=1}^N ( \hat{p}_i - y_i )^2 $$</p>
+<div class="arithmatex">\[ BS = \frac{1}{N} \sum_{i=1}^N ( \hat{p}_i - y_i )^2 \]</div>
 <p>It decomposes into:
 $$ BS = \text{Reliability} - \text{Resolution} + \text{Uncertainty} $$
 *   <strong>Reliability:</strong> How close are probabilities to true frequencies.
@@ -1144,14 +1144,14 @@ $$ BS = \text{Reliability} - \text{Resolution} + \text{Uncertainty} $$
 ECE helps detect if a model is "hallucinating" high confidence on wrong answers.</p>
 <hr />
 <h2 id="6-time-series-metrics">6. Time Series Metrics</h2>
-<p>For comparing temporal signals $T_1$ and $T_2$.</p>
+<p>For comparing temporal signals <span class="arithmatex">\(T_1\)</span> and <span class="arithmatex">\(T_2\)</span>.</p>
 <h3 id="61-dynamic-time-warping-dtw">6.1 Dynamic Time Warping (DTW)</h3>
-<p>Euclidean distance assumes indices align ($i$ matches $i$). DTW allows non-linear alignment (warping) to handle temporal shifts (e.g., crop season starting 10 days later).</p>
-<p>$$ DTW(T_1, T_2) = \min_{\pi} \sqrt{ \sum_{(i,j) \in \pi} (T_1[i] - T_2[j])^2 } $$</p>
-<p>Where $\pi$ is the warping path.</p>
+<p>Euclidean distance assumes indices align (<span class="arithmatex">\(i\)</span> matches <span class="arithmatex">\(i\)</span>). DTW allows non-linear alignment (warping) to handle temporal shifts (e.g., crop season starting 10 days later).</p>
+<div class="arithmatex">\[ DTW(T_1, T_2) = \min_{\pi} \sqrt{ \sum_{(i,j) \in \pi} (T_1[i] - T_2[j])^2 } \]</div>
+<p>Where <span class="arithmatex">\(\pi\)</span> is the warping path.</p>
 <hr />
 <h2 id="7-aggregation-strategies-macro-vs-micro">7. Aggregation Strategies (Macro vs Micro)</h2>
-<p>When calculating metrics across $N$ images and $C$ classes:</p>
+<p>When calculating metrics across <span class="arithmatex">\(N\)</span> images and <span class="arithmatex">\(C\)</span> classes:</p>
 <h3 id="71-micro-averaging">7.1 Micro-Averaging</h3>
 <p>Pools all pixels/objects from all images into one giant Confusion Matrix, then computes metric.
 $$ F1_{micro} $$
@@ -1250,6 +1250,10 @@ $$ F1_{macro} = \frac{1}{C} \sum_{c=1}^C F1_c $$
     
     
       <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>
