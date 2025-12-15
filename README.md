@@ -217,11 +217,12 @@ ununennium/
 
 ## Authors
 
-- **Olaf Yunus Laitinen Imanov** - Lead Developer & Architect
-- **Hafiz Rzazade**
-- **Laman Mamedova** 
-- **Farid Mirzaliyev** 
-- **Aian Ajili** 
+- **Olaf Yunus Laitinen Imanov** - Lead Architect & Creator
+- **Hafiz Rzazade** - Contributor
+- **Laman Mamedova** - Contributor
+- **Farid Mirzaliyev** - Contributor
+- **Aian Ajili** - Contributor
+
 ---
 
 ## Citation

@@ -68,5 +68,5 @@ pip install ununennium
 
 ```python
 import ununennium as uu
-print(uu.__version__)  # Should print 1.0.0
+print(uu.__version__)  # Should print 1.0.5
 ```

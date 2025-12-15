@@ -5,7 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2024-12-14
+## [1.0.5] - 2025-12-15
+
+### Changed
+- Updated documentation formulas for proper MathJax rendering
+- Improved metadata and author attributions
+
+### Fixed
+- Formula rendering issues in Markdown documentation files
+
+---
+
+## [1.0.0] - 2025-12-15
 
 ### Added
 - Core `GeoTensor` and `GeoBatch` abstractions for CRS-aware tensors
@@ -27,8 +38,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI/CD workflows for GitHub Actions
 
 ### Contributors
-- Olaf Yunus Laitinen Imanov (Lead Developer)
-- Hafiz Rzazade
-- Laman Mamedova
-- Farid Mirzaliyev
-- Ayan Ajili
+- Olaf Yunus Laitinen Imanov (Lead Architect)
+- Hafiz Rzazade (Contributor)
+- Laman Mamedova (Contributor)
+- Farid Mirzaliyev (Contributor)
+- Ayan Ajili (Contributor)

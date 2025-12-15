@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "Ununennium: Production-grade Satellite Imagery Machine Learning"
 type: software
-version: 1.0.0
-date-released: 2024-12-14
+version: 1.0.5
+date-released: 2025-12-15
 url: "https://github.com/olaflaitinen/ununennium"
 repository-code: "https://github.com/olaflaitinen/ununennium"
 license: Apache-2.0
@@ -18,12 +18,17 @@ keywords:
 authors:
   - family-names: Laitinen Imanov
     given-names: Olaf Yunus
+    affiliation: "Lead Architect"
     orcid: ""
   - family-names: Rzazade
     given-names: Hafiz
+    affiliation: "Contributor"
   - family-names: Mamedova
     given-names: Laman
+    affiliation: "Contributor"
   - family-names: Mirzaliyev
     given-names: Farid
+    affiliation: "Contributor"
   - family-names: Ajili
     given-names: Aian
+    affiliation: "Contributor"
