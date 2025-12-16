@@ -1,195 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://ununennium.readthedocs.io/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/changelog/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/changelog/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/getting_started/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/getting_started/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/installation/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/installation/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/api/augmentation/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/api/augmentation/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/api/core/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/api/core/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/api/datasets/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/api/datasets/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/api/evaluation/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/api/evaluation/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/api/io/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/api/io/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/api/losses/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/api/losses/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/api/metrics/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/api/metrics/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/api/preprocessing/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/api/preprocessing/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/api/tiling/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/api/tiling/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/api/training/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/api/training/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/api/visualization/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/api/visualization/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/architecture/data_model/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/architecture/data_model/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/architecture/io_system/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/architecture/io_system/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/architecture/overview/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/architecture/overview/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/architecture/training_system/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/architecture/training_system/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/models/backbones/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/models/backbones/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/models/foundation_models/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/models/foundation_models/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/models/gan/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/models/gan/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/models/model_zoo/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/models/model_zoo/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/models/pinn/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/models/pinn/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/models/task_heads/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/models/task_heads/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tasks/change_detection/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tasks/change_detection/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tasks/classification/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tasks/classification/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tasks/detection/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tasks/detection/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tasks/elevation/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tasks/elevation/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tasks/restoration/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tasks/restoration/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tasks/segmentation/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tasks/segmentation/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tasks/super_resolution/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tasks/super_resolution/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tasks/time_series/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tasks/time_series/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tasks/translation/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tasks/translation/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/theory/calibration/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/theory/calibration/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/theory/error_propagation/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/theory/error_propagation/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/theory/geodesic_calculations/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/theory/geodesic_calculations/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/theory/metric_definitions/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/theory/metric_definitions/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/theory/resampling_kernels/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/theory/resampling_kernels/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/theory/sampling_theory/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/theory/sampling_theory/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/theory/spatial_autocorrelation/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/theory/spatial_autocorrelation/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/theory/uncertainty/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/theory/uncertainty/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tutorials/custom_dataset/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tutorials/custom_dataset/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tutorials/distributed_training/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tutorials/distributed_training/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tutorials/gan_training/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tutorials/gan_training/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tutorials/pinn_training/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tutorials/pinn_training/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tutorials/quickstart/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tutorials/quickstart/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
     <url>
-         <loc>https://ununennium.readthedocs.io/tutorials/training_segmentation/</loc>
+         <loc>https://olaflaitinen.github.io/ununennium/tutorials/training_segmentation/</loc>
          <lastmod>2025-12-16</lastmod>
     </url>
 </urlset>
