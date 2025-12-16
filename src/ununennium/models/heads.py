@@ -196,3 +196,95 @@ class FPNHead(nn.Module):
 
         # Concatenate and final conv
         return self.final_conv(torch.cat(outputs, dim=1))
+
+
+class DetectionHead(nn.Module):
+    """Detection head for object detection tasks.
+
+    Outputs classification scores and bounding box regressions for
+    anchor-based detectors (RetinaNet, FasterRCNN) or center-based
+    detectors (FCOS).
+
+    The head applies shared convolutions followed by separate
+    classification and regression branches.
+    """
+
+    def __init__(
+        self,
+        in_channels: int,
+        num_classes: int,
+        num_anchors: int = 9,
+        num_convs: int = 4,
+        prior_prob: float = 0.01,
+    ):
+        """Initialize detection head.
+
+        Args:
+            in_channels: Number of input channels from FPN.
+            num_classes: Number of object classes (excluding background).
+            num_anchors: Number of anchors per spatial location.
+            num_convs: Number of convolution layers in each branch.
+            prior_prob: Prior probability for focal loss initialization.
+        """
+        super().__init__()
+
+        self.num_classes = num_classes
+        self.num_anchors = num_anchors
+
+        # Classification branch
+        cls_convs = []
+        for _ in range(num_convs):
+            cls_convs.extend([
+                nn.Conv2d(in_channels, in_channels, 3, padding=1, bias=False),
+                nn.GroupNorm(32, in_channels),
+                nn.ReLU(inplace=True),
+            ])
+        self.cls_convs = nn.Sequential(*cls_convs)
+        self.cls_pred = nn.Conv2d(in_channels, num_anchors * num_classes, 3, padding=1)
+
+        # Regression branch
+        reg_convs = []
+        for _ in range(num_convs):
+            reg_convs.extend([
+                nn.Conv2d(in_channels, in_channels, 3, padding=1, bias=False),
+                nn.GroupNorm(32, in_channels),
+                nn.ReLU(inplace=True),
+            ])
+        self.reg_convs = nn.Sequential(*reg_convs)
+        self.reg_pred = nn.Conv2d(in_channels, num_anchors * 4, 3, padding=1)
+
+        # Initialize classification bias with prior probability
+        import math
+        bias_value = -math.log((1 - prior_prob) / prior_prob)
+        nn.init.constant_(self.cls_pred.bias, bias_value)
+        nn.init.normal_(self.reg_pred.weight, std=0.01)
+        nn.init.constant_(self.reg_pred.bias, 0)
+
+    def forward(
+        self, features: list[torch.Tensor]
+    ) -> tuple[list[torch.Tensor], list[torch.Tensor]]:
+        """Forward pass.
+
+        Args:
+            features: List of feature maps from FPN at different scales.
+
+        Returns:
+            Tuple of (class_logits, box_regressions) where each is a list
+            of tensors corresponding to each feature level.
+            - class_logits[i]: (B, num_anchors * num_classes, H_i, W_i)
+            - box_regressions[i]: (B, num_anchors * 4, H_i, W_i)
+        """
+        class_logits = []
+        box_regressions = []
+
+        for feature in features:
+            cls_feat = self.cls_convs(feature)
+            cls_logit = self.cls_pred(cls_feat)
+            class_logits.append(cls_logit)
+
+            reg_feat = self.reg_convs(feature)
+            box_reg = self.reg_pred(reg_feat)
+            box_regressions.append(box_reg)
+
+        return class_logits, box_regressions
+

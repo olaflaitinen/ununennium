@@ -197,7 +197,7 @@ ununennium/
 |------|--------|---------|
 | Scene Classification | ResNet, EfficientNet, ViT | Accuracy, F1, AUC |
 | Semantic Segmentation | U-Net, DeepLabV3, FPN | mIoU, Dice, PA |
-| Object Detection | Coming Soon | mAP, AP50 |
+| Object Detection | RetinaNet, FasterRCNN, FCOS | mAP, AP50 |
 | Change Detection | Siamese + Diff | F1, κ |
 | Super-Resolution | ESRGAN, Real-ESRGAN | PSNR, SSIM, LPIPS |
 | Image Translation | Pix2Pix, CycleGAN | FID, SAM |

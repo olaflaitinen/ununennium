@@ -1,5 +1,11 @@
 """Losses module for training."""
 
+from ununennium.losses.detection import (
+    DetectionLoss,
+    FocalLossDetection,
+    GIoULoss,
+    SmoothL1Loss,
+)
 from ununennium.losses.segmentation import (
     CombinedLoss,
     DiceLoss,
@@ -8,6 +14,11 @@ from ununennium.losses.segmentation import (
 
 __all__ = [
     "CombinedLoss",
+    "DetectionLoss",
     "DiceLoss",
     "FocalLoss",
+    "FocalLossDetection",
+    "GIoULoss",
+    "SmoothL1Loss",
 ]
+
