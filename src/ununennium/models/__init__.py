@@ -21,19 +21,19 @@ from ununennium.models.registry import create_model, list_models, register_model
 
 __all__ = [
     "ClassificationHead",
-    "create_model",
     "CycleGAN",
     "DetectionHead",
     "EfficientNetBackbone",
-    "FasterRCNN",
     "FCOS",
-    "list_models",
+    "FasterRCNN",
     "PINN",
     "Pix2Pix",
-    "register_model",
     "ResNetBackbone",
     "RetinaNet",
     "SegmentationHead",
     "UNet",
+    "create_model",
+    "list_models",
+    "register_model",
 ]
 
