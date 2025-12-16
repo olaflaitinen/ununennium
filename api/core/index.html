@@ -13,10 +13,8 @@
         <link rel="canonical" href="https://olaflaitinen.github.io/ununennium/api/core/">
       
       
-        <link rel="prev" href="../../getting_started/">
       
-      
-        <link rel="next" href="../io/">
+        <link rel="next" href="../training/">
       
       
         
@@ -80,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#core-module-api-reference" class="md-skip">
+        <a href="#core-api" class="md-skip">
           Skip to content
         </a>
       
@@ -225,7 +223,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../index.md" class="md-tabs__link">
         
   
   
@@ -244,7 +242,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../getting_started/" class="md-tabs__link">
+      <a href="../../getting_started.md" class="md-tabs__link">
         
   
   
@@ -287,7 +285,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../tutorials/quickstart/" class="md-tabs__link">
+        <a href="../../tutorials/quickstart.md" class="md-tabs__link">
           
   
   
@@ -305,7 +303,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../models/model_zoo/" class="md-tabs__link">
+      <a href="../../models/model_zoo.md" class="md-tabs__link">
         
   
   
@@ -370,7 +368,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../index.md" class="md-nav__link">
         
   
   
@@ -397,7 +395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting_started/" class="md-nav__link">
+      <a href="../../getting_started.md" class="md-nav__link">
         
   
   
@@ -541,22 +539,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-geotensor" class="md-nav__link">
+  <a href="#geotensor" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. GeoTensor
+        GeoTensor
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. GeoTensor">
+    <nav class="md-nav" aria-label="GeoTensor">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#signature" class="md-nav__link">
+  <a href="#class-definition" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Signature
+        Class Definition
       
     </span>
   </a>
@@ -564,10 +562,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#attributes" class="md-nav__link">
+  <a href="#constructor" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Attributes
+        Constructor
       
     </span>
   </a>
@@ -587,10 +585,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#reproject" class="md-nav__link">
+  <a href="#todevice" class="md-nav__link">
     <span class="md-ellipsis">
       
-        reproject
+        to(device)
       
     </span>
   </a>
@@ -598,10 +596,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#crop" class="md-nav__link">
+  <a href="#numpy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        crop
+        numpy()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reprojecttarget_crs-resolutionnone-methodbilinear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reproject(target_crs, resolution=None, method="bilinear")
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cropbounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        crop(bounds)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resampleresolution-methodbilinear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resample(resolution, method="bilinear")
       
     </span>
   </a>
@@ -619,22 +650,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-geobatch" class="md-nav__link">
+  <a href="#geobatch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. GeoBatch
+        GeoBatch
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. GeoBatch">
+    <nav class="md-nav" aria-label="GeoBatch">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#signature_1" class="md-nav__link">
+  <a href="#class-definition_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Signature
+        Class Definition
       
     </span>
   </a>
@@ -642,10 +673,44 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#usage-pattern" class="md-nav__link">
+  <a href="#constructor_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Usage Pattern
+        Constructor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#todevice_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to(device)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pin_memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pin_memory()
       
     </span>
   </a>
@@ -656,24 +721,140 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#3-coordinate-reference-systems-crs" class="md-nav__link">
+  <a href="#boundingbox" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Coordinate Reference Systems (CRS)
+        BoundingBox
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Coordinate Reference Systems (CRS)">
+    <nav class="md-nav" aria-label="BoundingBox">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
+  <a href="#class-definition_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Best Practices
+        Class Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intersectsother" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        intersects(other)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intersectionother" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        intersection(other)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unionother" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        union(other)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bufferdistance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        buffer(distance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Type Definitions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exceptions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exceptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Error Handling
       
     </span>
   </a>
@@ -701,7 +882,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../io/" class="md-nav__link">
+      <a href="../io.md" class="md-nav__link">
         
   
   
@@ -818,7 +999,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/quickstart/" class="md-nav__link">
+      <a href="../../tutorials/quickstart.md" class="md-nav__link">
         
   
   
@@ -846,7 +1027,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/gan_training/" class="md-nav__link">
+      <a href="../../tutorials/gan_training.md" class="md-nav__link">
         
   
   
@@ -874,7 +1055,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/pinn_training/" class="md-nav__link">
+      <a href="../../tutorials/pinn_training.md" class="md-nav__link">
         
   
   
@@ -909,7 +1090,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../models/model_zoo/" class="md-nav__link">
+      <a href="../../models/model_zoo.md" class="md-nav__link">
         
   
   
@@ -956,22 +1137,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-geotensor" class="md-nav__link">
+  <a href="#geotensor" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. GeoTensor
+        GeoTensor
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. GeoTensor">
+    <nav class="md-nav" aria-label="GeoTensor">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#signature" class="md-nav__link">
+  <a href="#class-definition" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Signature
+        Class Definition
       
     </span>
   </a>
@@ -979,10 +1160,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#attributes" class="md-nav__link">
+  <a href="#constructor" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Attributes
+        Constructor
       
     </span>
   </a>
@@ -1002,10 +1183,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#reproject" class="md-nav__link">
+  <a href="#todevice" class="md-nav__link">
     <span class="md-ellipsis">
       
-        reproject
+        to(device)
       
     </span>
   </a>
@@ -1013,10 +1194,43 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#crop" class="md-nav__link">
+  <a href="#numpy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        crop
+        numpy()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reprojecttarget_crs-resolutionnone-methodbilinear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reproject(target_crs, resolution=None, method="bilinear")
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cropbounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        crop(bounds)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resampleresolution-methodbilinear" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        resample(resolution, method="bilinear")
       
     </span>
   </a>
@@ -1034,22 +1248,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-geobatch" class="md-nav__link">
+  <a href="#geobatch" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. GeoBatch
+        GeoBatch
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. GeoBatch">
+    <nav class="md-nav" aria-label="GeoBatch">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#signature_1" class="md-nav__link">
+  <a href="#class-definition_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Signature
+        Class Definition
       
     </span>
   </a>
@@ -1057,10 +1271,44 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#usage-pattern" class="md-nav__link">
+  <a href="#constructor_1" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Usage Pattern
+        Constructor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#todevice_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to(device)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pin_memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pin_memory()
       
     </span>
   </a>
@@ -1071,24 +1319,140 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#3-coordinate-reference-systems-crs" class="md-nav__link">
+  <a href="#boundingbox" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Coordinate Reference Systems (CRS)
+        BoundingBox
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="3. Coordinate Reference Systems (CRS)">
+    <nav class="md-nav" aria-label="BoundingBox">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
+  <a href="#class-definition_2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Best Practices
+        Class Definition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#intersectsother" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        intersects(other)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intersectionother" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        intersection(other)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unionother" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        union(other)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bufferdistance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        buffer(distance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Type Definitions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exceptions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exceptions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Error Handling
       
     </span>
   </a>
@@ -1120,100 +1484,247 @@
   
 
 
-<h1 id="core-module-api-reference">Core Module API Reference</h1>
-<p>The <code>nunennium.core</code> module establishes the fundamental data structures for geospatial deep learning. It enforces coordinate reference system (CRS) awareness and bounds tracking throughout the tensor lifecycle.</p>
-<h2 id="1-geotensor">1. GeoTensor</h2>
-<p><strong><code>ununennium.core.geotensor.GeoTensor</code></strong></p>
-<p>A subclass of <code>torch.Tensor</code> that carries geospatial metadata. It behaves exactly like a standard PyTorch tensor but persists metadata through operations.</p>
-<h3 id="signature">Signature</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">GeoTensor</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> 
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                <span class="n">data</span><span class="p">:</span> <span class="n">ArrayLike</span><span class="p">,</span> 
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                <span class="n">crs</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">CRS</span><span class="p">,</span> 
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                <span class="n">transform</span><span class="p">:</span> <span class="n">Affine</span><span class="p">,</span> 
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                <span class="n">bounds</span><span class="p">:</span> <span class="n">Bounds</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GeoTensor</span>
+<h1 id="core-api">Core API</h1>
+<p>The core module provides foundational data structures for geospatial machine learning.</p>
+<hr />
+<h2 id="geotensor">GeoTensor</h2>
+<p>CRS-aware tensor that preserves geospatial metadata through operations.</p>
+<h3 id="class-definition">Class Definition</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">GeoTensor</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A PyTorch tensor with geospatial metadata.</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sd">    Parameters</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sd">    ----------</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="sd">    data : torch.Tensor</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="sd">        The underlying tensor data. Shape: (C, H, W) or (H, W).</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="sd">    crs : str | CRS</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sd">        Coordinate Reference System (e.g., &quot;EPSG:32632&quot;).</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="sd">    transform : Affine</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="sd">        Affine transform from pixel to world coordinates.</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="sd">    nodata : float | None, optional</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="sd">        Value representing no data. Default: None.</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="sd">    Attributes</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="sd">    ----------</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="sd">    shape : tuple[int, ...]</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="sd">        Tensor shape.</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="sd">    bounds : BoundingBox</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="sd">        Geographic extent.</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="sd">    resolution : tuple[float, float]</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="sd">        Pixel size in CRS units (x, y).</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="sd">    dtype : torch.dtype</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="sd">        Data type.</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="sd">    device : torch.device</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="sd">        Device location.</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="sd">    &quot;&quot;&quot;</span>
 </code></pre></div>
-<h3 id="attributes">Attributes</h3>
+<h3 id="constructor">Constructor</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoTensor</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">affine</span><span class="w"> </span><span class="kn">import</span> <span class="n">Affine</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">transform</span> <span class="o">=</span> <span class="n">Affine</span><span class="o">.</span><span class="n">translation</span><span class="p">(</span><span class="mi">500000</span><span class="p">,</span> <span class="mi">4500000</span><span class="p">)</span> <span class="o">*</span> <span class="n">Affine</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">tensor</span> <span class="o">=</span> <span class="n">GeoTensor</span><span class="p">(</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:32632&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="n">transform</span><span class="o">=</span><span class="n">transform</span><span class="p">,</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="n">nodata</span><span class="o">=-</span><span class="mf">9999.0</span><span class="p">,</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">)</span>
+</code></pre></div>
+<h3 id="methods">Methods</h3>
+<h4 id="todevice"><code>to(device)</code></h4>
+<p>Move tensor to specified device.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">gpu_tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">cpu_tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="numpy"><code>numpy()</code></h4>
+<p>Convert to NumPy array.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">array</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>  <span class="c1"># Returns np.ndarray</span>
+</code></pre></div>
+<h4 id="reprojecttarget_crs-resolutionnone-methodbilinear"><code>reproject(target_crs, resolution=None, method="bilinear")</code></h4>
+<p>Reproject to different CRS.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">wgs84</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">reproject</span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">target_crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">),</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;bilinear&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="p">)</span>
+</code></pre></div>
 <table>
 <thead>
 <tr>
-<th>Attribute</th>
+<th>Parameter</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>crs</code></td>
-<td><code>pyproj.CRS</code></td>
-<td>The Coordinate Reference System of the data.</td>
-</tr>
-<tr>
-<td><code>transform</code></td>
-<td><code>affine.Affine</code></td>
-<td>The affine transformation matrix mapping pixel coordinates to map coordinates.</td>
-</tr>
-<tr>
-<td><code>bounds</code></td>
-<td><code>BoundingBox</code></td>
-<td>The spatial extent (left, bottom, right, top).</td>
+<td><code>target_crs</code></td>
+<td><code>str</code></td>
+<td>Target CRS identifier</td>
 </tr>
 <tr>
 <td><code>resolution</code></td>
 <td><code>tuple[float, float]</code></td>
-<td>Pixel resolution <span class="arithmatex">\((dx, dy)\)</span> derived from transform.</td>
+<td>Output resolution</td>
+</tr>
+<tr>
+<td><code>method</code></td>
+<td><code>str</code></td>
+<td>Resampling method</td>
 </tr>
 </tbody>
 </table>
-<h3 id="methods">Methods</h3>
-<h4 id="reproject"><code>reproject</code></h4>
-<p>Reprojects the tensor to a new CRS.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">reproject</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dst_crs</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">resampling</span><span class="p">:</span> <span class="n">Resampling</span> <span class="o">=</span> <span class="n">Resampling</span><span class="o">.</span><span class="n">bilinear</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GeoTensor</span>
+<h4 id="cropbounds"><code>crop(bounds)</code></h4>
+<p>Crop to bounding box.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoundingBox</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">bounds</span> <span class="o">=</span> <span class="n">BoundingBox</span><span class="p">(</span><span class="mi">502000</span><span class="p">,</span> <span class="mi">4496000</span><span class="p">,</span> <span class="mi">504000</span><span class="p">,</span> <span class="mi">4498000</span><span class="p">)</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">cropped</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
 </code></pre></div>
-<ul>
-<li><strong>dst_crs</strong>: Target EPSG code or WKT.</li>
-<li><strong>resampling</strong>: Interpolation kernel (see Resampling Theory).</li>
-<li><strong>Returns</strong>: New <code>GeoTensor</code> in target CRS.</li>
-<li><strong>Raises</strong>: <code>CRSError</code> if transformation is invalid.</li>
-</ul>
-<h4 id="crop"><code>crop</code></h4>
-<p>Spatial crop based on world coordinates.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">crop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbox</span><span class="p">:</span> <span class="n">BoundingBox</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GeoTensor</span>
-</code></pre></div>
-<hr />
-<h2 id="2-geobatch">2. GeoBatch</h2>
-<p><strong><code>ununennium.core.geobatch.GeoBatch</code></strong></p>
-<p>A container for a batch of <code>GeoTensor</code>s, ensuring that a batch collated from different locations maintains spatial context.</p>
-<h3 id="signature_1">Signature</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nd">@dataclass</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">GeoBatch</span><span class="p">:</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">images</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">masks</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">|</span> <span class="kc">None</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">metadatas</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span>
-</code></pre></div>
-<h3 id="usage-pattern">Usage Pattern</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># In a DataLoader collation function</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">collate_fn</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">])</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">metas</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="k">return</span> <span class="n">GeoBatch</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">images</span><span class="p">,</span> <span class="n">metadatas</span><span class="o">=</span><span class="n">metas</span><span class="p">)</span>
+<h4 id="resampleresolution-methodbilinear"><code>resample(resolution, method="bilinear")</code></h4>
+<p>Resample to new resolution.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">resampled</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">resolution</span><span class="o">=</span><span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;cubic&quot;</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">)</span>
 </code></pre></div>
 <hr />
-<h2 id="3-coordinate-reference-systems-crs">3. Coordinate Reference Systems (CRS)</h2>
-<p><strong><code>ununennium.core.crs.CRS</code></strong></p>
-<p>Wrapper around <code>pyproj.CRS</code> providing helper methods for deep learning compatibility.</p>
-<ul>
-<li><code>is_geographic</code>: Checks if units are degrees.</li>
-<li><code>is_projected</code>: Checks if units are meters.</li>
-<li><code>to_wkt()</code>: Returns Well-Known Text representation.</li>
-<li><code>to_epsg()</code>: Returns EPSG code integer.</li>
-</ul>
-<h3 id="best-practices">Best Practices</h3>
-<blockquote>
-<p>[!IMPORTANT]
-<strong>Always use Projected CRS for Training.</strong>
-Convolutional kernels assume Euclidean distance. Training on Lat/Lon (degrees) grids causes spatial distortion variance as latitude changes. Ununennium will emit a warning if you train on a Geographic CRS.</p>
-</blockquote>
+<h2 id="geobatch">GeoBatch</h2>
+<p>Batch container for training with consistent metadata.</p>
+<h3 id="class-definition_1">Class Definition</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">GeoBatch</span><span class="p">:</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;A batch of samples for training.</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="sd">    Parameters</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sd">    ----------</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="sd">    images : torch.Tensor</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="sd">        Image batch. Shape: (B, C, H, W).</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="sd">    masks : torch.Tensor | None, optional</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="sd">        Label batch. Shape: (B, H, W) or (B, C, H, W).</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="sd">    crs : str | CRS</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="sd">        Common CRS for all samples.</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="sd">    transforms : list[Affine] | None, optional</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="sd">        Per-sample transforms.</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="sd">    Attributes</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="sd">    ----------</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="sd">    batch_size : int</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="sd">        Number of samples.</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="sd">    device : torch.device</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="sd">        Device location.</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+<h3 id="constructor_1">Constructor</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoBatch</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">batch</span> <span class="o">=</span> <span class="n">GeoBatch</span><span class="p">(</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">images</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">masks</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)),</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:32632&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="p">)</span>
+</code></pre></div>
+<h3 id="methods_1">Methods</h3>
+<h4 id="todevice_1"><code>to(device)</code></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">gpu_batch</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="pin_memory"><code>pin_memory()</code></h4>
+<p>Pin memory for faster GPU transfer.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">pinned</span> <span class="o">=</span> <span class="n">batch</span><span class="o">.</span><span class="n">pin_memory</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h2 id="boundingbox">BoundingBox</h2>
+<p>Geographic extent container.</p>
+<h3 id="class-definition_2">Class Definition</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">BoundingBox</span><span class="p">:</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Axis-aligned bounding box in CRS coordinates.</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="sd">    Parameters</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="sd">    ----------</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="sd">    left : float</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="sd">        Minimum x coordinate.</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="sd">    bottom : float</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="sd">        Minimum y coordinate.</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="sd">    right : float</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="sd">        Maximum x coordinate.</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="sd">    top : float</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="sd">        Maximum y coordinate.</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>width</code></td>
+<td><code>float</code></td>
+<td><code>right - left</code></td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float</code></td>
+<td><code>top - bottom</code></td>
+</tr>
+<tr>
+<td><code>center</code></td>
+<td><code>tuple[float, float]</code></td>
+<td>Center point</td>
+</tr>
+</tbody>
+</table>
+<h3 id="methods_2">Methods</h3>
+<h4 id="intersectsother"><code>intersects(other)</code></h4>
+<p>Check if bounding boxes overlap.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">if</span> <span class="n">bbox1</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">bbox2</span><span class="p">):</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Boxes overlap&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="intersectionother"><code>intersection(other)</code></h4>
+<p>Compute intersection.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">overlap</span> <span class="o">=</span> <span class="n">bbox1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">bbox2</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="unionother"><code>union(other)</code></h4>
+<p>Compute union.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">combined</span> <span class="o">=</span> <span class="n">bbox1</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">bbox2</span><span class="p">)</span>
+</code></pre></div>
+<h4 id="bufferdistance"><code>buffer(distance)</code></h4>
+<p>Expand by distance.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">expanded</span> <span class="o">=</span> <span class="n">bbox</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># 100 CRS units</span>
+</code></pre></div>
+<hr />
+<h2 id="type-definitions">Type Definitions</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.core.types</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="n">CRS</span><span class="p">,</span>              <span class="c1"># Union[str, pyproj.CRS]</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">Transform</span><span class="p">,</span>        <span class="c1"># affine.Affine</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">Resolution</span><span class="p">,</span>       <span class="c1"># tuple[float, float]</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="n">Shape</span><span class="p">,</span>            <span class="c1"># tuple[int, ...]</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="exceptions">Exceptions</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.core.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    <span class="n">CRSError</span><span class="p">,</span>         <span class="c1"># Invalid CRS</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    <span class="n">BoundsError</span><span class="p">,</span>      <span class="c1"># Invalid bounds</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="n">TransformError</span><span class="p">,</span>   <span class="c1"># Invalid transform</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="p">)</span>
+</code></pre></div>
+<h3 id="example-error-handling">Example Error Handling</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoTensor</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.core.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">CRSError</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    <span class="n">tensor</span> <span class="o">=</span> <span class="n">GeoTensor</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;INVALID&quot;</span><span class="p">)</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="k">except</span> <span class="n">CRSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CRS error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
 
 
 

@@ -13,10 +13,8 @@
         <link rel="canonical" href="https://olaflaitinen.github.io/ununennium/api/training/">
       
       
-        <link rel="prev" href="../io/">
+        <link rel="prev" href="../core/">
       
-      
-        <link rel="next" href="../../tutorials/quickstart/">
       
       
         
@@ -80,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#training-module-api-reference" class="md-skip">
+        <a href="#training-api" class="md-skip">
           Skip to content
         </a>
       
@@ -225,7 +223,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../index.md" class="md-tabs__link">
         
   
   
@@ -244,7 +242,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../getting_started/" class="md-tabs__link">
+      <a href="../../getting_started.md" class="md-tabs__link">
         
   
   
@@ -287,7 +285,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../tutorials/quickstart/" class="md-tabs__link">
+        <a href="../../tutorials/quickstart.md" class="md-tabs__link">
           
   
   
@@ -305,7 +303,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../models/model_zoo/" class="md-tabs__link">
+      <a href="../../models/model_zoo.md" class="md-tabs__link">
         
   
   
@@ -370,7 +368,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../index.md" class="md-nav__link">
         
   
   
@@ -397,7 +395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting_started/" class="md-nav__link">
+      <a href="../../getting_started.md" class="md-nav__link">
         
   
   
@@ -509,7 +507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../io/" class="md-nav__link">
+      <a href="../io.md" class="md-nav__link">
         
   
   
@@ -597,33 +595,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-trainer" class="md-nav__link">
+  <a href="#trainer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Trainer
+        Trainer
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Trainer">
+    <nav class="md-nav" aria-label="Trainer">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#signature" class="md-nav__link">
+  <a href="#class-definition" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Signature
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuration-trainerconfig" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration (TrainerConfig)
+        Class Definition
       
     </span>
   </a>
@@ -653,8 +640,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#validate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validate
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
   
 </li>
         
@@ -664,22 +673,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-callbacks" class="md-nav__link">
+  <a href="#callbacks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Callbacks
+        Callbacks
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Callbacks">
+    <nav class="md-nav" aria-label="Callbacks">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#built-in-callbacks" class="md-nav__link">
+  <a href="#base-callback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Built-in Callbacks
+        Base Callback
       
     </span>
   </a>
@@ -698,10 +707,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#earlystopping" class="md-nav__link">
+  <a href="#earlystoppingcallback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        EarlyStopping
+        EarlyStoppingCallback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lrschedulercallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LRSchedulerCallback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-custom-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Custom Callback
       
     </span>
   </a>
@@ -714,10 +745,77 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-distributed-training-ddp" class="md-nav__link">
+  <a href="#learning-rate-schedulers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Distributed Training (DDP)
+        Learning Rate Schedulers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Learning Rate Schedulers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distributed-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed Training
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Distributed Training">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multi-gpu-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-GPU Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distributed-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics Integration
       
     </span>
   </a>
@@ -801,7 +899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/quickstart/" class="md-nav__link">
+      <a href="../../tutorials/quickstart.md" class="md-nav__link">
         
   
   
@@ -829,7 +927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/gan_training/" class="md-nav__link">
+      <a href="../../tutorials/gan_training.md" class="md-nav__link">
         
   
   
@@ -857,7 +955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/pinn_training/" class="md-nav__link">
+      <a href="../../tutorials/pinn_training.md" class="md-nav__link">
         
   
   
@@ -892,7 +990,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../models/model_zoo/" class="md-nav__link">
+      <a href="../../models/model_zoo.md" class="md-nav__link">
         
   
   
@@ -939,33 +1037,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-trainer" class="md-nav__link">
+  <a href="#trainer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Trainer
+        Trainer
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="1. Trainer">
+    <nav class="md-nav" aria-label="Trainer">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#signature" class="md-nav__link">
+  <a href="#class-definition" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Signature
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuration-trainerconfig" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration (TrainerConfig)
+        Class Definition
       
     </span>
   </a>
@@ -995,8 +1082,30 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#validate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        validate
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
   
 </li>
         
@@ -1006,22 +1115,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-callbacks" class="md-nav__link">
+  <a href="#callbacks" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. Callbacks
+        Callbacks
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="2. Callbacks">
+    <nav class="md-nav" aria-label="Callbacks">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#built-in-callbacks" class="md-nav__link">
+  <a href="#base-callback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Built-in Callbacks
+        Base Callback
       
     </span>
   </a>
@@ -1040,10 +1149,32 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#earlystopping" class="md-nav__link">
+  <a href="#earlystoppingcallback" class="md-nav__link">
     <span class="md-ellipsis">
       
-        EarlyStopping
+        EarlyStoppingCallback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lrschedulercallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LRSchedulerCallback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-custom-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Custom Callback
       
     </span>
   </a>
@@ -1056,10 +1187,77 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-distributed-training-ddp" class="md-nav__link">
+  <a href="#learning-rate-schedulers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Distributed Training (DDP)
+        Learning Rate Schedulers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Learning Rate Schedulers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distributed-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed Training
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Distributed Training">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multi-gpu-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-GPU Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distributed-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics Integration
       
     </span>
   </a>
@@ -1086,110 +1284,242 @@
   
 
 
-<h1 id="training-module-api-reference">Training Module API Reference</h1>
-<p>The <code>ununennium.training</code> module implements a highly customizable, PyTorch-native training loop geared towards Earth Observation tasks. It supports mixed precision, gradient accumulation, and callbacks.</p>
-<h2 id="1-trainer">1. Trainer</h2>
-<p><strong><code>ununennium.training.trainer.Trainer</code></strong></p>
-<p>The orchestrator of the training process.</p>
-<h3 id="signature">Signature</h3>
+<h1 id="training-api">Training API</h1>
+<p>The training module provides a flexible trainer with callbacks and distributed training support.</p>
+<hr />
+<h2 id="trainer">Trainer</h2>
+<p>Main training loop abstraction.</p>
+<h3 id="class-definition">Class Definition</h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Trainer</span><span class="p">:</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="bp">self</span><span class="p">,</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="n">model</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="n">optimizer</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">,</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="n">loss_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">],</span> <span class="n">Tensor</span><span class="p">],</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="n">train_loader</span><span class="p">:</span> <span class="n">DataLoader</span><span class="p">,</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="n">val_loader</span><span class="p">:</span> <span class="n">DataLoader</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="n">scheduler</span><span class="p">:</span> <span class="n">LRScheduler</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="n">callbacks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Callback</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="n">config</span><span class="p">:</span> <span class="n">TrainerConfig</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Training loop manager.</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sd">    Parameters</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sd">    ----------</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="sd">    model : nn.Module</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="sd">        Model to train.</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="sd">    optimizer : Optimizer</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sd">        PyTorch optimizer.</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="sd">    loss_fn : nn.Module | Callable</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="sd">        Loss function.</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="sd">    train_loader : DataLoader</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="sd">        Training data loader.</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="sd">    val_loader : DataLoader | None, optional</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="sd">        Validation data loader.</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="sd">    callbacks : list[Callback] | None, optional</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="sd">        Training callbacks.</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="sd">    mixed_precision : bool, optional</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="sd">        Enable AMP. Default: False.</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="sd">    gradient_accumulation_steps : int, optional</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="sd">        Accumulation steps. Default: 1.</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="sd">    gradient_clip_norm : float | None, optional</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="sd">        Gradient clipping norm.</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="sd">    distributed : bool, optional</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="sd">        Enable DDP. Default: False.</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="sd">    device : str | torch.device, optional</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="sd">        Training device. Default: auto-detect.</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="sd">    &quot;&quot;&quot;</span>
 </code></pre></div>
-<h3 id="configuration-trainerconfig">Configuration (<code>TrainerConfig</code>)</h3>
+<h3 id="methods">Methods</h3>
+<h4 id="fit"><code>fit</code></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="bp">self</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">start_epoch</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Train the model.</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="sd">    Parameters</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="sd">    ----------</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="sd">    epochs : int</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="sd">        Number of epochs to train.</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="sd">    start_epoch : int, optional</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="sd">        Starting epoch (for resumption). Default: 0.</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="sd">    Returns</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="sd">    -------</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="sd">    dict[str, list[float]]</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="sd">        Training history with metrics.</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+<h4 id="validate"><code>validate</code></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Run validation loop.</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="sd">    Returns</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="sd">    -------</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="sd">    dict[str, float]</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="sd">        Validation metrics.</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+<h3 id="example">Example</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.training</span><span class="w"> </span><span class="kn">import</span> <span class="n">Trainer</span><span class="p">,</span> <span class="n">CheckpointCallback</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_model</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.losses</span><span class="w"> </span><span class="kn">import</span> <span class="n">DiceLoss</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">(</span><span class="s2">&quot;unet_resnet50&quot;</span><span class="p">,</span> <span class="n">in_channels</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">optimizer</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">AdamW</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">),</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">loss_fn</span><span class="o">=</span><span class="n">DiceLoss</span><span class="p">(),</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">train_loader</span><span class="o">=</span><span class="n">train_loader</span><span class="p">,</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">val_loader</span><span class="o">=</span><span class="n">val_loader</span><span class="p">,</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="n">CheckpointCallback</span><span class="p">(</span><span class="s2">&quot;checkpoints/&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_iou&quot;</span><span class="p">),</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="p">],</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="n">mixed_precision</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="n">gradient_accumulation_steps</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="p">)</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="n">history</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="callbacks">Callbacks</h2>
+<h3 id="base-callback">Base Callback</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Callback</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base callback class.</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="sd">    Methods</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="sd">    -------</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="sd">    on_train_start(trainer)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="sd">    on_train_end(trainer)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="sd">    on_epoch_start(trainer, epoch)</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="sd">    on_epoch_end(trainer, epoch, logs)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="sd">    on_batch_start(trainer, batch_idx)</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="sd">    on_batch_end(trainer, batch_idx, logs)</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+<h3 id="checkpointcallback">CheckpointCallback</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">CheckpointCallback</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Save model checkpoints.</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="sd">    Parameters</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="sd">    ----------</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="sd">    path : str | Path</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="sd">        Directory to save checkpoints.</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="sd">    monitor : str, optional</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="sd">        Metric to monitor. Default: &quot;val_loss&quot;.</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="sd">    mode : str, optional</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="sd">        &quot;min&quot; or &quot;max&quot;. Default: &quot;min&quot;.</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="sd">    save_best_only : bool, optional</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="sd">        Only save best model. Default: True.</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="sd">    save_last : bool, optional</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="sd">        Always save latest. Default: True.</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+<h3 id="earlystoppingcallback">EarlyStoppingCallback</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">EarlyStoppingCallback</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Stop training when metric stops improving.</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="sd">    Parameters</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="sd">    ----------</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="sd">    monitor : str, optional</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="sd">        Metric to monitor. Default: &quot;val_loss&quot;.</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="sd">    patience : int, optional</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="sd">        Epochs to wait. Default: 10.</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="sd">    mode : str, optional</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="sd">        &quot;min&quot; or &quot;max&quot;. Default: &quot;min&quot;.</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="sd">    min_delta : float, optional</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="sd">        Minimum change threshold. Default: 1e-4.</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+<h3 id="lrschedulercallback">LRSchedulerCallback</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LRSchedulerCallback</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Learning rate scheduler.</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="sd">    Parameters</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sd">    ----------</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="sd">    scheduler : LRScheduler</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="sd">        PyTorch scheduler instance.</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="sd">    step_on : str, optional</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="sd">        When to step: &quot;epoch&quot; or &quot;batch&quot;. Default: &quot;epoch&quot;.</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="sd">    &quot;&quot;&quot;</span>
+</code></pre></div>
+<h3 id="example-custom-callback">Example: Custom Callback</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.training</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callback</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">LoggingCallback</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">on_epoch_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">logs</span><span class="p">):</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">: loss=</span><span class="si">{</span><span class="n">logs</span><span class="p">[</span><span class="s1">&#39;train_loss&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="learning-rate-schedulers">Learning Rate Schedulers</h2>
+<p>Common scheduler configurations:</p>
 <table>
 <thead>
 <tr>
-<th>Field</th>
+<th>Scheduler</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CosineAnnealingLR</code></td>
+<td>Cosine decay</td>
+</tr>
+<tr>
+<td><code>OneCycleLR</code></td>
+<td>Super-convergence</td>
+</tr>
+<tr>
+<td><code>ReduceLROnPlateau</code></td>
+<td>Reduce on plateau</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example_1">Example</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.training</span><span class="w"> </span><span class="kn">import</span> <span class="n">LRSchedulerCallback</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim.lr_scheduler</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sched</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">scheduler</span> <span class="o">=</span> <span class="n">sched</span><span class="o">.</span><span class="n">CosineAnnealingLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">T_max</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">callback</span> <span class="o">=</span> <span class="n">LRSchedulerCallback</span><span class="p">(</span><span class="n">scheduler</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="distributed-training">Distributed Training</h2>
+<h3 id="multi-gpu-setup">Multi-GPU Setup</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Launch: torchrun --nproc_per_node=4 train.py</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="n">distributed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="c1"># ...</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">)</span>
+</code></pre></div>
+<h3 id="distributed-configuration">Distributed Configuration</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>epochs</code></td>
-<td><code>100</code></td>
-<td>Max training epochs.</td>
+<td><code>backend</code></td>
+<td>"nccl"</td>
+<td>Communication backend</td>
 </tr>
 <tr>
-<td><code>device</code></td>
-<td><code>'cuda'</code></td>
-<td>Computation device.</td>
-</tr>
-<tr>
-<td><code>mixed_precision</code></td>
-<td><code>True</code></td>
-<td>Enable FP16 (AMP) for 2x speedup.</td>
-</tr>
-<tr>
-<td><code>accumulation_steps</code></td>
-<td><code>1</code></td>
-<td>Gradient accumulation for large batch simulation.</td>
-</tr>
-<tr>
-<td><code>gradient_clip</code></td>
-<td><code>1.0</code></td>
-<td>Max norm for gradient clipping.</td>
+<td><code>find_unused_params</code></td>
+<td>False</td>
+<td>DDP parameter</td>
 </tr>
 </tbody>
 </table>
-<h3 id="methods">Methods</h3>
-<h4 id="fit"><code>fit</code></h4>
-<p>Starts the training loop.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>
-</code></pre></div>
-<p><strong>Returns:</strong>
-A dictionary containing the history of all logged metrics (e.g., <code>train_loss</code>, <code>val_IoU</code>).</p>
 <hr />
-<h2 id="2-callbacks">2. Callbacks</h2>
-<p>Callbacks allow hooking into the training lifecycle. Base class: <code>ununennium.training.callbacks.Callback</code>.</p>
-<h3 id="built-in-callbacks">Built-in Callbacks</h3>
-<h3 id="checkpointcallback"><code>CheckpointCallback</code></h3>
-<p>Saves model weights based on metric monitoring.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">CheckpointCallback</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                 <span class="n">dirpath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                 <span class="n">monitor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;val_loss&quot;</span><span class="p">,</span> 
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                 <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> 
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>                 <span class="n">save_top_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<h2 id="metrics-integration">Metrics Integration</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">IoU</span><span class="p">,</span> <span class="n">Dice</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="c1"># ...</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="n">metrics</span><span class="o">=</span><span class="p">[</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="n">IoU</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        <span class="n">Dice</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="p">],</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="p">)</span>
 </code></pre></div>
-<ul>
-<li><strong>save_top_k</strong>: Keep only the best <span class="arithmatex">\(K\)</span> models.</li>
-<li><strong>mode</strong>: <code>min</code> for loss, <code>max</code> for accuracy/IoU.</li>
-</ul>
-<h3 id="earlystopping"><code>EarlyStopping</code></h3>
-<p>Halts training if the monitored metric stops improving.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">EarlyStopping</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>                 <span class="n">monitor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;val_loss&quot;</span><span class="p">,</span> 
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                 <span class="n">patience</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> 
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>                 <span class="n">min_delta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h2 id="3-distributed-training-ddp">3. Distributed Training (DDP)</h2>
-<p>The <code>Trainer</code> is compatible with <code>torch.distributed</code>.</p>
-<p><strong>Usage Pattern:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Launch with torchrun</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># torchrun --nproc_per_node=4 train.py</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">dist</span><span class="o">.</span><span class="n">init_process_group</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s2">&quot;nccl&quot;</span><span class="p">)</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">model</span> <span class="o">=</span> <span class="n">DDP</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">rank</span><span class="p">),</span> <span class="n">device_ids</span><span class="o">=</span><span class="p">[</span><span class="n">rank</span><span class="p">])</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="c1"># Trainer handles the rest implicitly via device placement</span>
-</code></pre></div>
-<blockquote>
-<p>[!NOTE]
-Ensure your <code>DataLoader</code> uses <code>DistributedSampler</code> when running in DDP mode to prevent workers from seeing the same data.</p>
-</blockquote>
 
 
 
