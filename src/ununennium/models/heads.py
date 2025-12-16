@@ -256,11 +256,12 @@ class DetectionHead(nn.Module):
         self.reg_pred = nn.Conv2d(in_channels, num_anchors * 4, 3, padding=1)
 
         # Initialize classification bias with prior probability
-
         bias_value = -math.log((1 - prior_prob) / prior_prob)
-        nn.init.constant_(self.cls_pred.bias, bias_value)
+        if self.cls_pred.bias is not None:
+            nn.init.constant_(self.cls_pred.bias, bias_value)
         nn.init.normal_(self.reg_pred.weight, std=0.01)
-        nn.init.constant_(self.reg_pred.bias, 0)
+        if self.reg_pred.bias is not None:
+            nn.init.constant_(self.reg_pred.bias, 0)
 
     def forward(
         self, features: list[torch.Tensor]
