@@ -49,3 +49,11 @@ publish: build
 # Benchmarks
 benchmark:
 	python benchmarks/run_benchmarks.py
+
+# Notebooks
+notebooks-smoke:
+	python scripts/run_notebooks_smoke.py
+
+notebooks-all:
+	python scripts/run_notebooks_all.py
+

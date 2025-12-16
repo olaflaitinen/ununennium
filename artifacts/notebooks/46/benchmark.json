@@ -1,0 +1,13 @@
+{
+  "model": "unet_resnet18",
+  "input_size": [
+    1,
+    4,
+    256,
+    256
+  ],
+  "n_runs": 10,
+  "total_time_s": 1.662050699989777,
+  "avg_latency_ms": 166.2050699989777,
+  "throughput_img_s": 6.016663631296872
+}
