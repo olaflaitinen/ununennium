@@ -19,6 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.7] - 2025-12-16
+
+### Fixed
+- Resolved CI/CD pipeline issues caused by history rewrite for security.
+- Fixed Conda build dependency `einops` by adding `conda-forge` channel.
+- Updated repository workflow configuration to use secure GitHub Secrets.
+
 ## [1.0.6] - 2025-12-16
 
 ### Added

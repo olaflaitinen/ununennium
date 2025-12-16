@@ -39,4 +39,4 @@ jobs:
         env:
           ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          anaconda -t $ANACONDA_TOKEN upload conda-bld/noarch/ununennium-*.tar.bz2 --label main
+          anaconda -t $ANACONDA_TOKEN upload conda-bld/noarch/ununennium-* --label main
