@@ -1,6 +1,6 @@
 """PINN (Physics-Informed Neural Networks) module."""
 
-from ununennium.models.pinn.base import MLP, PDEEquation, PINN
+from ununennium.models.pinn.base import MLP, PINN, PDEEquation
 from ununennium.models.pinn.collocation import (
     AdaptiveSampler,
     CollocationSampler,
@@ -12,12 +12,12 @@ from ununennium.models.pinn.equations import (
 )
 
 __all__ = [
+    "MLP",
+    "PINN",
     "AdaptiveSampler",
     "AdvectionEquation",
     "CollocationSampler",
     "DiffusionEquation",
-    "MLP",
     "PDEEquation",
-    "PINN",
     "UniformSampler",
 ]
