@@ -20,13 +20,13 @@ from ununennium.models.pinn import PINN
 from ununennium.models.registry import create_model, list_models, register_model
 
 __all__ = [
-    "FCOS",
-    "FasterRCNN",
-    "PINN",
     "ClassificationHead",
     "CycleGAN",
     "DetectionHead",
     "EfficientNetBackbone",
+    "FCOS",
+    "FasterRCNN",
+    "PINN",
     "Pix2Pix",
     "ResNetBackbone",
     "RetinaNet",

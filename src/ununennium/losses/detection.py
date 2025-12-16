@@ -20,7 +20,7 @@ class FocalLossDetection(nn.Module):
     Addresses class imbalance between foreground and background
     by down-weighting easy negatives.
 
-    Loss = -α_t * (1 - p_t)^γ * log(p_t)
+    Loss = -alpha_t * (1 - p_t)^gamma * log(p_t)
 
     Reference:
         Lin et al., "Focal Loss for Dense Object Detection", ICCV 2017.

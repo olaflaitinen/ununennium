@@ -9,14 +9,14 @@ Implements popular detection models adapted for satellite imagery:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any
+
 
 import torch
 import torch.nn.functional as F
 from torch import nn
 
 from ununennium.models.backbones import Backbone, EfficientNetBackbone, ResNetBackbone
-from ununennium.models.heads import DetectionHead, FPNHead
+from ununennium.models.heads import DetectionHead
 from ununennium.models.registry import register_model
 
 
@@ -291,7 +291,7 @@ class RetinaNet(nn.Module):
     def forward(
         self,
         x: torch.Tensor,
-        targets: list[dict[str, torch.Tensor]] | None = None,
+        _targets: list[dict[str, torch.Tensor]] | None = None,
     ) -> DetectionOutput:
         """Forward pass.
 
@@ -395,7 +395,7 @@ class FasterRCNN(nn.Module):
     def forward(
         self,
         x: torch.Tensor,
-        targets: list[dict[str, torch.Tensor]] | None = None,
+        _targets: list[dict[str, torch.Tensor]] | None = None,
     ) -> DetectionOutput:
         """Forward pass.
 
@@ -505,7 +505,7 @@ class FCOS(nn.Module):
     def forward(
         self,
         x: torch.Tensor,
-        targets: list[dict[str, torch.Tensor]] | None = None,
+        _targets: list[dict[str, torch.Tensor]] | None = None,
     ) -> DetectionOutput:
         """Forward pass.
 

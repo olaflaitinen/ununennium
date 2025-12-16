@@ -5,6 +5,7 @@ from __future__ import annotations
 import torch
 import torch.nn.functional as F
 from torch import nn
+import math
 
 
 class ClassificationHead(nn.Module):
@@ -254,7 +255,7 @@ class DetectionHead(nn.Module):
         self.reg_pred = nn.Conv2d(in_channels, num_anchors * 4, 3, padding=1)
 
         # Initialize classification bias with prior probability
-        import math
+
         bias_value = -math.log((1 - prior_prob) / prior_prob)
         nn.init.constant_(self.cls_pred.bias, bias_value)
         nn.init.normal_(self.reg_pred.weight, std=0.01)
