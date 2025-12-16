@@ -778,18 +778,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#map-projections" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Map Projections
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Map Projections">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#universal-transverse-mercator-utm" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -797,56 +785,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resampling-theory" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Resampling Theory
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Resampling Theory">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#interpolation-kernels" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Interpolation Kernels
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Interpolation Kernels">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bicubic-interpolation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bicubic Interpolation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -865,29 +803,6 @@
   </a>
   
     <nav class="md-nav" aria-label="Spectral Indices">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#normalized-difference-formulation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Normalized Difference Formulation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vegetation-indices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Vegetation Indices
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Vegetation Indices">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -912,23 +827,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#water-indices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Water Indices
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Water Indices">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
   <a href="#ndwi-normalized-difference-water-index" class="md-nav__link">
     <span class="md-ellipsis">
@@ -937,11 +835,6 @@
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -960,18 +853,6 @@
   </a>
   
     <nav class="md-nav" aria-label="Spatial Statistics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#spatial-autocorrelation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Spatial Autocorrelation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Spatial Autocorrelation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1000,11 +881,6 @@
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#deep-learning-foundations" class="md-nav__link">
@@ -1019,10 +895,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#convolutional-neural-networks" class="md-nav__link">
+  <a href="#convolution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Convolutional Neural Networks
+        Convolution
       
     </span>
   </a>
@@ -1116,80 +992,42 @@
 
 
 <h1 id="mathematical-foundations">Mathematical Foundations</h1>
-<p>This document establishes the mathematical foundations for Earth observation machine learning, covering coordinate systems, spectral indices, spatial statistics, and deep learning fundamentals.</p>
+<p>This document establishes the mathematical foundations for Earth observation machine learning.</p>
 <hr />
 <h2 id="coordinate-reference-systems">Coordinate Reference Systems</h2>
 <h3 id="geodetic-datum">Geodetic Datum</h3>
 <p>The World Geodetic System 1984 (WGS84) defines the reference ellipsoid:</p>
-<div class="arithmatex">\[
-\frac{x^2 + y^2}{a^2} + \frac{z^2}{b^2} = 1
-\]</div>
-<p>where <span class="arithmatex">\(a = 6378137\)</span> m (semi-major axis) and <span class="arithmatex">\(b = 6356752.314\)</span> m (semi-minor axis).</p>
-<p><strong>Reference</strong>: National Imagery and Mapping Agency (2000). <em>Department of Defense World Geodetic System 1984</em>. NIMA TR8350.2. <a href="https://earth-info.nga.mil/php/download.php?file=coord-wgs84">Link</a></p>
-<h3 id="map-projections">Map Projections</h3>
-<h4 id="universal-transverse-mercator-utm">Universal Transverse Mercator (UTM)</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>\frac{x^2 + y^2}{a^2} + \frac{z^2}{b^2} = 1
+</code></pre></div>
+<p>where a = 6378137 m (semi-major axis) and b = 6356752.314 m (semi-minor axis).</p>
+<p><strong>Reference</strong>: National Imagery and Mapping Agency (2000). <em>Department of Defense World Geodetic System 1984</em>. NIMA TR8350.2.</p>
+<h3 id="universal-transverse-mercator-utm">Universal Transverse Mercator (UTM)</h3>
 <p>UTM divides Earth into 60 zones, each 6 degrees wide:</p>
-<div class="arithmatex">\[
-\text{zone} = \left\lfloor \frac{\lambda + 180}{6} \right\rfloor + 1
-\]</div>
-<p>The forward transformation from geodetic coordinates <span class="arithmatex">\((\phi, \lambda)\)</span> to UTM <span class="arithmatex">\((E, N)\)</span>:</p>
-<div class="arithmatex">\[
-E = E_0 + k_0 \nu \left( A + \frac{(1-T+C)A^3}{6} + \frac{(5-18T+T^2+72C-58e'^2)A^5}{120} \right)
-\]</div>
-<p>where <span class="arithmatex">\(\nu = a/\sqrt{1 - e^2\sin^2\phi}\)</span>, <span class="arithmatex">\(T = \tan^2\phi\)</span>, and <span class="arithmatex">\(k_0 = 0.9996\)</span>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>\text{zone} = \left\lfloor \frac{\lambda + 180}{6} \right\rfloor + 1
+</code></pre></div>
 <p><strong>Reference</strong>: Snyder, J.P. (1987). <em>Map Projections: A Working Manual</em>. USGS Professional Paper 1395. <a href="https://doi.org/10.3133/pp1395">DOI: 10.3133/pp1395</a></p>
 <hr />
-<h2 id="resampling-theory">Resampling Theory</h2>
-<h3 id="interpolation-kernels">Interpolation Kernels</h3>
-<p>Image resampling requires interpolation from discrete samples:</p>
-<div class="arithmatex">\[
-f(x) = \sum_{k} f[k] \cdot h(x - k)
-\]</div>
-<h4 id="bicubic-interpolation">Bicubic Interpolation</h4>
-<p>The Keys cubic convolution kernel:</p>
-<div class="arithmatex">\[
-h(x) = \begin{cases}
-(a+2)|x|^3 - (a+3)|x|^2 + 1 &amp; |x| \leq 1 \\
-a|x|^3 - 5a|x|^2 + 8a|x| - 4a &amp; 1 &lt; |x| &lt; 2 \\
-0 &amp; \text{otherwise}
-\end{cases}
-\]</div>
-<p>with <span class="arithmatex">\(a = -0.5\)</span> for optimal approximation.</p>
-<p><strong>Reference</strong>: Keys, R. (1981). Cubic convolution interpolation for digital image processing. <em>IEEE Transactions on Acoustics, Speech, and Signal Processing</em>, 29(6), 1153-1160. <a href="https://doi.org/10.1109/TASSP.1981.1163711">DOI: 10.1109/TASSP.1981.1163711</a></p>
-<hr />
 <h2 id="spectral-indices">Spectral Indices</h2>
-<h3 id="normalized-difference-formulation">Normalized Difference Formulation</h3>
-<p>The general normalized difference index:</p>
-<div class="arithmatex">\[
-\text{NDI}_{i,j} = \frac{\rho_i - \rho_j}{\rho_i + \rho_j}
-\]</div>
-<h3 id="vegetation-indices">Vegetation Indices</h3>
-<h4 id="ndvi-normalized-difference-vegetation-index">NDVI (Normalized Difference Vegetation Index)</h4>
-<div class="arithmatex">\[
-\text{NDVI} = \frac{\rho_{NIR} - \rho_{Red}}{\rho_{NIR} + \rho_{Red}}
-\]</div>
+<h3 id="ndvi-normalized-difference-vegetation-index">NDVI (Normalized Difference Vegetation Index)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>\text{NDVI} = \frac{\rho_{NIR} - \rho_{Red}}{\rho_{NIR} + \rho_{Red}}
+</code></pre></div>
 <p>NDVI ranges from -1 to +1, with healthy vegetation typically 0.2-0.9.</p>
 <p><strong>Reference</strong>: Tucker, C.J. (1979). Red and photographic infrared linear combinations for monitoring vegetation. <em>Remote Sensing of Environment</em>, 8(2), 127-150. <a href="https://doi.org/10.1016/0034-4257(79)90013-0">DOI: 10.1016/0034-4257(79)90013-0</a></p>
-<h4 id="evi-enhanced-vegetation-index">EVI (Enhanced Vegetation Index)</h4>
-<div class="arithmatex">\[
-\text{EVI} = G \cdot \frac{\rho_{NIR} - \rho_{Red}}{\rho_{NIR} + C_1 \cdot \rho_{Red} - C_2 \cdot \rho_{Blue} + L}
-\]</div>
-<p>with <span class="arithmatex">\(G = 2.5\)</span>, <span class="arithmatex">\(C_1 = 6\)</span>, <span class="arithmatex">\(C_2 = 7.5\)</span>, and <span class="arithmatex">\(L = 1\)</span>.</p>
+<h3 id="evi-enhanced-vegetation-index">EVI (Enhanced Vegetation Index)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>\text{EVI} = G \cdot \frac{\rho_{NIR} - \rho_{Red}}{\rho_{NIR} + C_1 \cdot \rho_{Red} - C_2 \cdot \rho_{Blue} + L}
+</code></pre></div>
+<p>with G = 2.5, C₁ = 6, C₂ = 7.5, and L = 1.</p>
 <p><strong>Reference</strong>: Huete, A., et al. (2002). Overview of the radiometric and biophysical performance of the MODIS vegetation indices. <em>Remote Sensing of Environment</em>, 83(1-2), 195-213. <a href="https://doi.org/10.1016/S0034-4257(02)00096-2">DOI: 10.1016/S0034-4257(02)00096-2</a></p>
-<h3 id="water-indices">Water Indices</h3>
-<h4 id="ndwi-normalized-difference-water-index">NDWI (Normalized Difference Water Index)</h4>
-<div class="arithmatex">\[
-\text{NDWI} = \frac{\rho_{Green} - \rho_{NIR}}{\rho_{Green} + \rho_{NIR}}
-\]</div>
-<p><strong>Reference</strong>: McFeeters, S.K. (1996). The use of the Normalized Difference Water Index (NDWI) in the delineation of open water features. <em>International Journal of Remote Sensing</em>, 17(7), 1425-1432. <a href="https://doi.org/10.1080/01431169608948714">DOI: 10.1080/01431169608948714</a></p>
+<h3 id="ndwi-normalized-difference-water-index">NDWI (Normalized Difference Water Index)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>\text{NDWI} = \frac{\rho_{Green} - \rho_{NIR}}{\rho_{Green} + \rho_{NIR}}
+</code></pre></div>
+<p><strong>Reference</strong>: McFeeters, S.K. (1996). The use of the Normalized Difference Water Index (NDWI). <em>International Journal of Remote Sensing</em>, 17(7), 1425-1432. <a href="https://doi.org/10.1080/01431169608948714">DOI: 10.1080/01431169608948714</a></p>
 <hr />
 <h2 id="spatial-statistics">Spatial Statistics</h2>
-<h3 id="spatial-autocorrelation">Spatial Autocorrelation</h3>
-<h4 id="morans-i">Moran's I</h4>
+<h3 id="morans-i">Moran's I</h3>
 <p>Global measure of spatial autocorrelation:</p>
-<div class="arithmatex">\[
-I = \frac{n}{\sum_i \sum_j w_{ij}} \cdot \frac{\sum_i \sum_j w_{ij}(x_i - \bar{x})(x_j - \bar{x})}{\sum_i (x_i - \bar{x})^2}
-\]</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>I = \frac{n}{\sum_i \sum_j w_{ij}} \cdot \frac{\sum_i \sum_j w_{ij}(x_i - \bar{x})(x_j - \bar{x})}{\sum_i (x_i - \bar{x})^2}
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1199,57 +1037,43 @@ I = \frac{n}{\sum_i \sum_j w_{ij}} \cdot \frac{\sum_i \sum_j w_{ij}(x_i - \bar{x
 </thead>
 <tbody>
 <tr>
-<td><span class="arithmatex">\(I &gt; 0\)</span></td>
+<td>I &gt; 0</td>
 <td>Positive autocorrelation (clustering)</td>
 </tr>
 <tr>
-<td><span class="arithmatex">\(I \approx 0\)</span></td>
+<td>I ≈ 0</td>
 <td>Random pattern</td>
 </tr>
 <tr>
-<td><span class="arithmatex">\(I &lt; 0\)</span></td>
+<td>I &lt; 0</td>
 <td>Negative autocorrelation (dispersion)</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Reference</strong>: Moran, P.A.P. (1950). Notes on Continuous Stochastic Phenomena. <em>Biometrika</em>, 37(1/2), 17-23. <a href="https://doi.org/10.2307/2332142">DOI: 10.2307/2332142</a></p>
-<h4 id="semivariogram">Semivariogram</h4>
-<p>The semivariance function:</p>
-<div class="arithmatex">\[
-\gamma(h) = \frac{1}{2|N(h)|} \sum_{(i,j) \in N(h)} (z_i - z_j)^2
-\]</div>
-<p>Components:
-- <strong>Nugget</strong> (<span class="arithmatex">\(c_0\)</span>): Variance at zero distance
-- <strong>Sill</strong> (<span class="arithmatex">\(c_0 + c\)</span>): Total variance
-- <strong>Range</strong> (<span class="arithmatex">\(a\)</span>): Distance where autocorrelation ceases</p>
+<h3 id="semivariogram">Semivariogram</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>\gamma(h) = \frac{1}{2|N(h)|} \sum_{(i,j) \in N(h)} (z_i - z_j)^2
+</code></pre></div>
 <p><strong>Reference</strong>: Matheron, G. (1963). Principles of geostatistics. <em>Economic Geology</em>, 58(8), 1246-1266. <a href="https://doi.org/10.2113/gsecongeo.58.8.1246">DOI: 10.2113/gsecongeo.58.8.1246</a></p>
 <hr />
 <h2 id="deep-learning-foundations">Deep Learning Foundations</h2>
-<h3 id="convolutional-neural-networks">Convolutional Neural Networks</h3>
-<p>The discrete 2D convolution:</p>
-<div class="arithmatex">\[
-(I * K)[i,j] = \sum_m \sum_n I[i+m, j+n] \cdot K[m, n]
-\]</div>
+<h3 id="convolution">Convolution</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>(I * K)[i,j] = \sum_m \sum_n I[i+m, j+n] \cdot K[m, n]
+</code></pre></div>
 <p><strong>Reference</strong>: LeCun, Y., Bengio, Y., &amp; Hinton, G. (2015). Deep learning. <em>Nature</em>, 521(7553), 436-444. <a href="https://doi.org/10.1038/nature14539">DOI: 10.1038/nature14539</a></p>
 <h3 id="attention-mechanism">Attention Mechanism</h3>
-<p>Scaled dot-product attention:</p>
-<div class="arithmatex">\[
-\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
-\]</div>
-<p><strong>Reference</strong>: Vaswani, A., et al. (2017). Attention Is All You Need. <em>Advances in Neural Information Processing Systems</em>, 30. <a href="https://arxiv.org/abs/1706.03762">arXiv:1706.03762</a></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+</code></pre></div>
+<p><strong>Reference</strong>: Vaswani, A., et al. (2017). Attention Is All You Need. <em>NeurIPS</em>, 30. <a href="https://arxiv.org/abs/1706.03762">arXiv:1706.03762</a></p>
 <hr />
 <h2 id="loss-functions">Loss Functions</h2>
 <h3 id="cross-entropy-loss">Cross-Entropy Loss</h3>
-<p>For classification:</p>
-<div class="arithmatex">\[
-\mathcal{L}_{CE} = -\sum_{c=1}^{C} y_c \log(\hat{y}_c)
-\]</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>\mathcal{L}_{CE} = -\sum_{c=1}^{C} y_c \log(\hat{y}_c)
+</code></pre></div>
 <h3 id="dice-loss">Dice Loss</h3>
-<p>For segmentation with class imbalance:</p>
-<div class="arithmatex">\[
-\mathcal{L}_{Dice} = 1 - \frac{2 \sum_i p_i g_i}{\sum_i p_i + \sum_i g_i}
-\]</div>
-<p><strong>Reference</strong>: Milletari, F., Navab, N., &amp; Ahmadi, S.A. (2016). V-Net: Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation. <em>3DV 2016</em>. <a href="https://doi.org/10.1109/3DV.2016.79">DOI: 10.1109/3DV.2016.79</a></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>\mathcal{L}_{Dice} = 1 - \frac{2 \sum_i p_i g_i}{\sum_i p_i + \sum_i g_i}
+</code></pre></div>
+<p><strong>Reference</strong>: Milletari, F., et al. (2016). V-Net: Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation. <em>3DV</em>. <a href="https://doi.org/10.1109/3DV.2016.79">DOI: 10.1109/3DV.2016.79</a></p>
 <hr />
 <h2 id="see-also">See Also</h2>
 <ul>

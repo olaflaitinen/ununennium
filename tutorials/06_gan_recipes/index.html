@@ -23,7 +23,7 @@
     
     
       
-        <title>Tutorial 06: GAN Recipes - Ununennium</title>
+        <title>GAN Recipes - Ununennium</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tutorial-06-gan-recipes" class="md-skip">
+        <a href="#gan-recipes" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Tutorial 06: GAN Recipes
+              GAN Recipes
             
           </span>
         </div>
@@ -755,149 +755,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#recipe-1-sar-to-optical-translation-pix2pix" class="md-nav__link">
+  <a href="#cloud-removal-cyclegan" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Recipe 1: SAR-to-Optical Translation (Pix2Pix)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Recipe 1: SAR-to-Optical Translation (Pix2Pix)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Setup
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dataset" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dataset
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#training" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Training
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#recipe-2-cloud-removal-cyclegan" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recipe 2: Cloud Removal (CycleGAN)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Recipe 2: Cloud Removal (CycleGAN)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#setup_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Setup
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dataset_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dataset
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#training-loop" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Training Loop
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#recipe-3-super-resolution-esrgan" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recipe 3: Super-Resolution (ESRGAN)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Recipe 3: Super-Resolution (ESRGAN)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#setup_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Setup
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#loss-weights" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Loss Weights
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#recipe-4-semantic-guided-translation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Recipe 4: Semantic-Guided Translation
+        Cloud Removal (CycleGAN)
       
     </span>
   </a>
@@ -905,99 +766,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#training-tips" class="md-nav__link">
+  <a href="#sar-to-optical-pix2pix" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Training Tips
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Training Tips">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#learning-rate" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learning Rate
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#discriminator-regularization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Discriminator Regularization
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mode-collapse-prevention" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mode Collapse Prevention
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#evaluation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Evaluation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Evaluation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#fid-frechet-inception-distance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        FID (Frechet Inception Distance)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#visual-quality-assessment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Visual Quality Assessment
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Steps
+        SAR-to-Optical (Pix2Pix)
       
     </span>
   </a>
@@ -1024,226 +796,24 @@
   
 
 
-<h1 id="tutorial-06-gan-recipes">Tutorial 06: GAN Recipes</h1>
-<p>This tutorial provides practical recipes for training GANs for Earth observation applications.</p>
-<hr />
-<h2 id="recipe-1-sar-to-optical-translation-pix2pix">Recipe 1: SAR-to-Optical Translation (Pix2Pix)</h2>
-<p>Translate SAR imagery to optical RGB.</p>
-<h3 id="setup">Setup</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models.gan</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pix2Pix</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.training</span><span class="w"> </span><span class="kn">import</span> <span class="n">GANTrainer</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">model</span> <span class="o">=</span> <span class="n">Pix2Pix</span><span class="p">(</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">in_channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>       <span class="c1"># VV, VH</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">out_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>      <span class="c1"># RGB</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">ngf</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">ndf</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">lambda_l1</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">)</span>
+<h1 id="gan-recipes">GAN Recipes</h1>
+<p>Common workflows for Generative Adversarial Networks.</p>
+<h2 id="cloud-removal-cyclegan">Cloud Removal (CycleGAN)</h2>
+<p>Translate from "Cloudy" domain to "Clear" domain without paired data.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models.gan</span><span class="w"> </span><span class="kn">import</span> <span class="n">CycleGAN</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">CycleGAN</span><span class="p">(</span><span class="n">in_channels_a</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">in_channels_b</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Domain A: Cloudy Sentinel-2</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Domain B: Clear Sentinel-2</span>
 </code></pre></div>
-<h3 id="dataset">Dataset</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">PairedImageDataset</span>
+<h2 id="sar-to-optical-pix2pix">SAR-to-Optical (Pix2Pix)</h2>
+<p>Translate paired SAR images to Optical.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models.gan</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pix2Pix</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">dataset</span> <span class="o">=</span> <span class="n">PairedImageDataset</span><span class="p">(</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="n">source_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sar/*.tif&quot;</span><span class="p">],</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">target_paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;optical/*.tif&quot;</span><span class="p">],</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">tile_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">augment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">Pix2Pix</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Input: VV, VH (2 channels)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Output: RGB (3 channels)</span>
 </code></pre></div>
-<h3 id="training">Training</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">GANTrainer</span><span class="p">(</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">generator</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">generator</span><span class="p">,</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">discriminator</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">discriminator</span><span class="p">,</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">g_optimizer</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">generator</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">2e-4</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">)),</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">d_optimizer</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">discriminator</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">2e-4</span><span class="p">,</span> <span class="n">betas</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.999</span><span class="p">)),</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">n_critic</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">)</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">history</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_loader</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h2 id="recipe-2-cloud-removal-cyclegan">Recipe 2: Cloud Removal (CycleGAN)</h2>
-<p>Remove clouds using unpaired clean/cloudy images.</p>
-<h3 id="setup_1">Setup</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models.gan</span><span class="w"> </span><span class="kn">import</span> <span class="n">CycleGAN</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">CycleGAN</span><span class="p">(</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">in_channels_a</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>         <span class="c1"># Cloudy RGB</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">in_channels_b</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>         <span class="c1"># Clean RGB</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">ngf</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">n_residual</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">lambda_cycle</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">lambda_identity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">)</span>
-</code></pre></div>
-<h3 id="dataset_1">Dataset</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnpairedImageDataset</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># No need for paired data</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">dataset_cloudy</span> <span class="o">=</span> <span class="n">UnpairedImageDataset</span><span class="p">(</span><span class="n">paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;cloudy/*.tif&quot;</span><span class="p">],</span> <span class="n">tile_size</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">dataset_clean</span> <span class="o">=</span> <span class="n">UnpairedImageDataset</span><span class="p">(</span><span class="n">paths</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;clean/*.tif&quot;</span><span class="p">],</span> <span class="n">tile_size</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
-</code></pre></div>
-<h3 id="training-loop">Training Loop</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="k">for</span> <span class="n">cloudy</span><span class="p">,</span> <span class="n">clean</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">loader_cloudy</span><span class="p">,</span> <span class="n">loader_clean</span><span class="p">):</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        <span class="c1"># Generator update</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        <span class="n">g_loss</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generator_step</span><span class="p">(</span><span class="n">cloudy</span><span class="p">,</span> <span class="n">clean</span><span class="p">)</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="c1"># Discriminator update</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        <span class="n">d_loss</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">discriminator_step</span><span class="p">(</span><span class="n">cloudy</span><span class="p">,</span> <span class="n">clean</span><span class="p">)</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2">: G=</span><span class="si">{</span><span class="n">g_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, D=</span><span class="si">{</span><span class="n">d_loss</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h2 id="recipe-3-super-resolution-esrgan">Recipe 3: Super-Resolution (ESRGAN)</h2>
-<p>4x resolution enhancement.</p>
-<h3 id="setup_2">Setup</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models.gan</span><span class="w"> </span><span class="kn">import</span> <span class="n">ESRGAN</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">ESRGAN</span><span class="p">(</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">in_channels</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">scale_factor</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">n_rrdb</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">)</span>
-</code></pre></div>
-<h3 id="loss-weights">Loss Weights</h3>
-<table>
-<thead>
-<tr>
-<th>Loss</th>
-<th>Weight</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>L1 Pixel</td>
-<td>1.0</td>
-<td>Reconstruction</td>
-</tr>
-<tr>
-<td>Perceptual</td>
-<td>0.1</td>
-<td>Texture quality</td>
-</tr>
-<tr>
-<td>Adversarial</td>
-<td>0.01</td>
-<td>Sharpness</td>
-</tr>
-</tbody>
-</table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.losses</span><span class="w"> </span><span class="kn">import</span> <span class="n">PerceptualLoss</span><span class="p">,</span> <span class="n">AdversarialLoss</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">perceptual</span> <span class="o">=</span> <span class="n">PerceptualLoss</span><span class="p">(</span><span class="n">layers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;conv4_4&quot;</span><span class="p">])</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">adversarial</span> <span class="o">=</span> <span class="n">AdversarialLoss</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;hinge&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">g_loss</span><span class="p">(</span><span class="n">fake</span><span class="p">,</span> <span class="n">real</span><span class="p">,</span> <span class="n">d_fake</span><span class="p">):</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="k">return</span> <span class="p">(</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        <span class="mf">1.0</span> <span class="o">*</span> <span class="n">F</span><span class="o">.</span><span class="n">l1_loss</span><span class="p">(</span><span class="n">fake</span><span class="p">,</span> <span class="n">real</span><span class="p">)</span> <span class="o">+</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        <span class="mf">0.1</span> <span class="o">*</span> <span class="n">perceptual</span><span class="p">(</span><span class="n">fake</span><span class="p">,</span> <span class="n">real</span><span class="p">)</span> <span class="o">+</span>
-<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        <span class="mf">0.01</span> <span class="o">*</span> <span class="n">adversarial</span><span class="o">.</span><span class="n">g_loss</span><span class="p">(</span><span class="n">d_fake</span><span class="p">)</span>
-<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="p">)</span>
-</code></pre></div>
-<hr />
-<h2 id="recipe-4-semantic-guided-translation">Recipe 4: Semantic-Guided Translation</h2>
-<p>Use segmentation masks to guide translation.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models.gan</span><span class="w"> </span><span class="kn">import</span> <span class="n">SemanticPix2Pix</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">SemanticPix2Pix</span><span class="p">(</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">in_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">out_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>      <span class="c1"># Semantic classes</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="n">use_instance</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>   <span class="c1"># Instance normalization</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="p">)</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># Input: image + one-hot semantic map</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="n">fake</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generator</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">semantic_map</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h2 id="training-tips">Training Tips</h2>
-<h3 id="learning-rate">Learning Rate</h3>
-<table>
-<thead>
-<tr>
-<th>Phase</th>
-<th>G LR</th>
-<th>D LR</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Warmup (epochs 1-10)</td>
-<td>1e-4</td>
-<td>1e-4</td>
-</tr>
-<tr>
-<td>Main (epochs 10-150)</td>
-<td>2e-4</td>
-<td>2e-4</td>
-</tr>
-<tr>
-<td>Decay (epochs 150+)</td>
-<td>Linear to 0</td>
-<td>Linear to 0</td>
-</tr>
-</tbody>
-</table>
-<h3 id="discriminator-regularization">Discriminator Regularization</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Gradient penalty for WGAN-GP</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">gradient_penalty</span><span class="p">(</span><span class="n">discriminator</span><span class="p">,</span> <span class="n">real</span><span class="p">,</span> <span class="n">fake</span><span class="p">):</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">alpha</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">real</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">real</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">interpolated</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">real</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">fake</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">interpolated</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="n">d_out</span> <span class="o">=</span> <span class="n">discriminator</span><span class="p">(</span><span class="n">interpolated</span><span class="p">)</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="n">gradients</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>        <span class="n">outputs</span><span class="o">=</span><span class="n">d_out</span><span class="p">,</span>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>        <span class="n">inputs</span><span class="o">=</span><span class="n">interpolated</span><span class="p">,</span>
-<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">d_out</span><span class="p">),</span>
-<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>        <span class="n">create_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>    <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
-<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    <span class="n">gp</span> <span class="o">=</span> <span class="p">((</span><span class="n">gradients</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>    <span class="k">return</span> <span class="n">gp</span>
-</code></pre></div>
-<h3 id="mode-collapse-prevention">Mode Collapse Prevention</h3>
-<ul>
-<li>Use spectral normalization in discriminator</li>
-<li>Label smoothing (real=0.9, fake=0.1)</li>
-<li>Feature matching loss</li>
-<li>Progressive growing</li>
-</ul>
-<hr />
-<h2 id="evaluation">Evaluation</h2>
-<h3 id="fid-frechet-inception-distance">FID (Frechet Inception Distance)</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">FID</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">fid</span> <span class="o">=</span> <span class="n">FID</span><span class="p">()</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">fid</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">real_images</span><span class="p">,</span> <span class="n">fake_images</span><span class="p">)</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;FID: </span><span class="si">{</span><span class="n">fid</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Lower is better</span>
-</code></pre></div>
-<h3 id="visual-quality-assessment">Visual Quality Assessment</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Generate comparison grid</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_comparison_grid</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="n">grid</span> <span class="o">=</span> <span class="n">make_comparison_grid</span><span class="p">(</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="n">input_images</span><span class="p">,</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    <span class="n">generated_images</span><span class="p">,</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="n">target_images</span><span class="p">,</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Input&quot;</span><span class="p">,</span> <span class="s2">&quot;Generated&quot;</span><span class="p">,</span> <span class="s2">&quot;Target&quot;</span><span class="p">],</span>
-<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="p">)</span>
-<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="n">grid</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;comparison.png&quot;</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h2 id="next-steps">Next Steps</h2>
-<ul>
-<li><a href="../07_pinn_recipes/">Tutorial 07: PINN Recipes</a></li>
-<li><a href="../../research/gan-theory/">GAN Theory</a></li>
-<li><a href="../../api/gan/">GAN API</a></li>
-</ul>
 
 
 

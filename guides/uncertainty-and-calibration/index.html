@@ -755,33 +755,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#types-of-uncertainty" class="md-nav__link">
+  <a href="#probability-calibration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Types of Uncertainty
+        Probability Calibration
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Types of Uncertainty">
+    <nav class="md-nav" aria-label="Probability Calibration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#aleatoric-uncertainty" class="md-nav__link">
+  <a href="#reliability-diagrams" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Aleatoric Uncertainty
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#epistemic-uncertainty" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Epistemic Uncertainty
+        Reliability Diagrams
       
     </span>
   </a>
@@ -794,99 +783,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#calibration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Calibration
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Calibration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#reliability-diagram" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Reliability Diagram
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#temperature-scaling" class="md-nav__link">
     <span class="md-ellipsis">
       
         Temperature Scaling
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Metrics
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Metrics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ece" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ECE
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#brier-score" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Brier Score
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mc-dropout" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        MC Dropout
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
       
     </span>
   </a>
@@ -914,62 +814,17 @@
 
 
 <h1 id="uncertainty-and-calibration">Uncertainty and Calibration</h1>
-<p>This guide covers uncertainty quantification and calibration for geospatial models.</p>
-<hr />
-<h2 id="types-of-uncertainty">Types of Uncertainty</h2>
-<h3 id="aleatoric-uncertainty">Aleatoric Uncertainty</h3>
-<p>Irreducible uncertainty from data noise.</p>
-<h3 id="epistemic-uncertainty">Epistemic Uncertainty</h3>
-<p>Model uncertainty, reducible with more data.</p>
-<hr />
-<h2 id="calibration">Calibration</h2>
-<p>A calibrated model satisfies:</p>
-<div class="arithmatex">\[
-P(Y = y | \hat{p} = p) = p
-\]</div>
-<h3 id="reliability-diagram">Reliability Diagram</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">reliability_diagram</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">reliability_diagram</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;reliability.png&quot;</span><span class="p">)</span>
+<p>Models should know when they don't know.</p>
+<h2 id="probability-calibration">Probability Calibration</h2>
+<p>A calibrated model's confidence matches its accuracy. If a model says "80% confidence", it should be correct 80% of the time.</p>
+<h3 id="reliability-diagrams">Reliability Diagrams</h3>
+<p>We visualize calibration using reliability diagrams (Confidence vs. Accuracy).</p>
+<p><img alt="Reliability Diagram" src="../../assets/plots/reliability_diagram.png" /></p>
+<h2 id="temperature-scaling">Temperature Scaling</h2>
+<p>A post-processing technique to calibrate predictions.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>\hat{p} = \text{softmax}(\frac{\text{logits}}{T})
 </code></pre></div>
-<h3 id="temperature-scaling">Temperature Scaling</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.calibration</span><span class="w"> </span><span class="kn">import</span> <span class="n">TemperatureScaling</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">calibrator</span> <span class="o">=</span> <span class="n">TemperatureScaling</span><span class="p">()</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">calibrator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">val_logits</span><span class="p">,</span> <span class="n">val_targets</span><span class="p">)</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">calibrated_probs</span> <span class="o">=</span> <span class="n">calibrator</span><span class="p">(</span><span class="n">test_logits</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h2 id="metrics">Metrics</h2>
-<h3 id="ece">ECE</h3>
-<div class="arithmatex">\[
-\text{ECE} = \sum_{m=1}^{M} \frac{|B_m|}{n} \left| \text{acc}(B_m) - \text{conf}(B_m) \right|
-\]</div>
-<h3 id="brier-score">Brier Score</h3>
-<div class="arithmatex">\[
-\text{Brier} = \frac{1}{n} \sum_{i=1}^{n} (p_i - y_i)^2
-\]</div>
-<hr />
-<h2 id="mc-dropout">MC Dropout</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>  <span class="c1"># Enable dropout</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">predictions</span> <span class="o">=</span> <span class="p">[]</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">mean</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h2 id="see-also">See Also</h2>
-<ul>
-<li><a href="../../api/evaluation/">Evaluation API</a></li>
-<li><a href="../metrics/">Metrics Guide</a></li>
-</ul>
+<p>where <span class="arithmatex">\(T\)</span> is a learned scalar parameter.</p>
 
 
 

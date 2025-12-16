@@ -755,10 +755,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#task-hierarchy" class="md-nav__link">
+  <a href="#task-categories" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Task Hierarchy
+        Task Categories
       
     </span>
   </a>
@@ -766,18 +766,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pixel-level-tasks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pixel-Level Tasks
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Pixel-Level Tasks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#semantic-segmentation" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -787,75 +775,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#instance-segmentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Instance Segmentation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
-  <a href="#scene-level-tasks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scene-Level Tasks
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Scene-Level Tasks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scene-classification" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scene Classification
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#object-detection" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Object Detection
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#temporal-tasks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Temporal Tasks
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Temporal Tasks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#change-detection" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -865,36 +786,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#time-series-analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Time Series Analysis
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
         <li class="md-nav__item">
-  <a href="#generative-tasks" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Generative Tasks
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Generative Tasks">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#super-resolution" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -904,20 +797,26 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#domain-translation" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#object-detection" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Domain Translation
+        Object Detection
       
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#benchmark-datasets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Benchmark Datasets
+      
+    </span>
+  </a>
   
 </li>
       
@@ -953,142 +852,87 @@
 
 
 <h1 id="remote-sensing-task-taxonomy">Remote Sensing Task Taxonomy</h1>
-<p>A comprehensive classification of machine learning tasks for Earth observation applications.</p>
+<p>A classification of machine learning tasks for Earth observation.</p>
 <hr />
-<h2 id="task-hierarchy">Task Hierarchy</h2>
+<h2 id="task-categories">Task Categories</h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TB
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    EO[Earth Observation ML Tasks]
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    EO[Earth Observation ML]
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    EO --&gt; PIX[Pixel-Level Tasks]
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    EO --&gt; SCENE[Scene-Level Tasks]
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    EO --&gt; TEMP[Temporal Tasks]
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    EO --&gt; GEN[Generative Tasks]
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    EO --&gt; PIX[Pixel-Level]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    EO --&gt; SCENE[Scene-Level]
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    EO --&gt; TEMP[Temporal]
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    EO --&gt; GEN[Generative]
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    PIX --&gt; SEG[Semantic Segmentation]
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    PIX --&gt; INST[Instance Segmentation]
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    PIX --&gt; REG[Regression]
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    SCENE --&gt; CLS[Classification]
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    SCENE --&gt; DET[Object Detection]
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    TEMP --&gt; CD[Change Detection]
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    TEMP --&gt; TS[Time Series]
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    GEN --&gt; SR[Super-Resolution]
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    GEN --&gt; TRANS[Domain Translation]
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    GEN --&gt; INP[Inpainting]
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    PIX --&gt; SEG[Segmentation]
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    PIX --&gt; REG[Regression]
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    SCENE --&gt; CLS[Classification]
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    SCENE --&gt; DET[Detection]
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    TEMP --&gt; CD[Change Detection]
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    GEN --&gt; SR[Super-Resolution]
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    GEN --&gt; TRANS[Translation]
 </code></pre></div>
 <hr />
-<h2 id="pixel-level-tasks">Pixel-Level Tasks</h2>
-<h3 id="semantic-segmentation">Semantic Segmentation</h3>
-<p>Assign a class label to every pixel in the image.</p>
-<p><strong>Formulation</strong>:
-$$
-f: \mathbb{R}^{H \times W \times C} \rightarrow {1, \ldots, K}^{H \times W}
-$$</p>
-<p><strong>Applications</strong>:
-| Application | Classes | Resolution |
-|-------------|---------|------------|
-| Land Cover Mapping | 5-20 | 10-30 m |
-| Crop Type Classification | 10-50 | 10-30 m |
-| Urban Mapping | 5-15 | 0.5-5 m |</p>
-<p><strong>Benchmark Datasets</strong>:
-- <strong>DeepGlobe</strong>: 803 images, 7 classes, 50cm resolution
-  - Demir, I., et al. (2018). DeepGlobe 2018: A Challenge to Parse the Earth Through Satellite Images. <em>CVPR Workshops</em>. <a href="https://competitions.codalab.org/competitions/18468">Link</a></p>
-<ul>
-<li><strong>LoveDA</strong>: 5,987 images, 7 classes, 30cm resolution</li>
-<li>Wang, J., et al. (2021). LoveDA: A Remote Sensing Land-Cover Dataset for Domain Adaptive Semantic Segmentation. <em>NeurIPS Datasets Track</em>. <a href="https://arxiv.org/abs/2110.08733">arXiv:2110.08733</a></li>
-</ul>
-<p><strong>Reference Architecture</strong>: U-Net
-- Ronneberger, O., Fischer, P., &amp; Brox, T. (2015). U-Net: Convolutional Networks for Biomedical Image Segmentation. <em>MICCAI</em>. <a href="https://doi.org/10.1007/978-3-319-24574-4_28">DOI: 10.1007/978-3-319-24574-4_28</a></p>
-<h3 id="instance-segmentation">Instance Segmentation</h3>
-<p>Detect and segment individual objects.</p>
-<p><strong>Applications</strong>:
-- Building footprint extraction
-- Individual tree detection
-- Vehicle counting</p>
-<p><strong>Reference Architecture</strong>: Mask R-CNN
-- He, K., et al. (2017). Mask R-CNN. <em>ICCV</em>. <a href="https://doi.org/10.1109/ICCV.2017.322">DOI: 10.1109/ICCV.2017.322</a></p>
+<h2 id="semantic-segmentation">Semantic Segmentation</h2>
+<p>Assign a class label to every pixel.</p>
+<p><strong>Formulation</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>f: \mathbb{R}^{H \times W \times C} \rightarrow \{1, \ldots, K\}^{H \times W}
+</code></pre></div>
+<p><strong>Reference</strong>: Ronneberger, O., et al. (2015). U-Net: Convolutional Networks for Biomedical Image Segmentation. <em>MICCAI</em>. <a href="https://doi.org/10.1007/978-3-319-24574-4_28">DOI: 10.1007/978-3-319-24574-4_28</a></p>
 <hr />
-<h2 id="scene-level-tasks">Scene-Level Tasks</h2>
-<h3 id="scene-classification">Scene Classification</h3>
-<p>Assign a single label to entire image patches.</p>
-<p><strong>Benchmark Datasets</strong>:
-- <strong>EuroSAT</strong>: 27,000 patches, 10 classes, Sentinel-2
-  - Helber, P., et al. (2019). EuroSAT: A Novel Dataset and Deep Learning Benchmark for Land Use and Land Cover Classification. <em>IEEE JSTARS</em>, 12(7). <a href="https://doi.org/10.1109/JSTARS.2019.2918242">DOI: 10.1109/JSTARS.2019.2918242</a></p>
-<ul>
-<li><strong>UC Merced Land Use</strong>: 2,100 patches, 21 classes, 30cm</li>
-<li>Yang, Y., &amp; Newsam, S. (2010). Bag-of-Visual-Words and Spatial Extensions for Land-Use Classification. <em>ACM SIGSPATIAL</em>. <a href="https://doi.org/10.1145/1869790.1869829">DOI: 10.1145/1869790.1869829</a></li>
-</ul>
-<h3 id="object-detection">Object Detection</h3>
-<p>Localize objects with bounding boxes.</p>
-<p><strong>Applications</strong>:
-| Application | Object Size | Resolution Needed |
-|-------------|-------------|-------------------|
-| Ship Detection | 20-300 m | 3-10 m |
-| Aircraft Detection | 15-80 m | 0.3-1 m |
-| Vehicle Detection | 3-15 m | 0.3-0.5 m |</p>
-<p><strong>Reference Architecture</strong>: RetinaNet
-- Lin, T.Y., et al. (2017). Focal Loss for Dense Object Detection. <em>ICCV</em>. <a href="https://doi.org/10.1109/ICCV.2017.324">DOI: 10.1109/ICCV.2017.324</a></p>
+<h2 id="change-detection">Change Detection</h2>
+<p>Identify changes between temporal observations.</p>
+<p><strong>Formulation</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>f: \mathbb{R}^{H \times W \times C} \times \mathbb{R}^{H \times W \times C} \rightarrow \{0, 1\}^{H \times W}
+</code></pre></div>
+<p><strong>Reference</strong>: Daudt, R.C., et al. (2018). Fully Convolutional Siamese Networks for Change Detection. <em>ICIP</em>. <a href="https://doi.org/10.1109/ICIP.2018.8451652">DOI: 10.1109/ICIP.2018.8451652</a></p>
 <hr />
-<h2 id="temporal-tasks">Temporal Tasks</h2>
-<h3 id="change-detection">Change Detection</h3>
-<p>Identify changes between two or more temporal observations.</p>
-<p><strong>Formulation</strong>:
-$$
-f: \mathbb{R}^{H \times W \times C} \times \mathbb{R}^{H \times W \times C} \rightarrow {0, 1}^{H \times W}
-$$</p>
-<p><strong>Types</strong>:
-| Type | Output | Example |
-|------|--------|---------|
-| Binary | Change/No-change | Deforestation detection |
-| Multi-class | Change type | LULC transitions |
-| Regression | Change magnitude | Biomass change |</p>
-<p><strong>Benchmark Datasets</strong>:
-- <strong>LEVIR-CD</strong>: 637 pairs, 0.5m resolution, building changes
-  - Chen, H., &amp; Shi, Z. (2020). A Spatial-Temporal Attention-Based Method for Remote Sensing Image Change Detection. <em>Remote Sensing</em>, 12(10). <a href="https://doi.org/10.3390/rs12101662">DOI: 10.3390/rs12101662</a></p>
-<p><strong>Reference Architecture</strong>: Siamese Networks
-- Daudt, R.C., Le Saux, B., &amp; Boulch, A. (2018). Fully Convolutional Siamese Networks for Change Detection. <em>ICIP</em>. <a href="https://doi.org/10.1109/ICIP.2018.8451652">DOI: 10.1109/ICIP.2018.8451652</a></p>
-<h3 id="time-series-analysis">Time Series Analysis</h3>
-<p>Process sequences of observations over time.</p>
-<p><strong>Applications</strong>:
-- Crop phenology monitoring
-- Seasonal pattern analysis
-- Anomaly detection</p>
-<p><strong>Reference</strong>: LSTM/Transformer architectures
-- Rußwurm, M., &amp; Körner, M. (2018). Temporal Vegetation Modelling Using Long Short-Term Memory Networks for Crop Identification from Medium-Resolution Multi-Spectral Satellite Images. <em>CVPR Workshops</em>. <a href="https://doi.org/10.1109/CVPRW.2017.193">DOI: 10.1109/CVPRW.2017.193</a></p>
+<h2 id="super-resolution">Super-Resolution</h2>
+<p>Enhance spatial resolution.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>f: \mathbb{R}^{H \times W \times C} \rightarrow \mathbb{R}^{sH \times sW \times C}
+</code></pre></div>
+<p><strong>Reference</strong>: Wang, X., et al. (2018). ESRGAN: Enhanced Super-Resolution Generative Adversarial Networks. <em>ECCV Workshops</em>. <a href="https://arxiv.org/abs/1809.00219">arXiv:1809.00219</a></p>
 <hr />
-<h2 id="generative-tasks">Generative Tasks</h2>
-<h3 id="super-resolution">Super-Resolution</h3>
-<p>Enhance spatial resolution beyond sensor limits.</p>
-<p><strong>Formulation</strong>:
-$$
-f: \mathbb{R}^{H \times W \times C} \rightarrow \mathbb{R}^{sH \times sW \times C}
-$$</p>
-<p>where <span class="arithmatex">\(s\)</span> is the scale factor (2x, 4x, 8x).</p>
-<p><strong>Reference Architectures</strong>:
-- <strong>SRCNN</strong>: Dong, C., et al. (2014). Learning a Deep Convolutional Network for Image Super-Resolution. <em>ECCV</em>. <a href="https://doi.org/10.1007/978-3-319-10593-2_13">DOI: 10.1007/978-3-319-10593-2_13</a></p>
-<ul>
-<li><strong>ESRGAN</strong>: Wang, X., et al. (2018). ESRGAN: Enhanced Super-Resolution Generative Adversarial Networks. <em>ECCV Workshops</em>. <a href="https://arxiv.org/abs/1809.00219">arXiv:1809.00219</a></li>
-</ul>
-<h3 id="domain-translation">Domain Translation</h3>
-<p>Transform images between different domains.</p>
-<p><strong>Applications</strong>:
-| Task | Source | Target |
-|------|--------|--------|
-| SAR-to-Optical | SAR | RGB |
-| Cloud Removal | Cloudy | Cloud-free |
-| Colorization | Panchromatic | Multispectral |</p>
-<p><strong>Reference Architectures</strong>:
-- <strong>Pix2Pix</strong>: Isola, P., et al. (2017). Image-to-Image Translation with Conditional Adversarial Networks. <em>CVPR</em>. <a href="https://doi.org/10.1109/CVPR.2017.632">DOI: 10.1109/CVPR.2017.632</a></p>
-<ul>
-<li><strong>CycleGAN</strong>: Zhu, J.Y., et al. (2017). Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks. <em>ICCV</em>. <a href="https://doi.org/10.1109/ICCV.2017.244">DOI: 10.1109/ICCV.2017.244</a></li>
-</ul>
+<h2 id="object-detection">Object Detection</h2>
+<p><strong>Reference</strong>: Lin, T.Y., et al. (2017). Focal Loss for Dense Object Detection. <em>ICCV</em>. <a href="https://doi.org/10.1109/ICCV.2017.324">DOI: 10.1109/ICCV.2017.324</a></p>
+<hr />
+<h2 id="benchmark-datasets">Benchmark Datasets</h2>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Task</th>
+<th>Resolution</th>
+<th>Classes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EuroSAT</td>
+<td>Classification</td>
+<td>10m</td>
+<td>10</td>
+</tr>
+<tr>
+<td>LoveDA</td>
+<td>Segmentation</td>
+<td>30cm</td>
+<td>7</td>
+</tr>
+<tr>
+<td>LEVIR-CD</td>
+<td>Change Detection</td>
+<td>50cm</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="see-also">See Also</h2>
 <ul>
 <li><a href="../math-foundations/">Math Foundations</a></li>
-<li><a href="../gan-theory/">GAN Theory</a></li>
 <li><a href="../bibliography/">Bibliography</a></li>
 </ul>
 

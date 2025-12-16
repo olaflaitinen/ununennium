@@ -755,21 +755,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#api-design-principles" class="md-nav__link">
+  <a href="#module-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
-        API Design Principles
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#module-organization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Module Organization
+        Module Structure
       
     </span>
   </a>
@@ -785,85 +774,13 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quick Reference">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#core" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Core
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#io" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        I/O
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#models" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Models
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#training" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Training
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#import-conventions" class="md-nav__link">
+  <a href="#type-definitions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Import Conventions
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#error-handling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Error Handling
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#detailed-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Detailed Documentation
+        Type Definitions
       
     </span>
   </a>
@@ -891,200 +808,56 @@
 
 
 <h1 id="api-overview">API Overview</h1>
-<p>This document provides an overview of the Ununennium API design principles and module organization.</p>
-<hr />
-<h2 id="api-design-principles">API Design Principles</h2>
+<h2 id="module-structure">Module Structure</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TD
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    U[ununennium]
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    U --&gt; Core[core]
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    U --&gt; IO[io]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    U --&gt; Models[models]
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    U --&gt; Train[training]
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    U --&gt; Metric[metrics]
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    Models --&gt; GAN[gan]
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    Models --&gt; PINN[pinn]
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    Models --&gt; Arch[architectures]
+</code></pre></div>
+<h2 id="quick-reference">Quick Reference</h2>
 <table>
 <thead>
 <tr>
-<th>Principle</th>
+<th>Component</th>
+<th>Import</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Explicit over implicit</strong></td>
-<td>CRS and transforms are never guessed</td>
+<td><strong>GeoTensor</strong></td>
+<td><code>from ununennium.core import GeoTensor</code></td>
+<td>Geospatial tensor wrapper</td>
 </tr>
 <tr>
-<td><strong>Fail fast</strong></td>
-<td>Invalid inputs raise immediately</td>
+<td><strong>Trainer</strong></td>
+<td><code>from ununennium.training import Trainer</code></td>
+<td>Training loop manager</td>
 </tr>
 <tr>
-<td><strong>Composable</strong></td>
-<td>Components work together cleanly</td>
+<td><strong>U-Net</strong></td>
+<td><code>from ununennium.models import UNet</code></td>
+<td>Segmentation model</td>
 </tr>
 <tr>
-<td><strong>Type-safe</strong></td>
-<td>Full type annotations for IDE support</td>
-</tr>
-<tr>
-<td><strong>Documented</strong></td>
-<td>Every public API has docstrings</td>
+<td><strong>IoU</strong></td>
+<td><code>from ununennium.metrics import IoU</code></td>
+<td>Evaluation metric</td>
 </tr>
 </tbody>
 </table>
-<hr />
-<h2 id="module-organization">Module Organization</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TB
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    subgraph &quot;ununennium&quot;
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        CORE[core]
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        IO[io]
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        PREP[preprocessing]
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        AUG[augmentation]
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        TILE[tiling]
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        DS[datasets]
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        MOD[models]
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        LOSS[losses]
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        MET[metrics]
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        TRAIN[training]
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        EXP[export]
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        SENS[sensors]
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    end
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    CORE --&gt; IO
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    IO --&gt; PREP
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    PREP --&gt; AUG
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    AUG --&gt; TILE
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    TILE --&gt; DS
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    DS --&gt; MOD
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    MOD --&gt; LOSS
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    LOSS --&gt; MET
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    MET --&gt; TRAIN
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    TRAIN --&gt; EXP
+<h2 id="type-definitions">Type Definitions</h2>
+<p>Coordinate systems are defined using EPSG codes (integers) or WKT strings.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">CRS</span> <span class="o">=</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">BBox</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
 </code></pre></div>
-<hr />
-<h2 id="quick-reference">Quick Reference</h2>
-<h3 id="core">Core</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoTensor</span><span class="p">,</span> <span class="n">GeoBatch</span><span class="p">,</span> <span class="n">BoundingBox</span>
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Class</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>GeoTensor</code></td>
-<td>CRS-aware tensor wrapper</td>
-</tr>
-<tr>
-<td><code>GeoBatch</code></td>
-<td>Batch of samples for training</td>
-</tr>
-<tr>
-<td><code>BoundingBox</code></td>
-<td>Geographic extent container</td>
-</tr>
-</tbody>
-</table>
-<h3 id="io">I/O</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_geotiff</span><span class="p">,</span> <span class="n">write_geotiff</span><span class="p">,</span> <span class="n">STACClient</span>
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Function/Class</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>read_geotiff</code></td>
-<td>Load GeoTIFF as GeoTensor</td>
-</tr>
-<tr>
-<td><code>write_geotiff</code></td>
-<td>Save GeoTensor to GeoTIFF</td>
-</tr>
-<tr>
-<td><code>STACClient</code></td>
-<td>Query STAC catalogs</td>
-</tr>
-</tbody>
-</table>
-<h3 id="models">Models</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_model</span><span class="p">,</span> <span class="n">list_models</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models.gan</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pix2Pix</span><span class="p">,</span> <span class="n">CycleGAN</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models.pinn</span><span class="w"> </span><span class="kn">import</span> <span class="n">PINN</span>
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Function</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>create_model</code></td>
-<td>Factory for registered models</td>
-</tr>
-<tr>
-<td><code>list_models</code></td>
-<td>List available architectures</td>
-</tr>
-</tbody>
-</table>
-<h3 id="training">Training</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.training</span><span class="w"> </span><span class="kn">import</span> <span class="n">Trainer</span><span class="p">,</span> <span class="n">CheckpointCallback</span><span class="p">,</span> <span class="n">EarlyStoppingCallback</span>
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Class</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>Trainer</code></td>
-<td>Training loop management</td>
-</tr>
-<tr>
-<td><code>CheckpointCallback</code></td>
-<td>Save model checkpoints</td>
-</tr>
-<tr>
-<td><code>EarlyStoppingCallback</code></td>
-<td>Stop on plateau</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="import-conventions">Import Conventions</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Recommended: Import specific functions</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_geotiff</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_model</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Alternative: Module-level import</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">ununennium</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">uu</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">tensor</span> <span class="o">=</span> <span class="n">uu</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_geotiff</span><span class="p">(</span><span class="s2">&quot;image.tif&quot;</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h2 id="error-handling">Error Handling</h2>
-<p>All errors inherit from base exception types:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.core.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">UnunenniumError</span><span class="p">,</span>      <span class="c1"># Base exception</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">CRSError</span><span class="p">,</span>             <span class="c1"># Invalid CRS</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">DataError</span><span class="p">,</span>            <span class="c1"># Data loading issues</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">ConfigError</span><span class="p">,</span>          <span class="c1"># Configuration problems</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h2 id="detailed-documentation">Detailed Documentation</h2>
-<ul>
-<li><a href="../core/">Core</a> - GeoTensor, GeoBatch, types</li>
-<li><a href="../data-io/">Data I/O</a> - File and cloud I/O</li>
-<li><a href="../preprocessing/">Preprocessing</a> - Indices, normalization</li>
-<li><a href="../training/">Training</a> - Trainer and callbacks</li>
-<li><a href="../models/">Models</a> - Architecture registry</li>
-<li><a href="../evaluation/">Evaluation</a> - Metrics and validation</li>
-<li><a href="../gan/">GAN</a> - Generative adversarial networks</li>
-<li><a href="../pinn/">PINN</a> - Physics-informed networks</li>
-</ul>
 
 
 

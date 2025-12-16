@@ -755,6 +755,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#pix2pix" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -763,48 +775,9 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Pix2Pix">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#class-definition" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Class Definition
-      
-    </span>
-  </a>
-  
 </li>
         
           <li class="md-nav__item">
-  <a href="#architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Architecture
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#training" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Training
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#cyclegan" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -813,48 +786,9 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="CycleGAN">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#class-definition_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Class Definition
-      
-    </span>
-  </a>
-  
 </li>
         
           <li class="md-nav__item">
-  <a href="#architecture_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Architecture
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cycle-consistency-loss" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cycle Consistency Loss
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#esrgan" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -863,29 +797,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="ESRGAN">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#class-definition_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Class Definition
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#perceptual-loss" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Perceptual Loss
-      
-    </span>
-  </a>
-  
 </li>
         
       </ul>
@@ -894,15 +805,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#gan-losses" class="md-nav__link">
+  <a href="#losses" class="md-nav__link">
     <span class="md-ellipsis">
       
-        GAN Losses
+        Losses
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="GAN Losses">
+    <nav class="md-nav" aria-label="Losses">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -921,34 +832,6 @@
     <span class="md-ellipsis">
       
         PerceptualLoss
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#training-utilities" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Training Utilities
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Training Utilities">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#gantrainer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GANTrainer
       
     </span>
   </a>
@@ -981,203 +864,25 @@
 
 
 <h1 id="gan-api">GAN API</h1>
-<p>The GAN module provides generative adversarial network architectures for image translation and super-resolution.</p>
-<hr />
-<h2 id="pix2pix">Pix2Pix</h2>
+<h2 id="models">Models</h2>
+<h3 id="pix2pix"><code>Pix2Pix</code></h3>
 <p>Paired image-to-image translation.</p>
-<h3 id="class-definition">Class Definition</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">Pix2Pix</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Pix2Pix GAN for paired image translation.</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="sd">    Parameters</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="sd">    ----------</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="sd">    in_channels : int</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="sd">        Number of input channels.</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="sd">    out_channels : int</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sd">        Number of output channels.</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="sd">    ngf : int, optional</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="sd">        Generator feature maps. Default: 64.</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="sd">    ndf : int, optional</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="sd">        Discriminator feature maps. Default: 64.</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="sd">    n_layers : int, optional</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="sd">        PatchGAN discriminator depth. Default: 3.</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="sd">    lambda_l1 : float, optional</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="sd">        L1 reconstruction weight. Default: 100.0.</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="sd">    &quot;&quot;&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">Pix2Pix</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="architecture">Architecture</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>graph LR
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    subgraph &quot;Generator (U-Net)&quot;
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        E1[Encoder 1] --&gt; E2[Encoder 2] --&gt; E3[Encoder 3]
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        E3 --&gt; D3[Decoder 3] --&gt; D2[Decoder 2] --&gt; D1[Decoder 1]
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        E1 -.-&gt; D1
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        E2 -.-&gt; D2
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    end
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    subgraph &quot;Discriminator (PatchGAN)&quot;
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        C1[Conv 1] --&gt; C2[Conv 2] --&gt; C3[Conv 3] --&gt; OUT[Patch Output]
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    end
+<h3 id="cyclegan"><code>CycleGAN</code></h3>
+<p>Unpaired translation between domains A and B.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">CycleGAN</span><span class="p">(</span><span class="n">in_channels_a</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">in_channels_b</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div>
-<h3 id="training">Training</h3>
-<p>The total generator loss:</p>
-<div class="arithmatex">\[
-\mathcal{L}_G = \mathcal{L}_{GAN}(G, D) + \lambda \cdot \mathcal{L}_{L1}(G)
-\]</div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models.gan</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pix2Pix</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">Pix2Pix</span><span class="p">(</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">in_channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>   <span class="c1"># SAR: VV, VH</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">out_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>  <span class="c1"># Optical: RGB</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">ngf</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">ndf</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">lambda_l1</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">)</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1"># Training step</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">g_loss</span><span class="p">,</span> <span class="n">d_loss</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">training_step</span><span class="p">(</span><span class="n">sar_batch</span><span class="p">,</span> <span class="n">optical_batch</span><span class="p">)</span>
+<h3 id="esrgan"><code>ESRGAN</code></h3>
+<p>Super-resolution model.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">ESRGAN</span><span class="p">(</span><span class="n">scale_factor</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </code></pre></div>
-<hr />
-<h2 id="cyclegan">CycleGAN</h2>
-<p>Unpaired image-to-image translation.</p>
-<h3 id="class-definition_1">Class Definition</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">CycleGAN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;CycleGAN for unpaired image translation.</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="sd">    Parameters</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="sd">    ----------</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="sd">    in_channels_a : int</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="sd">        Channels for domain A.</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="sd">    in_channels_b : int</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="sd">        Channels for domain B.</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="sd">    ngf : int, optional</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="sd">        Generator feature maps. Default: 64.</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="sd">    ndf : int, optional</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="sd">        Discriminator feature maps. Default: 64.</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="sd">    n_residual : int, optional</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="sd">        Number of residual blocks. Default: 9.</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="sd">    lambda_cycle : float, optional</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="sd">        Cycle consistency weight. Default: 10.0.</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="sd">    lambda_identity : float, optional</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="sd">        Identity loss weight. Default: 0.5.</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="sd">    &quot;&quot;&quot;</span>
-</code></pre></div>
-<h3 id="architecture_1">Architecture</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>graph TB
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    subgraph &quot;Domain A to B&quot;
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        A[Image A] --&gt; GAB[Generator A→B] --&gt; B_fake[Fake B]
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        B_fake --&gt; GBA_cycle[Generator B→A] --&gt; A_rec[Reconstructed A]
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    end
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    subgraph &quot;Domain B to A&quot;
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        B[Image B] --&gt; GBA[Generator B→A] --&gt; A_fake[Fake A]
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        A_fake --&gt; GAB_cycle[Generator A→B] --&gt; B_rec[Reconstructed B]
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    end
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    subgraph &quot;Discriminators&quot;
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        B_fake --&gt; DB[Discriminator B]
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        A_fake --&gt; DA[Discriminator A]
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    end
-</code></pre></div>
-<h3 id="cycle-consistency-loss">Cycle Consistency Loss</h3>
-<div class="arithmatex">\[
-\mathcal{L}_{cyc} = \mathbb{E}\left[\|G_{BA}(G_{AB}(a)) - a\|_1\right] + \mathbb{E}\left[\|G_{AB}(G_{BA}(b)) - b\|_1\right]
-\]</div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models.gan</span><span class="w"> </span><span class="kn">import</span> <span class="n">CycleGAN</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">CycleGAN</span><span class="p">(</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">in_channels_a</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>  <span class="c1"># Summer images</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">in_channels_b</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>  <span class="c1"># Winter images</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">lambda_cycle</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">)</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">losses</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">training_step</span><span class="p">(</span><span class="n">summer_batch</span><span class="p">,</span> <span class="n">winter_batch</span><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h2 id="esrgan">ESRGAN</h2>
-<p>Enhanced Super-Resolution GAN.</p>
-<h3 id="class-definition_2">Class Definition</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ESRGAN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;ESRGAN for super-resolution.</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="sd">    Parameters</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="sd">    ----------</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="sd">    in_channels : int</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="sd">        Number of input channels.</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="sd">    scale_factor : int, optional</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="sd">        Upscaling factor. Default: 4.</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="sd">    n_rrdb : int, optional</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="sd">        Number of RRDB blocks. Default: 23.</span>
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="sd">    &quot;&quot;&quot;</span>
-</code></pre></div>
-<h3 id="perceptual-loss">Perceptual Loss</h3>
-<div class="arithmatex">\[
-\mathcal{L}_{percep} = \sum_{l} \frac{1}{C_l H_l W_l} \|\phi_l(I_{HR}) - \phi_l(G(I_{LR}))\|_1
-\]</div>
-<p>where <span class="arithmatex">\(\phi_l\)</span> are VGG feature maps.</p>
-<hr />
-<h2 id="gan-losses">GAN Losses</h2>
-<h3 id="adversarialloss">AdversarialLoss</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">AdversarialLoss</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;GAN adversarial loss.</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="sd">    Parameters</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="sd">    ----------</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="sd">    mode : str</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="sd">        Loss mode: &quot;vanilla&quot;, &quot;lsgan&quot;, &quot;wgan&quot;, &quot;hinge&quot;.</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="sd">    &quot;&quot;&quot;</span>
-</code></pre></div>
-<table>
-<thead>
-<tr>
-<th>Mode</th>
-<th>Discriminator Loss</th>
-<th>Generator Loss</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>vanilla</code></td>
-<td><span class="arithmatex">\(-\log(D(x)) - \log(1-D(G(z)))\)</span></td>
-<td><span class="arithmatex">\(-\log(D(G(z)))\)</span></td>
-</tr>
-<tr>
-<td><code>lsgan</code></td>
-<td><span class="arithmatex">\((D(x)-1)^2 + D(G(z))^2\)</span></td>
-<td><span class="arithmatex">\((D(G(z))-1)^2\)</span></td>
-</tr>
-<tr>
-<td><code>hinge</code></td>
-<td><span class="arithmatex">\(\max(0, 1-D(x)) + \max(0, 1+D(G(z)))\)</span></td>
-<td><span class="arithmatex">\(-D(G(z))\)</span></td>
-</tr>
-</tbody>
-</table>
-<h3 id="perceptualloss">PerceptualLoss</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">PerceptualLoss</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;VGG-based perceptual loss.</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="sd">    Parameters</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="sd">    ----------</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="sd">    layers : list[str]</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="sd">        VGG layers to use.</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="sd">    weights : list[float] | None, optional</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="sd">        Per-layer weights.</span>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="sd">    &quot;&quot;&quot;</span>
-</code></pre></div>
-<hr />
-<h2 id="training-utilities">Training Utilities</h2>
-<h3 id="gantrainer">GANTrainer</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.training</span><span class="w"> </span><span class="kn">import</span> <span class="n">GANTrainer</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">trainer</span> <span class="o">=</span> <span class="n">GANTrainer</span><span class="p">(</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">generator</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">generator</span><span class="p">,</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">discriminator</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">discriminator</span><span class="p">,</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">g_optimizer</span><span class="o">=</span><span class="n">g_optimizer</span><span class="p">,</span>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="n">d_optimizer</span><span class="o">=</span><span class="n">d_optimizer</span><span class="p">,</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="n">n_critic</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># D updates per G update</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="p">)</span>
-<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
-<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="n">history</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_loader</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<h2 id="losses">Losses</h2>
+<h3 id="adversarialloss"><code>AdversarialLoss</code></h3>
+<p>Generic GAN loss interface (BCE, MSE, Wasserstein).</p>
+<h3 id="perceptualloss"><code>PerceptualLoss</code></h3>
+<p>VGG-based feature matching loss.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>\mathcal{L}_{p} = \| \phi(x) - \phi(y) \|_2^2
 </code></pre></div>
 
 

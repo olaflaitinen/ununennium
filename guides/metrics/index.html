@@ -23,7 +23,7 @@
     
     
       
-        <title>Metrics - Ununennium</title>
+        <title>Metrics Guide - Ununennium</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#metrics" class="md-skip">
+        <a href="#metrics-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Metrics
+              Metrics Guide
             
           </span>
         </div>
@@ -755,22 +755,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#segmentation-metrics" class="md-nav__link">
+  <a href="#segmentation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Segmentation Metrics
+        Segmentation
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Segmentation Metrics">
+    <nav class="md-nav" aria-label="Segmentation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#iou-intersection-over-union" class="md-nav__link">
+  <a href="#iou-jaccard-index" class="md-nav__link">
     <span class="md-ellipsis">
       
-        IoU (Intersection over Union)
+        IoU (Jaccard Index)
       
     </span>
   </a>
@@ -788,50 +788,28 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#when-to-use" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When to Use
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#change-detection-metrics" class="md-nav__link">
+  <a href="#change-detection" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Change Detection Metrics
+        Change Detection
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Change Detection Metrics">
+    <nav class="md-nav" aria-label="Change Detection">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#overall-accuracy" class="md-nav__link">
+  <a href="#precision-recall" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Overall Accuracy
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kappa-coefficient" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kappa Coefficient
+        Precision &amp; Recall
       
     </span>
   </a>
@@ -844,54 +822,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#super-resolution-metrics" class="md-nav__link">
+  <a href="#calibration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Super-Resolution Metrics
+        Calibration
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Super-Resolution Metrics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#psnr" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PSNR
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ssim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SSIM
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#calibration-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Calibration Metrics
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Calibration Metrics">
+    <nav class="md-nav" aria-label="Calibration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -907,17 +846,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
   
 </li>
       
@@ -941,113 +869,22 @@
   
 
 
-<h1 id="metrics">Metrics</h1>
-<p>This guide covers metric selection and interpretation for Earth observation tasks.</p>
-<hr />
-<h2 id="segmentation-metrics">Segmentation Metrics</h2>
-<h3 id="iou-intersection-over-union">IoU (Intersection over Union)</h3>
-<div class="arithmatex">\[
-\text{IoU} = \frac{TP}{TP + FP + FN}
-\]</div>
-<ul>
-<li>Range: [0, 1], higher is better</li>
-<li>Penalizes both false positives and false negatives</li>
-</ul>
+<h1 id="metrics-guide">Metrics Guide</h1>
+<h2 id="segmentation">Segmentation</h2>
+<h3 id="iou-jaccard-index">IoU (Jaccard Index)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>\text{IoU} = \frac{\text{Intersection}}{\text{Union}}
+</code></pre></div>
 <h3 id="dice-coefficient">Dice Coefficient</h3>
-<div class="arithmatex">\[
-\text{Dice} = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}
-\]</div>
-<ul>
-<li>Equivalent to F1 score</li>
-<li>More tolerant of small objects</li>
-</ul>
-<h3 id="when-to-use">When to Use</h3>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th>Best For</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>IoU</td>
-<td>General evaluation</td>
-</tr>
-<tr>
-<td>Dice</td>
-<td>Class imbalance</td>
-</tr>
-<tr>
-<td>Pixel Accuracy</td>
-<td>Gross overview</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="change-detection-metrics">Change Detection Metrics</h2>
-<h3 id="overall-accuracy">Overall Accuracy</h3>
-<div class="arithmatex">\[
-OA = \frac{TP + TN}{TP + TN + FP + FN}
-\]</div>
-<h3 id="kappa-coefficient">Kappa Coefficient</h3>
-<div class="arithmatex">\[
-\kappa = \frac{p_o - p_e}{1 - p_e}
-\]</div>
-<p>Accounts for chance agreement.</p>
-<table>
-<thead>
-<tr>
-<th>Kappa</th>
-<th>Interpretation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>&lt; 0</td>
-<td>Worse than chance</td>
-</tr>
-<tr>
-<td>0-0.2</td>
-<td>Slight</td>
-</tr>
-<tr>
-<td>0.2-0.6</td>
-<td>Fair to moderate</td>
-</tr>
-<tr>
-<td>0.6-0.8</td>
-<td>Substantial</td>
-</tr>
-<tr>
-<td>&gt; 0.8</td>
-<td>Almost perfect</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2 id="super-resolution-metrics">Super-Resolution Metrics</h2>
-<h3 id="psnr">PSNR</h3>
-<div class="arithmatex">\[
-\text{PSNR} = 10 \cdot \log_{10}\left(\frac{MAX^2}{MSE}\right)
-\]</div>
-<p>Higher is better. Typical range: 20-40 dB.</p>
-<h3 id="ssim">SSIM</h3>
-<p>Measures structural similarity. Range [0, 1].</p>
-<hr />
-<h2 id="calibration-metrics">Calibration Metrics</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>\text{Dice} = \frac{2 \cdot \text{Intersection}}{\text{Sum of Areas}}
+</code></pre></div>
+<h2 id="change-detection">Change Detection</h2>
+<h3 id="precision-recall">Precision &amp; Recall</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>\text{Precision} = \frac{TP}{TP + FP}, \quad \text{Recall} = \frac{TP}{TP + FN}
+</code></pre></div>
+<h2 id="calibration">Calibration</h2>
 <h3 id="ece-expected-calibration-error">ECE (Expected Calibration Error)</h3>
-<p>Measures alignment between confidence and accuracy.</p>
-<div class="arithmatex">\[
-\text{ECE} = \sum_m \frac{|B_m|}{n} \cdot |\text{acc}(B_m) - \text{conf}(B_m)|
-\]</div>
-<p>Lower is better.</p>
-<hr />
-<h2 id="see-also">See Also</h2>
-<ul>
-<li><a href="../../api/evaluation/">Evaluation API</a></li>
-<li><a href="../uncertainty-and-calibration/">Uncertainty and Calibration</a></li>
-</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>\text{ECE} = \sum_{m=1}^M \frac{|B_m|}{N} |\text{acc}(B_m) - \text{conf}(B_m)|
+</code></pre></div>
 
 
 

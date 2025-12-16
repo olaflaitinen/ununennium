@@ -23,7 +23,7 @@
     
     
       
-        <title>Pipelines - Ununennium</title>
+        <title>Processing Pipelines - Ununennium</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#pipelines" class="md-skip">
+        <a href="#processing-pipelines" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Pipelines
+              Processing Pipelines
             
           </span>
         </div>
@@ -755,44 +755,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
+  <a href="#tiling-and-inference" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Table of Contents
+        Tiling and Inference
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pipeline-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pipeline Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#training-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Training Pipeline
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Training Pipeline">
+    <nav class="md-nav" aria-label="Tiling and Inference">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#data-loading-flow" class="md-nav__link">
+  <a href="#overlap-tile-strategy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Data Loading Flow
+        Overlap-Tile Strategy
       
     </span>
   </a>
@@ -800,60 +778,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#tiling-strategy" class="md-nav__link">
+  <a href="#importance-sampling" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tiling Strategy
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#spatial-sampling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Spatial Sampling
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inference-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Inference Pipeline
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Inference Pipeline">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sliding-window-inference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Sliding Window Inference
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#overlap-blending" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Overlap Blending
+        Importance Sampling
       
     </span>
   </a>
@@ -870,73 +798,6 @@
     <span class="md-ellipsis">
       
         Streaming Architecture
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Streaming Architecture">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#cog-streaming" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        COG Streaming
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#memory-budget" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Memory Budget
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pipeline-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pipeline Configuration
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Pipeline Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#yaml-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        YAML Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Steps
       
     </span>
   </a>
@@ -963,263 +824,36 @@
   
 
 
-<h1 id="pipelines">Pipelines</h1>
-<p>This document describes the data flow pipelines in Ununennium, from raw data ingestion through model training and inference.</p>
-<hr />
-<h2 id="table-of-contents">Table of Contents</h2>
-<ol>
-<li><a href="#pipeline-overview">Pipeline Overview</a></li>
-<li><a href="#training-pipeline">Training Pipeline</a></li>
-<li><a href="#inference-pipeline">Inference Pipeline</a></li>
-<li><a href="#streaming-architecture">Streaming Architecture</a></li>
-</ol>
-<hr />
-<h2 id="pipeline-overview">Pipeline Overview</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TB
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    subgraph &quot;Data Sources&quot;
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        S3[Cloud Storage]
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        LOCAL[Local Files]
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        STAC[STAC Catalog]
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    end
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    subgraph &quot;Ingestion&quot;
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        READ[Reader Pool]
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        CACHE[Tile Cache]
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    end
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    subgraph &quot;Processing&quot;
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        TILE[Tiling]
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        PREP[Preprocessing]
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        AUG[Augmentation]
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    end
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    subgraph &quot;Execution&quot;
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        TRAIN[Training]
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        INFER[Inference]
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    end
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>    S3 --&gt; READ
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    LOCAL --&gt; READ
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>    STAC --&gt; READ
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    READ --&gt; CACHE
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>    CACHE --&gt; TILE
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    TILE --&gt; PREP
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    PREP --&gt; AUG
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>    AUG --&gt; TRAIN
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    AUG --&gt; INFER
+<h1 id="processing-pipelines">Processing Pipelines</h1>
+<h2 id="tiling-and-inference">Tiling and Inference</h2>
+<p>Processing massive satellite imagery requires tiling strategies that handle edge effects.</p>
+<h3 id="overlap-tile-strategy">Overlap-Tile Strategy</h3>
+<p>To mitigate boundary artifacts in Convolutional Neural Networks, we use an overlap strategy.</p>
+<p>Let <span class="arithmatex">\(N\)</span> be the tile size and <span class="arithmatex">\(O\)</span> be the overlap. The effective stride is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>S = N - 2O
 </code></pre></div>
-<hr />
-<h2 id="training-pipeline">Training Pipeline</h2>
-<h3 id="data-loading-flow">Data Loading Flow</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sequenceDiagram
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    participant DS as Dataset
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    participant TL as Tiler
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    participant PP as Preprocessor
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    participant AU as Augmenter
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    participant DL as DataLoader
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    participant GPU as GPU
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    loop Each Epoch
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        DL-&gt;&gt;DS: get_sample(idx)
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        DS-&gt;&gt;TL: extract_tile(bounds)
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        TL--&gt;&gt;DS: tile_data
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        DS-&gt;&gt;PP: preprocess(tile)
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        PP--&gt;&gt;DS: normalized_tile
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        DS-&gt;&gt;AU: augment(tile)
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        AU--&gt;&gt;DS: augmented_tile
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        DS--&gt;&gt;DL: sample
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        DL-&gt;&gt;GPU: batch.to(device)
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>    end
+<p>Only the center <span class="arithmatex">\(S \times S\)</span> region of the output prediction is kept.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>graph LR
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    Input[Input Scene] --&gt; Tiler
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    Tiler --&gt; Batch[Batched Tiles]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    Batch --&gt; Model
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    Model --&gt; Pred[Predictions]
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    Pred --&gt; Stitcher
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    Stitcher --&gt; Output[Output Map]
 </code></pre></div>
-<h3 id="tiling-strategy">Tiling Strategy</h3>
-<p>Large rasters are divided into overlapping patches for training:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>graph TB
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    subgraph &quot;Source Raster&quot;
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        SR[10980 x 10980 pixels]
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    end
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    subgraph &quot;Tiling Parameters&quot;
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        SIZE[Tile Size: 512 x 512]
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        STRIDE[Stride: 256 x 256]
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        OVERLAP[Overlap: 50%]
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    end
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    subgraph &quot;Output Tiles&quot;
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        T1[Tile 1]
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        T2[Tile 2]
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        TN[Tile N...]
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    end
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    SR --&gt; SIZE
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    SIZE --&gt; STRIDE
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    STRIDE --&gt; OVERLAP
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    OVERLAP --&gt; T1
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    OVERLAP --&gt; T2
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    OVERLAP --&gt; TN
+<h3 id="importance-sampling">Importance Sampling</h3>
+<p>During training, random sampling is inefficient for sparse classes. We use importance sampling based on class distribution.</p>
+<p>Probability of sampling patch <span class="arithmatex">\(i\)</span> with class label <span class="arithmatex">\(c\)</span>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>P(i) \propto \frac{1}{\text{freq}(c)}
 </code></pre></div>
-<p>The overlap ratio <span class="arithmatex">\(r\)</span> determines the stride:</p>
-<div class="arithmatex">\[
-s = \lfloor w \cdot (1 - r) \rfloor
-\]</div>
-<p>where <span class="arithmatex">\(w\)</span> is the tile width and <span class="arithmatex">\(s\)</span> is the stride.</p>
-<h3 id="spatial-sampling">Spatial Sampling</h3>
-<p>To avoid spatial autocorrelation in train/validation splits:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>graph LR
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    subgraph &quot;Block-based CV&quot;
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        B1[Block 1&lt;br/&gt;Train]
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        B2[Block 2&lt;br/&gt;Val]
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        B3[Block 3&lt;br/&gt;Train]
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        B4[Block 4&lt;br/&gt;Test]
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    end
-</code></pre></div>
-<p>Block size should exceed the spatial autocorrelation range:</p>
-<div class="arithmatex">\[
-\text{block\_size} \geq 2 \cdot \text{correlation\_range}
-\]</div>
-<hr />
-<h2 id="inference-pipeline">Inference Pipeline</h2>
-<h3 id="sliding-window-inference">Sliding Window Inference</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>graph TB
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    subgraph &quot;Input&quot;
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        IMG[Large Raster]
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    end
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    subgraph &quot;Windowing&quot;
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        W1[Window 1]
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        W2[Window 2]
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        WN[Window N]
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    end
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
-<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    subgraph &quot;Inference&quot;
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        MODEL[Model]
-<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        P1[Pred 1]
-<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>        P2[Pred 2]
-<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>        PN[Pred N]
-<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    end
-<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
-<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    subgraph &quot;Assembly&quot;
-<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>        STITCH[Stitcher]
-<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>        OUT[Output Raster]
-<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>    end
-<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
-<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>    IMG --&gt; W1
-<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>    IMG --&gt; W2
-<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>    IMG --&gt; WN
-<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>    W1 --&gt; MODEL
-<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>    W2 --&gt; MODEL
-<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>    WN --&gt; MODEL
-<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>    MODEL --&gt; P1
-<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>    MODEL --&gt; P2
-<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>    MODEL --&gt; PN
-<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>    P1 --&gt; STITCH
-<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>    P2 --&gt; STITCH
-<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>    PN --&gt; STITCH
-<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>    STITCH --&gt; OUT
-</code></pre></div>
-<h3 id="overlap-blending">Overlap Blending</h3>
-<p>To avoid seam artifacts, overlapping predictions are blended using cosine weights:</p>
-<div class="arithmatex">\[
-w(i, j) = \frac{1}{2}\left(1 - \cos\left(\frac{\pi \cdot \min(i, W-i)}{m}\right)\right) \cdot \frac{1}{2}\left(1 - \cos\left(\frac{\pi \cdot \min(j, H-j)}{m}\right)\right)
-\]</div>
-<p>where <span class="arithmatex">\(m\)</span> is the margin width.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.tiling</span><span class="w"> </span><span class="kn">import</span> <span class="n">SlidingWindowInference</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">inferencer</span> <span class="o">=</span> <span class="n">SlidingWindowInference</span><span class="p">(</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">tile_size</span><span class="o">=</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">overlap</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">blend_mode</span><span class="o">=</span><span class="s2">&quot;cosine&quot;</span><span class="p">,</span>  <span class="c1"># or &quot;linear&quot;, &quot;none&quot;</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p">)</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">output</span> <span class="o">=</span> <span class="n">inferencer</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="s2">&quot;input_raster.tif&quot;</span><span class="p">)</span>
-</code></pre></div>
-<hr />
 <h2 id="streaming-architecture">Streaming Architecture</h2>
-<h3 id="cog-streaming">COG Streaming</h3>
-<p>Cloud Optimized GeoTIFFs enable efficient partial reads:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>graph LR
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    subgraph &quot;COG Structure&quot;
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        META[Metadata]
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>        OV1[Overview 1]
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        OV2[Overview 2]
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        FULL[Full Resolution]
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    end
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    subgraph &quot;HTTP Range Requests&quot;
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        REQ1[Fetch Header]
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>        REQ2[Fetch Tile]
-<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    end
-<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>
-<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    META --&gt; REQ1
-<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    FULL --&gt; REQ2
-</code></pre></div>
-<h3 id="memory-budget">Memory Budget</h3>
-<p>For streaming large datasets:</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Formula</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Tiles in memory</td>
-<td><span class="arithmatex">\(\frac{\text{memory\_budget}}{\text{tile\_size}^2 \cdot \text{channels} \cdot \text{dtype\_size}}\)</span></td>
-</tr>
-<tr>
-<td>Prefetch queue</td>
-<td><span class="arithmatex">\(\text{batch\_size} \cdot \text{prefetch\_factor}\)</span></td>
-</tr>
-<tr>
-<td>Cache size</td>
-<td><span class="arithmatex">\(\frac{\text{cache\_budget}}{\text{avg\_tile\_bytes}}\)</span></td>
-</tr>
-</tbody>
-</table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">StreamingDataset</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">dataset</span> <span class="o">=</span> <span class="n">StreamingDataset</span><span class="p">(</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">urls</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;s3://bucket/image1.tif&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">tile_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">cache_size</span><span class="o">=</span><span class="s2">&quot;2GB&quot;</span><span class="p">,</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">prefetch</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">)</span>
-</code></pre></div>
-<hr />
-<h2 id="pipeline-configuration">Pipeline Configuration</h2>
-<h3 id="yaml-configuration">YAML Configuration</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">pipeline</span><span class="p">:</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">data</span><span class="p">:</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">sources</span><span class="p">:</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stac</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">        </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://earth-search.aws.element84.com/v1&quot;</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">        </span><span class="nt">collection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sentinel-2-l2a</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">  </span><span class="nt">tiling</span><span class="p">:</span>
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">512</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">512</span><span class="p p-Indicator">]</span>
-<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">    </span><span class="nt">overlap</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.25</span>
-<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
-<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">  </span><span class="nt">preprocessing</span><span class="p">:</span>
-<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">normalize</span>
-<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">      </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">percentile</span>
-<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">      </span><span class="nt">p</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">98</span><span class="p p-Indicator">]</span>
-<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">indices</span>
-<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">      </span><span class="nt">compute</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ndvi</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">ndwi</span><span class="p p-Indicator">]</span>
-<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>
-<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">  </span><span class="nt">augmentation</span><span class="p">:</span>
-<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rotate</span>
-<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">      </span><span class="nt">degrees</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">-15</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">15</span><span class="p p-Indicator">]</span>
-<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">flip</span>
-<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="w">      </span><span class="nt">horizontal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a><span class="w">      </span><span class="nt">vertical</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-</code></pre></div>
-<hr />
-<h2 id="next-steps">Next Steps</h2>
-<ul>
-<li><a href="../performance/">Performance</a> - Optimization strategies</li>
-<li><a href="../../api/data-io/">API Reference: Data I/O</a> - I/O API documentation</li>
-</ul>
+<p>The pipeline uses Python generators and multi-processing to stream data without loading full files into RAM.</p>
+<ol>
+<li><strong>Reader</strong>: Opens file handle (GDAL/Rasterio)</li>
+<li><strong>Window Engine</strong>: Yields <code>Window</code> objects</li>
+<li><strong>Collate</strong>: Assembles batches</li>
+<li><strong>Prefetch</strong>: GPU asynchronous transfer</li>
+</ol>
 
 
 

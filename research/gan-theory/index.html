@@ -755,33 +755,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#adversarial-learning-framework" class="md-nav__link">
+  <a href="#adversarial-learning" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Adversarial Learning Framework
+        Adversarial Learning
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Adversarial Learning Framework">
+    <nav class="md-nav" aria-label="Adversarial Learning">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#minimax-game" class="md-nav__link">
+  <a href="#minimax-objective" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Minimax Game
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#nash-equilibrium" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Nash Equilibrium
+        Minimax Objective
       
     </span>
   </a>
@@ -806,10 +795,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#vanilla-gan-loss" class="md-nav__link">
+  <a href="#lsgan-least-squares" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Vanilla GAN Loss
+        LSGAN (Least Squares)
       
     </span>
   </a>
@@ -817,32 +806,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#least-squares-gan-lsgan" class="md-nav__link">
+  <a href="#wgan" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Least Squares GAN (LSGAN)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#wasserstein-gan-wgan" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wasserstein GAN (WGAN)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hinge-loss" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hinge Loss
+        WGAN
       
     </span>
   </a>
@@ -855,22 +822,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#image-translation-architectures" class="md-nav__link">
+  <a href="#image-translation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Image Translation Architectures
+        Image Translation
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Image Translation Architectures">
+    <nav class="md-nav" aria-label="Image Translation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pix2pix-paired-translation" class="md-nav__link">
+  <a href="#pix2pix" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Pix2Pix (Paired Translation)
+        Pix2Pix
       
     </span>
   </a>
@@ -878,10 +845,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cyclegan-unpaired-translation" class="md-nav__link">
+  <a href="#cyclegan" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CycleGAN (Unpaired Translation)
+        CycleGAN
       
     </span>
   </a>
@@ -894,33 +861,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#super-resolution-gans" class="md-nav__link">
+  <a href="#super-resolution" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Super-Resolution GANs
+        Super-Resolution
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Super-Resolution GANs">
+    <nav class="md-nav" aria-label="Super-Resolution">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#srgan" class="md-nav__link">
+  <a href="#perceptual-loss" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SRGAN
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#esrgan" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ESRGAN
+        Perceptual Loss
       
     </span>
   </a>
@@ -956,10 +912,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#gradient-penalty-wgan-gp" class="md-nav__link">
+  <a href="#gradient-penalty" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Gradient Penalty (WGAN-GP)
+        Gradient Penalty
       
     </span>
   </a>
@@ -968,17 +924,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#earth-observation-applications" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Earth Observation Applications
-      
-    </span>
-  </a>
   
 </li>
       
@@ -1014,158 +959,55 @@
 
 
 <h1 id="gan-theory">GAN Theory</h1>
-<p>Theoretical foundations of Generative Adversarial Networks for Earth observation image translation and enhancement.</p>
+<p>Theoretical foundations of Generative Adversarial Networks for Earth observation.</p>
 <hr />
-<h2 id="adversarial-learning-framework">Adversarial Learning Framework</h2>
-<h3 id="minimax-game">Minimax Game</h3>
-<p>GANs consist of two networks in a zero-sum game:</p>
-<div class="arithmatex">\[
-\min_G \max_D V(D, G) = \mathbb{E}_{x \sim p_{data}}[\log D(x)] + \mathbb{E}_{z \sim p_z}[\log(1 - D(G(z)))]
-\]</div>
-<p>where:
-- <span class="arithmatex">\(G\)</span>: Generator network
-- <span class="arithmatex">\(D\)</span>: Discriminator network
-- <span class="arithmatex">\(p_{data}\)</span>: Real data distribution
-- <span class="arithmatex">\(p_z\)</span>: Prior noise distribution</p>
-<p><strong>Reference</strong>: Goodfellow, I., et al. (2014). Generative Adversarial Nets. <em>Advances in Neural Information Processing Systems</em>, 27. <a href="https://arxiv.org/abs/1406.2661">arXiv:1406.2661</a></p>
-<h3 id="nash-equilibrium">Nash Equilibrium</h3>
-<p>At optimal convergence:
-- <span class="arithmatex">\(p_G = p_{data}\)</span> (generator perfectly matches data)
-- <span class="arithmatex">\(D(x) = 0.5\)</span> for all <span class="arithmatex">\(x\)</span> (discriminator cannot distinguish)</p>
+<h2 id="adversarial-learning">Adversarial Learning</h2>
+<h3 id="minimax-objective">Minimax Objective</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>\min_G \max_D V(D, G) = \mathbb{E}_{x \sim p_{data}}[\log D(x)] + \mathbb{E}_{z \sim p_z}[\log(1 - D(G(z)))]
+</code></pre></div>
+<p><strong>Reference</strong>: Goodfellow, I., et al. (2014). Generative Adversarial Nets. <em>NeurIPS</em>. <a href="https://arxiv.org/abs/1406.2661">arXiv:1406.2661</a></p>
 <hr />
 <h2 id="loss-functions">Loss Functions</h2>
-<h3 id="vanilla-gan-loss">Vanilla GAN Loss</h3>
-<p><strong>Discriminator</strong>:
-$$
-\mathcal{L}<em>D = -\mathbb{E}</em>{x \sim p_{data}}[\log D(x)] - \mathbb{E}_{z \sim p_z}[\log(1 - D(G(z)))]
-$$</p>
-<p><strong>Generator</strong>:
-$$
-\mathcal{L}<em>G = -\mathbb{E}</em>{z \sim p_z}[\log D(G(z))]
-$$</p>
-<h3 id="least-squares-gan-lsgan">Least Squares GAN (LSGAN)</h3>
-<p>More stable training using squared error:</p>
-<div class="arithmatex">\[
-\mathcal{L}_D = \frac{1}{2}\mathbb{E}_{x}[(D(x) - 1)^2] + \frac{1}{2}\mathbb{E}_{z}[D(G(z))^2]
-\]</div>
-<div class="arithmatex">\[
-\mathcal{L}_G = \frac{1}{2}\mathbb{E}_{z}[(D(G(z)) - 1)^2]
-\]</div>
+<h3 id="lsgan-least-squares">LSGAN (Least Squares)</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>\mathcal{L}_D = \frac{1}{2}\mathbb{E}_{x}[(D(x) - 1)^2] + \frac{1}{2}\mathbb{E}_{z}[D(G(z))^2]
+</code></pre></div>
 <p><strong>Reference</strong>: Mao, X., et al. (2017). Least Squares Generative Adversarial Networks. <em>ICCV</em>. <a href="https://doi.org/10.1109/ICCV.2017.304">DOI: 10.1109/ICCV.2017.304</a></p>
-<h3 id="wasserstein-gan-wgan">Wasserstein GAN (WGAN)</h3>
-<p>Uses Earth Mover distance for improved gradients:</p>
-<div class="arithmatex">\[
-\mathcal{L}_D = \mathbb{E}_{z}[D(G(z))] - \mathbb{E}_{x}[D(x)]
-\]</div>
-<p>with Lipschitz constraint on <span class="arithmatex">\(D\)</span>.</p>
-<p><strong>Reference</strong>: Arjovsky, M., Chintala, S., &amp; Bottou, L. (2017). Wasserstein GAN. <em>ICML</em>. <a href="https://arxiv.org/abs/1701.07875">arXiv:1701.07875</a></p>
-<h3 id="hinge-loss">Hinge Loss</h3>
-<div class="arithmatex">\[
-\mathcal{L}_D = \mathbb{E}_{x}[\max(0, 1 - D(x))] + \mathbb{E}_{z}[\max(0, 1 + D(G(z)))]
-\]</div>
-<div class="arithmatex">\[
-\mathcal{L}_G = -\mathbb{E}_{z}[D(G(z))]
-\]</div>
-<p><strong>Reference</strong>: Lim, J.H., &amp; Ye, J.C. (2017). Geometric GAN. <a href="https://arxiv.org/abs/1705.02894">arXiv:1705.02894</a></p>
+<h3 id="wgan">WGAN</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>\mathcal{L}_D = \mathbb{E}_{z}[D(G(z))] - \mathbb{E}_{x}[D(x)]
+</code></pre></div>
+<p><strong>Reference</strong>: Arjovsky, M., et al. (2017). Wasserstein GAN. <em>ICML</em>. <a href="https://arxiv.org/abs/1701.07875">arXiv:1701.07875</a></p>
 <hr />
-<h2 id="image-translation-architectures">Image Translation Architectures</h2>
-<h3 id="pix2pix-paired-translation">Pix2Pix (Paired Translation)</h3>
-<p>Conditional GAN with L1 reconstruction loss:</p>
-<div class="arithmatex">\[
-\mathcal{L} = \mathcal{L}_{cGAN}(G, D) + \lambda \mathcal{L}_{L1}(G)
-\]</div>
-<p>where:
-$$
-\mathcal{L}<em>{L1}(G) = \mathbb{E}</em>{x,y}[|y - G(x)|_1]
-$$</p>
-<p><strong>Architecture</strong>:
-- Generator: U-Net with skip connections
-- Discriminator: PatchGAN (classifies 70x70 patches)</p>
+<h2 id="image-translation">Image Translation</h2>
+<h3 id="pix2pix">Pix2Pix</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>\mathcal{L} = \mathcal{L}_{cGAN}(G, D) + \lambda \mathcal{L}_{L1}(G)
+</code></pre></div>
 <p><strong>Reference</strong>: Isola, P., et al. (2017). Image-to-Image Translation with Conditional Adversarial Networks. <em>CVPR</em>. <a href="https://doi.org/10.1109/CVPR.2017.632">DOI: 10.1109/CVPR.2017.632</a></p>
-<h3 id="cyclegan-unpaired-translation">CycleGAN (Unpaired Translation)</h3>
-<p>For unpaired training using cycle consistency:</p>
-<div class="arithmatex">\[
-\mathcal{L}_{cyc}(G, F) = \mathbb{E}_{x}[\|F(G(x)) - x\|_1] + \mathbb{E}_{y}[\|G(F(y)) - y\|_1]
-\]</div>
-<p><strong>Total Loss</strong>:
-$$
-\mathcal{L} = \mathcal{L}<em>{GAN}(G, D_Y) + \mathcal{L}</em>{GAN}(F, D_X) + \lambda_{cyc}\mathcal{L}<em>{cyc} + \lambda</em>{id}\mathcal{L}_{id}
-$$</p>
-<p><strong>Reference</strong>: Zhu, J.Y., et al. (2017). Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks. <em>ICCV</em>. <a href="https://doi.org/10.1109/ICCV.2017.244">DOI: 10.1109/ICCV.2017.244</a></p>
+<h3 id="cyclegan">CycleGAN</h3>
+<p>Cycle consistency loss:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>\mathcal{L}_{cyc}(G, F) = \mathbb{E}_{x}[\|F(G(x)) - x\|_1] + \mathbb{E}_{y}[\|G(F(y)) - y\|_1]
+</code></pre></div>
+<p><strong>Reference</strong>: Zhu, J.Y., et al. (2017). Unpaired Image-to-Image Translation. <em>ICCV</em>. <a href="https://doi.org/10.1109/ICCV.2017.244">DOI: 10.1109/ICCV.2017.244</a></p>
 <hr />
-<h2 id="super-resolution-gans">Super-Resolution GANs</h2>
-<h3 id="srgan">SRGAN</h3>
-<p>Perceptual loss for natural textures:</p>
-<div class="arithmatex">\[
-\mathcal{L}_{percep} = \sum_{l} \frac{1}{C_l H_l W_l} \|\phi_l(I_{HR}) - \phi_l(G(I_{LR}))\|_2^2
-\]</div>
-<p>where <span class="arithmatex">\(\phi_l\)</span> are VGG19 feature maps.</p>
+<h2 id="super-resolution">Super-Resolution</h2>
+<h3 id="perceptual-loss">Perceptual Loss</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>\mathcal{L}_{percep} = \sum_{l} \frac{1}{C_l H_l W_l} \|\phi_l(I_{HR}) - \phi_l(G(I_{LR}))\|_2^2
+</code></pre></div>
 <p><strong>Reference</strong>: Ledig, C., et al. (2017). Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network. <em>CVPR</em>. <a href="https://doi.org/10.1109/CVPR.2017.19">DOI: 10.1109/CVPR.2017.19</a></p>
-<h3 id="esrgan">ESRGAN</h3>
-<p>Enhanced version with:
-- RRDB (Residual-in-Residual Dense Block)
-- Relativistic discriminator
-- Perceptual loss before activation</p>
-<p><strong>Reference</strong>: Wang, X., et al. (2018). ESRGAN: Enhanced Super-Resolution Generative Adversarial Networks. <em>ECCV Workshops</em>. <a href="https://arxiv.org/abs/1809.00219">arXiv:1809.00219</a></p>
 <hr />
 <h2 id="training-stability">Training Stability</h2>
 <h3 id="spectral-normalization">Spectral Normalization</h3>
-<p>Normalizes weight matrices by spectral norm:</p>
-<div class="arithmatex">\[
-\bar{W} = \frac{W}{\sigma(W)}
-\]</div>
-<p>where <span class="arithmatex">\(\sigma(W)\)</span> is the largest singular value.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>\bar{W} = \frac{W}{\sigma(W)}
+</code></pre></div>
 <p><strong>Reference</strong>: Miyato, T., et al. (2018). Spectral Normalization for Generative Adversarial Networks. <em>ICLR</em>. <a href="https://arxiv.org/abs/1802.05957">arXiv:1802.05957</a></p>
-<h3 id="gradient-penalty-wgan-gp">Gradient Penalty (WGAN-GP)</h3>
-<div class="arithmatex">\[
-\mathcal{L}_{GP} = \lambda \mathbb{E}_{\hat{x}}[(\|\nabla_{\hat{x}} D(\hat{x})\|_2 - 1)^2]
-\]</div>
-<p>where <span class="arithmatex">\(\hat{x}\)</span> is interpolated between real and fake.</p>
+<h3 id="gradient-penalty">Gradient Penalty</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>\mathcal{L}_{GP} = \lambda \mathbb{E}_{\hat{x}}[(\|\nabla_{\hat{x}} D(\hat{x})\|_2 - 1)^2]
+</code></pre></div>
 <p><strong>Reference</strong>: Gulrajani, I., et al. (2017). Improved Training of Wasserstein GANs. <em>NeurIPS</em>. <a href="https://arxiv.org/abs/1704.00028">arXiv:1704.00028</a></p>
-<hr />
-<h2 id="earth-observation-applications">Earth Observation Applications</h2>
-<table>
-<thead>
-<tr>
-<th>Application</th>
-<th>Architecture</th>
-<th>Input</th>
-<th>Output</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SAR-to-Optical</td>
-<td>Pix2Pix</td>
-<td>SAR</td>
-<td>RGB</td>
-</tr>
-<tr>
-<td>Cloud Removal</td>
-<td>CycleGAN</td>
-<td>Cloudy</td>
-<td>Clear</td>
-</tr>
-<tr>
-<td>Pan-sharpening</td>
-<td>SRGAN</td>
-<td>MS + PAN</td>
-<td>HR MS</td>
-</tr>
-<tr>
-<td>Resolution Enhancement</td>
-<td>ESRGAN</td>
-<td>10m</td>
-<td>2.5m</td>
-</tr>
-</tbody>
-</table>
 <hr />
 <h2 id="see-also">See Also</h2>
 <ul>
 <li><a href="../math-foundations/">Math Foundations</a></li>
 <li><a href="../pinn-theory/">PINN Theory</a></li>
-<li><a href="../../api/gan/">GAN API Reference</a></li>
 </ul>
 
 

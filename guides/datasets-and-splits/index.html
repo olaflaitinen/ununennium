@@ -763,73 +763,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Spatial Autocorrelation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#correlation-range" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Correlation Range
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#block-size-rule" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Block Size Rule
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#splitting-strategies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Splitting Strategies
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Splitting Strategies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#block-based-splitting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Block-Based Splitting
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#spatial-k-fold" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Spatial K-Fold
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -837,28 +770,6 @@
     <span class="md-ellipsis">
       
         Class Imbalance
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#temporal-considerations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Temporal Considerations
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
       
     </span>
   </a>
@@ -886,75 +797,23 @@
 
 
 <h1 id="datasets-and-splits">Datasets and Splits</h1>
-<p>This guide covers best practices for dataset management and train/val/test splitting in geospatial ML.</p>
-<hr />
+<p>Proper dataset management is crucial for geospatial ML.</p>
 <h2 id="spatial-autocorrelation">Spatial Autocorrelation</h2>
-<p>Nearby pixels are correlated. Random splits cause data leakage.</p>
-<h3 id="correlation-range">Correlation Range</h3>
-<table>
-<thead>
-<tr>
-<th>Land Cover</th>
-<th>Typical Range</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Urban</td>
-<td>100-500 m</td>
-</tr>
-<tr>
-<td>Agriculture</td>
-<td>500m-2 km</td>
-</tr>
-<tr>
-<td>Forest</td>
-<td>1-10 km</td>
-</tr>
-</tbody>
-</table>
-<h3 id="block-size-rule">Block Size Rule</h3>
-<div class="arithmatex">\[
-\text{block\_size} \geq 2 \times \text{correlation\_range}
-\]</div>
-<hr />
-<h2 id="splitting-strategies">Splitting Strategies</h2>
-<h3 id="block-based-splitting">Block-Based Splitting</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">BlockSplitter</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">splitter</span> <span class="o">=</span> <span class="n">BlockSplitter</span><span class="p">(</span><span class="n">block_size</span><span class="o">=</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">))</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">train</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">bounds</span><span class="p">,</span> <span class="n">ratios</span><span class="o">=</span><span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>
+<p>Nearby pixels are highly correlated. Random splits cause <strong>spatial data leakage</strong>, leading to over-optimistic validation metrics.</p>
+<p><strong>Solution</strong>: Use block-based splitting.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TD
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    Raw[Raw Map] --&gt; Grid[Grid Blocks]
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    Grid --&gt; Split{Spatial Split}
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    Split --&gt; Train[Train Blocks]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    Split --&gt; Val[Val Blocks]
 </code></pre></div>
-<h3 id="spatial-k-fold">Spatial K-Fold</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">SpatialKFold</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">cv</span> <span class="o">=</span> <span class="n">SpatialKFold</span><span class="p">(</span><span class="n">n_folds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">buffer</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">for</span> <span class="n">train_idx</span><span class="p">,</span> <span class="n">val_idx</span> <span class="ow">in</span> <span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="c1"># Train and evaluate</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="k">pass</span>
-</code></pre></div>
-<hr />
 <h2 id="class-imbalance">Class Imbalance</h2>
-<p>Use stratified spatial sampling:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">StratifiedBlockSampler</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">sampler</span> <span class="o">=</span> <span class="n">StratifiedBlockSampler</span><span class="p">(</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">class_weights</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">},</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">block_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">)</span>
+<p>Satellite imagery is often dominated by "Background" or "Water" classes.</p>
+<p><strong>Strategies</strong>:
+1. <strong>Oversampling</strong>: Sample patches centered on rare classes.
+2. <strong>Loss Weighting</strong>: Inversely proportional to class frequency.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>w_c = \frac{N_{total}}{K \cdot N_c}
 </code></pre></div>
-<hr />
-<h2 id="temporal-considerations">Temporal Considerations</h2>
-<p>For change detection, ensure temporal separation:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Wrong: Same scene in train and val (different tiles)</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># Right: Different acquisition dates in train and val</span>
-</code></pre></div>
-<hr />
-<h2 id="see-also">See Also</h2>
-<ul>
-<li><a href="../../tutorials/02_train_val_test/">Tutorial 02: Train/Val/Test</a></li>
-<li><a href="../../research/math-foundations/">Spatial Autocorrelation Theory</a></li>
-</ul>
 
 
 
