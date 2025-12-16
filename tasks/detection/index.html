@@ -748,6 +748,147 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mathematical-formulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mathematical Formulation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available Architectures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#training-with-detection-loss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Training with Detection Loss
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-with-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation with mAP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loss-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loss Functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metrics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-sensing-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Sensing Applications
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hyperparameter-guidance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyperparameter Guidance
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -767,8 +908,208 @@
 
 
 <h1 id="object-detection">Object Detection</h1>
-<p>Localize objects with bounding boxes.</p>
-<p>Coming in future releases.</p>
+<p>Localize objects in satellite imagery with bounding box predictions.</p>
+<hr />
+<h2 id="overview">Overview</h2>
+<p>Object detection identifies and localizes objects of interest (vehicles, buildings, ships, aircraft, etc.) in geospatial imagery by predicting bounding boxes and class labels.</p>
+<h3 id="mathematical-formulation">Mathematical Formulation</h3>
+<p>For each detection, the model predicts:</p>
+<ul>
+<li><strong>Classification</strong>: <span class="arithmatex">\(P(c_i | x) \in [0, 1]^K\)</span> for <span class="arithmatex">\(K\)</span> classes</li>
+<li><strong>Bounding Box</strong>: <span class="arithmatex">\((x, y, w, h)\)</span> or <span class="arithmatex">\((x_1, y_1, x_2, y_2)\)</span> coordinates</li>
+<li><strong>Confidence</strong>: Objectness score <span class="arithmatex">\(P(\text{object})\)</span></li>
+</ul>
+<p>The detection loss combines classification and localization:</p>
+<div class="arithmatex">\[\mathcal{L} = \lambda_{cls} \mathcal{L}_{cls} + \lambda_{reg} \mathcal{L}_{reg}\]</div>
+<hr />
+<h2 id="available-architectures">Available Architectures</h2>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Type</th>
+<th>Anchors</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RetinaNet</strong></td>
+<td>One-stage</td>
+<td>Dense</td>
+<td>General detection, good accuracy</td>
+</tr>
+<tr>
+<td><strong>Faster R-CNN</strong></td>
+<td>Two-stage</td>
+<td>RPN</td>
+<td>High accuracy, larger objects</td>
+</tr>
+<tr>
+<td><strong>FCOS</strong></td>
+<td>Anchor-free</td>
+<td>None</td>
+<td>Simple, efficient, small objects</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="basic-detection">Basic Detection</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_model</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Create RetinaNet for satellite imagery (12 bands)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">(</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="s2">&quot;retinanet&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">in_channels</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>      <span class="c1"># Sentinel-2 bands</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">num_classes</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>       <span class="c1"># Object classes</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">backbone</span><span class="o">=</span><span class="s2">&quot;resnet50&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># Forward pass</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="c1"># Access predictions</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="k">for</span> <span class="n">level_cls</span><span class="p">,</span> <span class="n">level_box</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">class_logits</span><span class="p">,</span> <span class="n">output</span><span class="o">.</span><span class="n">box_regression</span><span class="p">):</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Level shape: cls=</span><span class="si">{</span><span class="n">level_cls</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, box=</span><span class="si">{</span><span class="n">level_box</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="training-with-detection-loss">Training with Detection Loss</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.losses</span><span class="w"> </span><span class="kn">import</span> <span class="n">DetectionLoss</span><span class="p">,</span> <span class="n">FocalLossDetection</span><span class="p">,</span> <span class="n">GIoULoss</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Combined loss for object detection</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">DetectionLoss</span><span class="p">(</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">cls_loss</span><span class="o">=</span><span class="n">FocalLossDetection</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">reg_loss</span><span class="o">=</span><span class="n">GIoULoss</span><span class="p">(),</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">cls_weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">reg_weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1"># Compute loss</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="n">losses</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">cls_pred</span><span class="p">,</span> <span class="n">cls_target</span><span class="p">,</span> <span class="n">reg_pred</span><span class="p">,</span> <span class="n">reg_target</span><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total: </span><span class="si">{</span><span class="n">losses</span><span class="p">[</span><span class="s1">&#39;total_loss&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="evaluation-with-map">Evaluation with mAP</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">ununennium.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_average_precision</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Compute COCO-style mAP</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">results</span> <span class="o">=</span> <span class="n">mean_average_precision</span><span class="p">(</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="n">pred_boxes</span><span class="o">=</span><span class="n">pred_boxes</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">pred_scores</span><span class="o">=</span><span class="n">pred_scores</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">pred_labels</span><span class="o">=</span><span class="n">pred_labels</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">gt_boxes</span><span class="o">=</span><span class="n">gt_boxes</span><span class="p">,</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="n">gt_labels</span><span class="o">=</span><span class="n">gt_labels</span><span class="p">,</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mAP: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;mAP&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;AP50: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;AP50&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;AP75: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;AP75&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<hr />
+<h2 id="loss-functions">Loss Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Loss</th>
+<th>Description</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FocalLossDetection</code></td>
+<td>Down-weights easy negatives</td>
+<td>Classification with class imbalance</td>
+</tr>
+<tr>
+<td><code>SmoothL1Loss</code></td>
+<td>Robust regression loss</td>
+<td>Bounding box regression</td>
+</tr>
+<tr>
+<td><code>GIoULoss</code></td>
+<td>Generalized IoU loss</td>
+<td>Better box alignment</td>
+</tr>
+<tr>
+<td><code>DetectionLoss</code></td>
+<td>Combined cls + reg</td>
+<td>End-to-end training</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="metrics">Metrics</h2>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mean_average_precision</code></td>
+<td>COCO-style mAP@[0.5:0.95]</td>
+</tr>
+<tr>
+<td><code>average_precision_at_iou</code></td>
+<td>AP at specific IoU threshold</td>
+</tr>
+<tr>
+<td><code>compute_iou_boxes</code></td>
+<td>Pairwise box IoU</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="remote-sensing-applications">Remote Sensing Applications</h2>
+<ul>
+<li><strong>Vehicle Detection</strong>: Cars, trucks, aircraft on runways</li>
+<li><strong>Ship Detection</strong>: Maritime surveillance with SAR/optical</li>
+<li><strong>Building Detection</strong>: Urban mapping and change detection</li>
+<li><strong>Solar Panel Detection</strong>: Renewable energy infrastructure</li>
+<li><strong>Pool Detection</strong>: Urban planning and water management</li>
+</ul>
+<hr />
+<h2 id="hyperparameter-guidance">Hyperparameter Guidance</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Recommended</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FPN channels</td>
+<td>256</td>
+<td>Standard for most backbones</td>
+</tr>
+<tr>
+<td>Anchor scales</td>
+<td>(32, 64, 128, 256, 512)</td>
+<td>Match object sizes in dataset</td>
+</tr>
+<tr>
+<td>Aspect ratios</td>
+<td>(0.5, 1.0, 2.0)</td>
+<td>Cover common object shapes</td>
+</tr>
+<tr>
+<td>Focal γ</td>
+<td>2.0</td>
+<td>Higher = more focus on hard examples</td>
+</tr>
+<tr>
+<td>Focal α</td>
+<td>0.25</td>
+<td>Balance positive/negative</td>
+</tr>
+</tbody>
+</table>
 
 
 

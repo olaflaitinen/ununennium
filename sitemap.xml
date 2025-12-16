@@ -2,194 +2,194 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://ununennium.readthedocs.io/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/changelog/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/getting_started/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/installation/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/api/augmentation/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/api/core/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/api/datasets/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/api/evaluation/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/api/io/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/api/losses/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/api/metrics/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/api/preprocessing/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/api/tiling/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/api/training/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/api/visualization/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/architecture/data_model/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/architecture/io_system/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/architecture/overview/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/architecture/training_system/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/models/backbones/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/models/foundation_models/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/models/gan/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/models/model_zoo/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/models/pinn/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/models/task_heads/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tasks/change_detection/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tasks/classification/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tasks/detection/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tasks/elevation/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tasks/restoration/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tasks/segmentation/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tasks/super_resolution/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tasks/time_series/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tasks/translation/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/theory/calibration/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/theory/error_propagation/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/theory/geodesic_calculations/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/theory/metric_definitions/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/theory/resampling_kernels/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/theory/sampling_theory/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/theory/spatial_autocorrelation/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/theory/uncertainty/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tutorials/custom_dataset/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tutorials/distributed_training/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tutorials/gan_training/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tutorials/pinn_training/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tutorials/quickstart/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
     <url>
          <loc>https://ununennium.readthedocs.io/tutorials/training_segmentation/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-16</lastmod>
     </url>
 </urlset>
