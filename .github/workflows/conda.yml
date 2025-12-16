@@ -18,6 +18,12 @@ jobs:
           auto-update-conda: true
           python-version: "3.11"
 
+      - name: Configure Conda
+        shell: bash -l {0}
+        run: |
+          conda config --add channels conda-forge
+          conda config --set channel_priority flexible
+
       - name: Install build tools
         shell: bash -l {0}
         run: |
