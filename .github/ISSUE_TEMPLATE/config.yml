@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Vulnerability
+    url: https://github.com/olaflaitinen/ununennium/security/advisories/new
+    about: Report security vulnerabilities privately via GitHub Security Advisories
+  - name: GitHub Discussions
+    url: https://github.com/olaflaitinen/ununennium/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: Documentation
+    url: https://github.com/olaflaitinen/ununennium/tree/main/docs
+    about: Check the documentation before opening an issue
