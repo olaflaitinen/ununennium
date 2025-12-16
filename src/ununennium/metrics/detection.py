@@ -34,9 +34,7 @@ def compute_iou_boxes(
     inter_x2 = torch.min(boxes1[:, None, 2], boxes2[:, 2])
     inter_y2 = torch.min(boxes1[:, None, 3], boxes2[:, 3])
 
-    inter_area = torch.clamp(inter_x2 - inter_x1, min=0) * torch.clamp(
-        inter_y2 - inter_y1, min=0
-    )
+    inter_area = torch.clamp(inter_x2 - inter_x1, min=0) * torch.clamp(inter_y2 - inter_y1, min=0)
 
     # Union
     union_area = area1[:, None] + area2 - inter_area

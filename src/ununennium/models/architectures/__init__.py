@@ -15,4 +15,3 @@ __all__ = [
     "UNetResNet18",
     "UNetResNet50",
 ]
-

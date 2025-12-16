@@ -127,7 +127,7 @@ class SmoothL1Loss(nn.Module):
 
         loss = torch.where(
             abs_diff < self.beta,
-            0.5 * diff ** 2 / self.beta,
+            0.5 * diff**2 / self.beta,
             abs_diff - 0.5 * self.beta,
         )
 

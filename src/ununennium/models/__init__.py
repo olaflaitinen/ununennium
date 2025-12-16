@@ -36,4 +36,3 @@ __all__ = [
     "list_models",
     "register_model",
 ]
-

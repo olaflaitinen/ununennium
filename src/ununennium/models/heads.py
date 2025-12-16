@@ -236,22 +236,26 @@ class DetectionHead(nn.Module):
         # Classification branch
         cls_convs = []
         for _ in range(num_convs):
-            cls_convs.extend([
-                nn.Conv2d(in_channels, in_channels, 3, padding=1, bias=False),
-                nn.GroupNorm(32, in_channels),
-                nn.ReLU(inplace=True),
-            ])
+            cls_convs.extend(
+                [
+                    nn.Conv2d(in_channels, in_channels, 3, padding=1, bias=False),
+                    nn.GroupNorm(32, in_channels),
+                    nn.ReLU(inplace=True),
+                ]
+            )
         self.cls_convs = nn.Sequential(*cls_convs)
         self.cls_pred = nn.Conv2d(in_channels, num_anchors * num_classes, 3, padding=1)
 
         # Regression branch
         reg_convs = []
         for _ in range(num_convs):
-            reg_convs.extend([
-                nn.Conv2d(in_channels, in_channels, 3, padding=1, bias=False),
-                nn.GroupNorm(32, in_channels),
-                nn.ReLU(inplace=True),
-            ])
+            reg_convs.extend(
+                [
+                    nn.Conv2d(in_channels, in_channels, 3, padding=1, bias=False),
+                    nn.GroupNorm(32, in_channels),
+                    nn.ReLU(inplace=True),
+                ]
+            )
         self.reg_convs = nn.Sequential(*reg_convs)
         self.reg_pred = nn.Conv2d(in_channels, num_anchors * 4, 3, padding=1)
 
@@ -290,4 +294,3 @@ class DetectionHead(nn.Module):
             box_regressions.append(box_reg)
 
         return class_logits, box_regressions
-

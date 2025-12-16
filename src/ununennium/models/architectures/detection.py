@@ -71,15 +71,12 @@ class FPN(nn.Module):
         self.num_levels = len(in_channels) + extra_levels
 
         # Lateral connections
-        self.lateral_convs = nn.ModuleList([
-            nn.Conv2d(c, out_channels, 1) for c in in_channels
-        ])
+        self.lateral_convs = nn.ModuleList([nn.Conv2d(c, out_channels, 1) for c in in_channels])
 
         # Output convolutions
-        self.output_convs = nn.ModuleList([
-            nn.Conv2d(out_channels, out_channels, 3, padding=1)
-            for _ in in_channels
-        ])
+        self.output_convs = nn.ModuleList(
+            [nn.Conv2d(out_channels, out_channels, 3, padding=1) for _ in in_channels]
+        )
 
         # Extra levels (P6, P7 for RetinaNet)
         self.extra_convs = nn.ModuleList()
@@ -103,9 +100,7 @@ class FPN(nn.Module):
             FPN features at all levels (P3-P7 typically).
         """
         # Lateral connections
-        laterals = [
-            conv(f) for conv, f in zip(self.lateral_convs, features, strict=False)
-        ]
+        laterals = [conv(f) for conv, f in zip(self.lateral_convs, features, strict=False)]
 
         # Top-down pathway
         for i in range(len(laterals) - 1, 0, -1):
@@ -114,10 +109,7 @@ class FPN(nn.Module):
             )
 
         # Output convolutions
-        outputs = [
-            conv(lat)
-            for conv, lat in zip(self.output_convs, laterals, strict=False)
-        ]
+        outputs = [conv(lat) for conv, lat in zip(self.output_convs, laterals, strict=False)]
 
         # Extra levels
         extra_input = features[-1]
@@ -189,15 +181,17 @@ class AnchorGenerator(nn.Module):
                 for ratio in self.aspect_ratios:
                     # Compute anchor dimensions
                     anchor_size = base_size * scale
-                    anchor_h = anchor_size * (ratio ** 0.5)
-                    anchor_w = anchor_size / (ratio ** 0.5)
+                    anchor_h = anchor_size * (ratio**0.5)
+                    anchor_w = anchor_size / (ratio**0.5)
 
-                    anchors.append([
-                        -anchor_w / 2,
-                        -anchor_h / 2,
-                        anchor_w / 2,
-                        anchor_h / 2,
-                    ])
+                    anchors.append(
+                        [
+                            -anchor_w / 2,
+                            -anchor_h / 2,
+                            anchor_w / 2,
+                            anchor_h / 2,
+                        ]
+                    )
 
             base_anchors = torch.tensor(anchors, device=device, dtype=dtype)
 
@@ -383,7 +377,7 @@ class FasterRCNN(nn.Module):
         self.roi_pool_size = 7
         self.roi_head = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(fpn_channels * self.roi_pool_size ** 2, 1024),
+            nn.Linear(fpn_channels * self.roi_pool_size**2, 1024),
             nn.ReLU(inplace=True),
             nn.Linear(1024, 1024),
             nn.ReLU(inplace=True),
@@ -477,16 +471,20 @@ class FCOS(nn.Module):
         cls_convs = []
         reg_convs = []
         for _ in range(4):
-            cls_convs.extend([
-                nn.Conv2d(fpn_channels, fpn_channels, 3, padding=1, bias=False),
-                nn.GroupNorm(32, fpn_channels),
-                nn.ReLU(inplace=True),
-            ])
-            reg_convs.extend([
-                nn.Conv2d(fpn_channels, fpn_channels, 3, padding=1, bias=False),
-                nn.GroupNorm(32, fpn_channels),
-                nn.ReLU(inplace=True),
-            ])
+            cls_convs.extend(
+                [
+                    nn.Conv2d(fpn_channels, fpn_channels, 3, padding=1, bias=False),
+                    nn.GroupNorm(32, fpn_channels),
+                    nn.ReLU(inplace=True),
+                ]
+            )
+            reg_convs.extend(
+                [
+                    nn.Conv2d(fpn_channels, fpn_channels, 3, padding=1, bias=False),
+                    nn.GroupNorm(32, fpn_channels),
+                    nn.ReLU(inplace=True),
+                ]
+            )
 
         self.cls_convs = nn.Sequential(*cls_convs)
         self.reg_convs = nn.Sequential(*reg_convs)
@@ -497,9 +495,7 @@ class FCOS(nn.Module):
         self.centerness_pred = nn.Conv2d(fpn_channels, 1, 3, padding=1)
 
         # Learnable scale parameters per level
-        self.scales = nn.ParameterList([
-            nn.Parameter(torch.ones(1)) for _ in range(5)
-        ])
+        self.scales = nn.ParameterList([nn.Parameter(torch.ones(1)) for _ in range(5)])
 
     def forward(
         self,

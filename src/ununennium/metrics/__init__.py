@@ -19,4 +19,3 @@ __all__ = [
     "mean_average_precision",
     "pixel_accuracy",
 ]
-
