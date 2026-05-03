@@ -2,142 +2,142 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/api/core/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/api/data-io/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/api/evaluation/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/api/gan/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/api/models/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/api/overview/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/api/pinn/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/api/preprocessing/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/api/training/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/architecture/data-model/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/architecture/overview/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/architecture/performance/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/architecture/pipelines/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/architecture/security-privacy/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/guides/benchmarking/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/guides/configuration/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/guides/datasets-and-splits/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/guides/metrics/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/guides/reproducibility/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/guides/troubleshooting/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/guides/uncertainty-and-calibration/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/research/bibliography/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/research/gan-theory/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/research/math-foundations/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/research/pinn-theory/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/research/remote-sensing-task-taxonomy/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/tutorials/00_quickstart/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/tutorials/01_ingest_and_tiling/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/tutorials/02_train_val_test/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/tutorials/03_inference_at_scale/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/tutorials/04_change_detection/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/tutorials/05_super_resolution/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/tutorials/06_gan_recipes/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
     <url>
          <loc>https://olaflaitinen.github.io/ununennium/tutorials/07_pinn_recipes/</loc>
-         <lastmod>2025-12-16</lastmod>
+         <lastmod>2026-05-03</lastmod>
     </url>
 </urlset>
